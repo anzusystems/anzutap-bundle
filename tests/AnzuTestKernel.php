@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace AnzuSystems\AnzuTapBundle\Tests;
+namespace AnzuSystems\AnzutapBundle\Tests;
 
+use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
+use AnzuSystems\AnzutapBundle\Kernel\AnzutapKernel;
 use AnzuSystems\SerializerBundle\AnzuSystemsSerializerBundle;
-use AnzuSystems\AnzuTapBundle\Kernel\AnzuTapKernel;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
-use Anzusystems\AnzuTapBundle\AnzuSystemsAnzuTapBundle;
 
-final class AnzuTestKernel extends AnzuTapKernel
+final class AnzuTestKernel extends AnzutapKernel
 {
     public function registerBundles(): iterable
     {
         yield new FrameworkBundle();
         yield new TwigBundle();
         yield new AnzuSystemsSerializerBundle();
-        yield new AnzuSystemsAnzuTapBundle();
+        yield new AnzuSystemsAnzutapBundle();
     }
 
     protected function configureContainer(ContainerConfigurator $container): void

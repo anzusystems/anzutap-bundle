@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AnzuSystems\AnzuTapBundle\Kernel;
+namespace AnzuSystems\AnzutapBundle\Kernel;
 
-use AnzuSystems\AnzuTapBundle\AnzuTapApp;
+use AnzuSystems\AnzutapBundle\AnzutapApp;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
-class AnzuTapKernel extends Kernel
+class AnzutapKernel extends Kernel
 {
     use MicroKernelTrait;
 
@@ -83,6 +83,6 @@ class AnzuTapKernel extends Kernel
      */
     protected function getAppClassFactory(): callable
     {
-        return AnzuTapApp::init(...);
+        return AnzutapApp::init(...);
     }
 }

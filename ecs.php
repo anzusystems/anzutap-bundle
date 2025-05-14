@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use AnzuSystems\AnzuTapBundle\DependencyInjection\Configuration;
+use AnzuSystems\AnzutapBundle\DependencyInjection\Configuration;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\ForbiddenFunctionsSniff;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer;

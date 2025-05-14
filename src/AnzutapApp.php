@@ -5,14 +5,14 @@
 
 declare(strict_types=1);
 
-namespace AnzuSystems\AnzuTapBundle;
+namespace AnzuSystems\AnzutapBundle;
 
 use AnzuSystems\Contracts\Exception\AnzuException;
 use DateTimeImmutable;
 use DateTimeZone;
 use RuntimeException;
 
-class AnzuTapApp
+class AnzutapApp
 {
     public const string DATETIME_MIN = '1970-01-01 00:00:00';
     public const string DATETIME_MAX = '2100-01-01 00:00:00';

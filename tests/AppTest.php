@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AnzuSystems\AnzuTapBundle\Tests;
+namespace AnzuSystems\AnzutapBundle\Tests;
 
-use AnzuSystems\AnzuTapBundle\AnzuTapApp;
+use AnzuSystems\AnzutapBundle\AnzutapApp;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
 
-final class AppTest extends AnzuTapApp
+final class AppTest extends AnzutapApp
 {
     /**
      * @throws Exception

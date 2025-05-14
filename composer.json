@@ -1,6 +1,6 @@
 {
-  "name": "anzusystems/anzu-tap-bundle",
-  "description": "AnzuTap transformation services",
+  "name": "anzusystems/anzutap-bundle",
+  "description": "Anzutap transformation services",
   "type": "symfony-bundle",
   "keywords": ["symfony", "anzusystems"],
   "license": "Apache-2.0",
@@ -29,7 +29,8 @@
     "symfony/property-info": "^7.1",
     "symfony/translation": "^7.1",
     "symfony/twig-bundle": "^7.1",
-    "twig/twig": "^3.8"
+    "twig/twig": "^3.8",
+    "ext-dom": "*"
   },
   "require-dev": {
     "doctrine/doctrine-bundle": "^2.4",
@@ -39,18 +40,19 @@
     "symfony/dotenv": "^7.2",
     "symfony/runtime": "^7.2",
     "symfony/test-pack": "^1.0",
+    "symfony/yaml": "^7.2",
     "symplify/easy-coding-standard": "^11.0",
     "vimeo/psalm": "^6.10"
   },
   "autoload": {
     "psr-4": {
-      "AnzuSystems\\AnzuTapBundle\\": "src"
+      "AnzuSystems\\AnzutapBundle\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "AnzuSystems\\AnzuTapBundle\\Tests\\": "tests",
-      "AnzuSystems\\AnzuTapBundle\\Tests\\Data\\": "tests/data"
+      "AnzuSystems\\AnzutapBundle\\Tests\\": "tests",
+      "AnzuSystems\\AnzutapBundle\\Tests\\Data\\": "tests/data"
     }
   },
   "config": {

@@ -12,21 +12,7 @@ services:
     volumes:
       - ".:/var/www/html:cached"
       - "./tests/coverage:/opt/phpstorm-coverage:cached"
-    hostname: anzu-tap-bundle
-
-  mysql:
-    image: mysql:8.0
-    command:
-      - --default-authentication-plugin=mysql_native_password
-      - --disable-log-bin
-    env_file:
-      - .env.docker.dist
-      - .env.docker.local
-    volumes:
-      - mysql_data:/var/lib/mysql:cached
-    ports:
-      - ${MYSQL_DOCKER_PORT:-3406}:3306
-    hostname: mysql
+    hostname: anzutap-bundle
 
   redis:
     image: redis:7.2
@@ -35,18 +21,6 @@ services:
     ports:
       - ${REDIS_DOCKER_PORT:-6409}:6379
     hostname: redis
-
-  mongo:
-    image: mongo:8.0
-    command: --logappend ${MONGO_NOTABLESCAN:-}
-    env_file:
-      - .env.docker.dist
-      - .env.docker.local
-    volumes:
-      - mongo_data:/data/db:cached
-    ports:
-      - ${MONGO_DOCKER_PORT:-27407}:27017
-    hostname: mongo
 
 volumes:
   mysql_data:
