@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    memoizeMethodCallResults="true"
+    findUnusedBaselineEntry="false"
+    findUnusedCode="false"
+    reportInfo="false"
+>
+    <projectFiles>
+        <directory name="src"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+            <file name="src/DependencyInjection/Configuration.php"/>
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <UnnecessaryVarAnnotation errorLevel="suppress"/>
+        <RiskyTruthyFalsyComparison errorLevel="suppress"/>
+
+        <DeprecatedMethod errorLevel="info"/>
+        <DeprecatedProperty errorLevel="info"/>
+        <DeprecatedClass errorLevel="info"/>
+        <DeprecatedConstant errorLevel="info"/>
+        <DeprecatedFunction errorLevel="info"/>
+        <DeprecatedInterface errorLevel="info"/>
+        <DeprecatedTrait errorLevel="info"/>
+
+        <InternalMethod errorLevel="info"/>
+        <InternalProperty errorLevel="info"/>
+        <InternalClass errorLevel="info"/>
+
+        <RedundantCast errorLevel="suppress"/>
+        <RedundantCastGivenDocblockType errorLevel="suppress"/>
+        <PropertyNotSetInConstructor errorLevel="suppress"/>
+
+        <InvalidStringClass errorLevel="info"/>
+        <LessSpecificReturnStatement errorLevel="suppress"/>
+        <MoreSpecificReturnType errorLevel="suppress"/>
+        <MoreSpecificImplementedParamType errorLevel="suppress"/>
+        <ImplementedReturnTypeMismatch errorLevel="suppress"/>
+    </issueHandlers>
+</psalm>

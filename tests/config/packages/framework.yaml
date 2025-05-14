@@ -1,0 +1,16 @@
+framework:
+    test: true
+    secret: '%env(APP_SECRET)%'
+    session:
+        enabled: false
+    php_errors:
+        log: true
+    router:
+        utf8: true
+    http_method_override: false
+    cache:
+        pools:
+            anzutapbundle.cache:
+                adapters: 'cache.adapter.redis'
+                provider: 'TestRedis'
+
