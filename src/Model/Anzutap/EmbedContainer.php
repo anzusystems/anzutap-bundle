@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Model\Anzutap;
 
-use AnzuSystems\AnzutapBundle\Entity\Interfaces\EmbedKindInterface;
-use AnzuSystems\Contracts\Entity\Interfaces\IdentifiableByUuidInterface;
+use AnzuSystems\AnzutapBundle\Model\EmbedKindInterface;
 
 final class EmbedContainer
 {

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
+
+#[AutoconfigureTag]
 interface AnzutapNodeInterface
 {
     public const string PARAGRAPH = 'paragraph';
@@ -46,7 +49,9 @@ interface AnzutapNodeInterface
 
     public function addAttr(string $name, string $value): self;
 
+    // ? deprecated
     public function toArray(): array;
 
+    // deprecated
     public function isValid(): bool;
 }

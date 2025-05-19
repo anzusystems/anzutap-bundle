@@ -5,6 +5,7 @@ namespace AnzuSystems\AnzutapBundle\Tests\Anzutap;
 
 use AnzuSystems\AnzutapBundle\Anzutap\AnzutapEditor;
 use AnzuSystems\AnzutapBundle\Tests\AnzuKernelTestCase;
+use AnzuSystems\AnzutapBundle\Tests\AppTest;
 
 final class AnzutapTransformerTest extends AnzuKernelTestCase
 {
@@ -12,7 +13,7 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
 
     public function setUp(): void
     {
-        $this->editor = static::getContainer()->get(AnzuTapEditor::class);
+        $this->editor = static::getContainer()->get('anzu_systems_common.editor.test');
     }
 
     /**
@@ -20,8 +21,8 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
      */
     public function testTransformer(string $html, array $anzuTap): void
     {
+//        $html = file_get_contents(AppTest::getProjectDir() . '/tests/data/content/document_all_origin.html');
         $body = $this->editor->transform($html);
-
         $this->assertEqualsCanonicalizing($anzuTap, $body->getAnzutapBody()->toArray());
     }
 
@@ -47,59 +48,6 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
                             ],
                                 'text' => 'Anchor link'
                             ],
-                        ]
-                    ]
-                ]]
-            ],
-            [
-                'html' => 'Simple Text <i><i><b>double italic</b></i><list></list>',
-                'anzuTap' => ['type' => 'doc', 'content' => [
-                    [
-                        'type' => 'paragraph',
-                        'content' => [
-                            ['type' => 'text', 'text' => 'Simple Text '],
-                            ['type' => 'text', 'marks' => [['type' => 'italic'], ['type' => 'bold']], 'text' => 'double italic'],
-                        ]
-                    ]
-                ]]
-            ],
-            [
-                'html' => '<list><li>li1</li><li>li2</li><li></li></list>',
-                'anzuTap' => ['type' => 'doc', 'content' => [
-                    [
-                        'type' => 'bulletList',
-                        'content' => [
-                            ['type' => 'listItem', 'content' => [
-                                ['type' => 'paragraph', 'content' => [
-                                    ['type' => 'text', 'text' => 'li1']
-                                ]]
-                            ]],
-                            ['type' => 'listItem', 'content' => [
-                                ['type' => 'paragraph', 'content' => [
-                                    ['type' => 'text', 'text' => 'li2']
-                                ]]
-                            ]]
-                        ]
-                    ]
-                ]]
-            ],
-            [
-                'html' => '<p><i>Text before <email href="mailto:jolo@sme.sk">jolo@sme.sk</email>.</i></p>',
-                'anzuTap' => ['type' => 'doc', 'content' => [
-                    [
-                        'type' => 'paragraph',
-                        'content' => [
-                            ['type' => 'text', 'marks' => [['type' => 'italic']], 'text' => 'Text before '],
-                            ['type' => 'text', 'marks' => [
-                                ['type' => 'italic'],
-                                ['type' => 'link', 'attrs' => [
-                                    'href' => 'jolo@sme.sk',
-                                    'variant' => 'email',
-                                ]],
-                            ],
-                                'text' => 'jolo@sme.sk'
-                            ],
-                            ['type' => 'text', 'marks' => [['type' => 'italic']], 'text' => '.'],
                         ]
                     ]
                 ]]

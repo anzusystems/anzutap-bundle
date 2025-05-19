@@ -1,3 +1,4 @@
 anzu_systems_anzutap:
+  default_editor_name: test
   editors:
     test: ~

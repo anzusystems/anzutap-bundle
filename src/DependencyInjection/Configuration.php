@@ -23,6 +23,8 @@ use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableCellTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableRowTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TextNodeTransformer;
+use AnzuSystems\CommonBundle\Security\PermissionConfig;
+use AnzuSystems\Contracts\Security\Grant;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -38,6 +40,10 @@ final class Configuration implements ConfigurationInterface
     public const string EDITOR_ALLOWED_MARK_TRANSFORMERS = 'allowed_mark_transformers';
     public const string EDITOR_SKIP_NODES = 'skip_nodes';
     public const string EDITOR_REMOVE_NODES = 'remove_nodes';
+
+    public const string EDITORS = 'editors';
+    public const string DEFAULT_EDITOR_NAME = 'default_editor_name';
+    public const string ANZU_SYSTEMS_ANZUTAP = 'anzu_systems_anzutap';
 
     private const array DEFAULT_ALLOWED_NODE_TRANSFORMERS = [
         TextNodeTransformer::class,
@@ -67,11 +73,14 @@ final class Configuration implements ConfigurationInterface
 
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('anzu_systems_anzutap');
+        $treeBuilder = new TreeBuilder(self::ANZU_SYSTEMS_ANZUTAP);
 
         $treeBuilder->getRootNode()
             ->children()
                 ->append($this->addEditorSection())
+                ->scalarNode('default_editor_name')
+                    ->isRequired()
+                ->end()
             ->end()
         ;
 
@@ -80,7 +89,7 @@ final class Configuration implements ConfigurationInterface
 
     private function addEditorSection(): NodeDefinition
     {
-        return (new TreeBuilder('editors'))->getRootNode()
+        return (new TreeBuilder(self::EDITORS))->getRootNode()
             ->useAttributeAsKey('name')
             ->arrayPrototype()
                 ->performNoDeepMerging()

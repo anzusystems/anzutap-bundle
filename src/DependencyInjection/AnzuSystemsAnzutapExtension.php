@@ -28,10 +28,19 @@ use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\XSkipTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\AnzutapMarkNodeTransformerProvider;
 use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\AnzutapNodeTransformerProvider;
 use AnzuSystems\AnzutapBundle\DependencyInjection\Configuration;
+use AnzuSystems\AnzutapBundle\Provider\EditorProvider;
+use AnzuSystems\CommonBundle\Doctrine\Query\AST\DateTime\Year;
+use AnzuSystems\CommonBundle\Doctrine\Query\AST\Numeric\Rand;
+use AnzuSystems\CommonBundle\Doctrine\Query\AST\String\Field;
+use AnzuSystems\CommonBundle\Domain\PermissionGroup\PermissionGroupFacade;
+use AnzuSystems\CommonBundle\Domain\PermissionGroup\PermissionGroupManager;
+use AnzuSystems\CommonBundle\Validator\Validator;
+use AnzuSystems\SerializerBundle\Handler\HandlerResolver;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
@@ -59,7 +68,24 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
 
     private function loadEditors(ContainerBuilder $container): void
     {
-        $editors = $this->processedConfig['editors'] ?? [];
+        $editors = $this->processedConfig[Configuration::EDITORS] ?? [];
+
+        if (empty($editors)) {
+            return;
+        }
+
+        $defaultEditorName = $this->processedConfig[Configuration::DEFAULT_EDITOR_NAME] ?? (string) array_key_first($editors);
+
+        if (false === isset($editors[$defaultEditorName])) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Default editor not found in %s.%s configuration. Available editors are: (%s).',
+                    Configuration::ANZU_SYSTEMS_ANZUTAP,
+                    Configuration::EDITORS,
+                    implode(', ', array_keys($editors))
+                )
+            );
+        }
 
         $definition = new Definition(AnzutapBodyPreprocessor::class);
         $container->setDefinition(AnzutapBodyPreprocessor::class, $definition);
@@ -125,6 +151,7 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
         $definition = new Definition(TextNodeTransformer::class);
         $container->setDefinition(TextNodeTransformer::class, $definition);
 
+        $editorReferences = [];
         foreach ($editors as $editorName => $editorConfig) {
             $definition = new Definition(AnzutapEditor::class);
             $definition->setArgument('$transformerProvider', new Reference($editorConfig[Configuration::EDITOR_NODE_TRANSFORMER_PROVIDER_CLASS]));
@@ -163,7 +190,20 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
             ;
 
             $container->setDefinition(sprintf('%s $%sEditor', AnzutapEditor::class, $editorName), $definition);
-            $container->setDefinition(sprintf('anzu_systems_common.editor.%s', $editorName), $definition);
+            $editorNameDefinition = sprintf('anzu_systems_common.editor.%s', $editorName);
+            $container->setDefinition($editorNameDefinition, $definition);
+
+            dump($editorName);
+
+            // todo name
+            $editorReferences[$editorName] = new Reference($editorNameDefinition);
         }
+
+        $container->setDefinition(
+            EditorProvider::class,
+            (new Definition(EditorProvider::class))
+                ->setArgument('$editorLocator', new ServiceLocatorArgument($editorReferences))
+                ->setArgument('$defaultEditorName', $defaultEditorName)
+        );
     }
 }
