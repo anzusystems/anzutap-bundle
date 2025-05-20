@@ -6,6 +6,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
 use AnzuSystems\AnzutapBundle\Helper\PromoLinkHelper;
+use AnzuSystems\AnzutapBundle\HtmlTransformer;
 use AnzuSystems\AnzutapBundle\ProseMirror\MarkProvider;
 use AnzuSystems\AnzutapBundle\ProseMirror\NodeProvider;
 use AnzuSystems\AnzutapBundle\ProseMirror\Transformer;
@@ -74,9 +75,14 @@ return static function (ContainerConfigurator $configurator): void {
     ;
 
     $services
+        ->set(HtmlTransformer::class)
+        ->arg('$serializer', service(Serializer::class))
+    ;
+
+    $services
         ->set(EmbedHandler::class)
         ->arg('$editorProvider', service(EditorProvider::class))
         ->arg('$nodeFactory', service(NodeFactory::class))
-        ->tag(AnzuSystemsSerializerBundle::TAG_SERIALIZER_HANDLER);
+        ->tag(AnzuSystemsSerializerBundle::TAG_SERIALIZER_HANDLER)
     ;
 };

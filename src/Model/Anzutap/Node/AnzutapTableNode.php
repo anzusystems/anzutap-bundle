@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
-final class AnzutapTableNode extends AnzutapNode
+final class AnzutapTableNode extends AnzutapNode implements HtmlNodeInterface
 {
     public const string CAPTION_ATTR = 'caption';
 
@@ -41,5 +41,30 @@ final class AnzutapTableNode extends AnzutapNode
     public static function getNodeType(): string
     {
         return self::TABLE;
+    }
+
+    public function tag(): array
+    {
+        $tableAttrs = [];
+
+        $variant = $this->getAttrs()['variant'] ?? null;
+        if ($variant) {
+            $tableAttrs['class'] = $variant;
+        }
+
+        return [
+            [
+                'tag' => 'div',
+                'attrs' => ['class' => 'table-wrapper'],
+            ],
+            [
+                'tag' => 'table',
+                'attrs' => $tableAttrs,
+            ],
+            [
+                'tag' => 'tbody',
+                'attrs' => [],
+            ],
+        ];
     }
 }

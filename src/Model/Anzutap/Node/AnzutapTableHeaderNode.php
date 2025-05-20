@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
-final class AnzutapTableHeaderNode extends AnzutapTableCellNode
+final class AnzutapTableHeaderNode extends AnzutapTableCellNode implements HtmlNodeInterface
 {
+    protected array $tagName = ['th'];
+
     protected function getMarksAllowList(): array
     {
         return [];

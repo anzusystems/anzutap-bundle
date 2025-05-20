@@ -63,12 +63,6 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
             ->addTag(AnzuSystemsAnzutapBundle::TAG_MODEL_NODE)
         ;
 
-//        $container->setDefinition(
-//            NodeFactory::class,
-//            new Definition(NodeFactory::class)
-//        );
-
-
         $this->loadEditors($container);
     }
 

@@ -55,9 +55,9 @@ interface AnzutapNodeInterface
 
     public function addAttr(string $name, string $value): self;
 
-    // ? deprecated
+    // todo ? deprecated
     public function toArray(): array;
 
-    // deprecated
+    // todo deprecated
     public function isValid(): bool;
 }

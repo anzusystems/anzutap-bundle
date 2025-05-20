@@ -62,6 +62,11 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface
         return $this;
     }
 
+    public function isSelfClosing(): bool
+    {
+        return false;
+    }
+
     public function getType(): string
     {
         return $this->type;

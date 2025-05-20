@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
-class AnzutapListItemNode extends AnzutapNode
+class AnzutapListItemNode extends AnzutapNode implements HtmlNodeInterface
 {
     public function addContent(AnzutapNodeInterface $node): AnzutapNodeInterface
     {
@@ -20,5 +20,10 @@ class AnzutapListItemNode extends AnzutapNode
     public static function getNodeType(): string
     {
         return self::LIST_ITEM;
+    }
+
+    public function tag(): array
+    {
+        return ['li'];
     }
 }

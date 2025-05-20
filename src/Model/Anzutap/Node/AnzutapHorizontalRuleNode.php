@@ -6,7 +6,7 @@ namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
 namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
-final class AnzutapHorizontalRuleNode extends AnzutapNode
+final class AnzutapHorizontalRuleNode extends AnzutapNode implements HtmlNodeInterface
 {
 
     protected function getMarksAllowList(): ?array
@@ -17,5 +17,10 @@ final class AnzutapHorizontalRuleNode extends AnzutapNode
     public static function getNodeType(): string
     {
         return self::HORIZONTAL_RULE;
+    }
+
+    public function tag(): array
+    {
+        return ['hr'];
     }
 }

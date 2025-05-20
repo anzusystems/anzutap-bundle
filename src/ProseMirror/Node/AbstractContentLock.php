@@ -6,6 +6,7 @@ namespace AnzuSystems\AnzutapBundle\ProseMirror\Node;
 
 use AnzuSystems\AnzutapBundle\ProseMirror\Interfaces\CustomRenderNodeInterface;
 
+// todo missing
 abstract class AbstractContentLock extends AbstractNode implements CustomRenderNodeInterface
 {
     public static function getNodeType(): string

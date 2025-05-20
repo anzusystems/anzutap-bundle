@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
-class AnzutapTableCellNode extends AnzutapNode
+class AnzutapTableCellNode extends AnzutapNode implements HtmlNodeInterface
 {
+    protected array $tagName = ['th'];
+
     public static function getInstance(?array $attrs = null): static
     {
         return (new static())
@@ -31,5 +33,37 @@ class AnzutapTableCellNode extends AnzutapNode
     public static function getNodeType(): string
     {
         return self::TABLE_CELL;
+    }
+
+    public function tag(): array
+    {
+        $attrs = [];
+
+        $colspan = $this->getAttrs()['colspan'] ?? null;
+        if ($colspan) {
+            $attrs['colspan'] =$colspan;
+        }
+
+        $colWidth = $this->getAttrs()['colwidth'] ?? null;
+        $colspan = $this->getAttrs()['colspan'] ?? 0;
+        if ($colWidth) {
+            $widths = $colWidth;
+
+            if (count($widths) === (int) $colspan) {
+                $attrs['data-colwidth'] = implode(',', $widths);
+            }
+        }
+
+        $rowSpan = $this->getAttrs()['rowspan'] ?? null;
+        if ($rowSpan) {
+            $attrs['rowspan'] = $rowSpan;
+        }
+
+        return [
+            [
+                'tag' => $this->tagName[0],
+                'attrs' => $attrs,
+            ],
+        ];
     }
 }
