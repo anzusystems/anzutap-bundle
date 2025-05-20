@@ -28,11 +28,11 @@ final class TableTransformer extends AbstractNodeTransformer
 
     public function transform(DOMElement $element, EmbedContainer $embedContainer, AnzutapNodeInterface $parent): AnzutapNodeInterface
     {
-        return new AnzutapTableNode(
-            attrs: [
+        return AnzutapTableNode::getInstance(
+            [
                 'variant' => 'default',
                 'caption' => '',
-            ],
+            ]
         );
     }
 }

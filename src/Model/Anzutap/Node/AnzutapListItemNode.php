@@ -6,14 +6,6 @@ namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
 class AnzutapListItemNode extends AnzutapNode
 {
-    public function __construct(?array $attrs = null)
-    {
-        parent::__construct(
-            type: self::LIST_ITEM,
-            attrs: $attrs
-        );
-    }
-
     public function addContent(AnzutapNodeInterface $node): AnzutapNodeInterface
     {
         if (false === (self::PARAGRAPH === $node->getType())) {
@@ -23,5 +15,10 @@ class AnzutapListItemNode extends AnzutapNode
         }
 
         return parent::addContent($node);
+    }
+
+    public static function getNodeType(): string
+    {
+        return self::LIST_ITEM;
     }
 }

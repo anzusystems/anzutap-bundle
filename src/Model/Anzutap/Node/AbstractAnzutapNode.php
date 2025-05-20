@@ -11,9 +11,16 @@ use Closure;
 
 abstract class AbstractAnzutapNode implements AnzutapNodeInterface
 {
+    // TODO SERIALIZER!
     protected ?AnzutapNodeInterface $parent = null;
+
+    #[Serialize]
     protected string $type;
+
+    #[Serialize]
     protected ?array $attrs = null;
+
+    #[Serialize]
     protected ?array $marks = null;
 
     /**
@@ -22,14 +29,15 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface
     #[Serialize(handler: EmbedHandler::class)]
     protected array $content = [];
 
-    public function __construct(
-        string $type,
-        ?array $attrs = null,
-        ?array $marks = null,
-    ) {
-        $this->type = $type;
+    public function __construct(?string $type = null) {
+        $this->type = $type ?? static::getNodeType();
+    }
+
+    public function setAttrs(?array $attrs = null): static
+    {
         $this->attrs = $attrs;
-        $this->marks = $marks;
+
+        return $this;
     }
 
     public function getAttrs(): ?array

@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
+use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
-#[AutoconfigureTag]
+#[AutoconfigureTag(name: AnzuSystemsAnzutapBundle::TAG_MODEL_NODE)]
 interface AnzutapNodeInterface
 {
     public const string PARAGRAPH = 'paragraph';
@@ -21,6 +22,9 @@ interface AnzutapNodeInterface
     public const string TABLE = 'table';
     public const string TABLE_ROW = 'tableRow';
     public const string TEXT = 'text';
+    public const string HORIZONTAL_RULE = 'horizontalRule';
+
+    public static function getNodeType(): string;
 
     public function getType(): string;
 
@@ -38,6 +42,8 @@ interface AnzutapNodeInterface
     public function getAttrs(): ?array;
 
     public function getAttr(string $key): mixed;
+
+    public function setAttrs(?array $attrs = null): self;
 
     public function setContent(array $content): self;
 

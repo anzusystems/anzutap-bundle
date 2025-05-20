@@ -6,11 +6,6 @@ namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
 final class AnzutapDocNode extends AnzutapNode
 {
-    public function __construct(
-    ) {
-        parent::__construct(self::DOC);
-    }
-
     public function addContent(AnzutapNodeInterface $node): AnzutapNodeInterface
     {
         if (self::HARD_BREAK === $node->getType()) {
@@ -35,5 +30,10 @@ final class AnzutapDocNode extends AnzutapNode
         }
 
         return parent::addContent($node);
+    }
+
+    public static function getNodeType(): string
+    {
+        return self::DOC;
     }
 }

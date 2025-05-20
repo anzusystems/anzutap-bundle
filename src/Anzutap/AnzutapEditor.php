@@ -8,13 +8,13 @@ use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Mark\AnzuMarkTransformerInterf
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\AnzuNodeTransformerInterface;
 use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\MarktransformerProviderInterface;
 use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\NodeTransformerProviderInterface;
-use AnzuSystems\AnzutapBundle\Entity\Interfaces\EmbedKindInterface;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\AnzutapBody;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\EmbedContainer;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapDocNode;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapEmbedNodeNode;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNode;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\EmbedKindInterface;
 use DOMDocument;
 use DOMElement;
 use DOMNode;
@@ -35,6 +35,12 @@ final class AnzutapEditor
         private readonly AnzutapBodyPreprocessor $preprocessor,
         private readonly AnzutapBodyPostprocessor $postprocessor,
     ) {
+    }
+
+    public function test()
+    {
+        dump($this->markTransformerProvider);
+        dump($this->resolvedNodeTransformers);
     }
 
     public function transformNode(DOMNode $node): AnzutapDocNode

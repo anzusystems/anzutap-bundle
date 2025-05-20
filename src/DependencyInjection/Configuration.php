@@ -23,8 +23,6 @@ use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableCellTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableRowTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TextNodeTransformer;
-use AnzuSystems\CommonBundle\Security\PermissionConfig;
-use AnzuSystems\Contracts\Security\Grant;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

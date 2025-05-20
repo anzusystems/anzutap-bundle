@@ -69,7 +69,7 @@ class AnzutapBodyPostprocessor
             if (false === in_array($child->getType(), $allowedNodes, true)) {
                 $text = $node->getNodeText();
                 if (is_string($text)) {
-                    $textNode = new AnzutapTextNode($text);
+                    $textNode = AnzutapTextNode::getInstance($text);
                     $textNode->setParent($node);
                     $children[] = $textNode;
                 }

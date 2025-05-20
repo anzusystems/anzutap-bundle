@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\DependencyInjection;
 
+use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
 use AnzuSystems\AnzutapBundle\Anzutap\AnzutapBodyPostprocessor;
 use AnzuSystems\AnzutapBundle\Anzutap\AnzutapBodyPreprocessor;
 use AnzuSystems\AnzutapBundle\Anzutap\AnzutapEditor;
@@ -27,15 +28,9 @@ use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\XRemoveTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\XSkipTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\AnzutapMarkNodeTransformerProvider;
 use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\AnzutapNodeTransformerProvider;
-use AnzuSystems\AnzutapBundle\DependencyInjection\Configuration;
+use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
 use AnzuSystems\AnzutapBundle\Provider\EditorProvider;
-use AnzuSystems\CommonBundle\Doctrine\Query\AST\DateTime\Year;
-use AnzuSystems\CommonBundle\Doctrine\Query\AST\Numeric\Rand;
-use AnzuSystems\CommonBundle\Doctrine\Query\AST\String\Field;
-use AnzuSystems\CommonBundle\Domain\PermissionGroup\PermissionGroupFacade;
-use AnzuSystems\CommonBundle\Domain\PermissionGroup\PermissionGroupManager;
-use AnzuSystems\CommonBundle\Validator\Validator;
-use AnzuSystems\SerializerBundle\Handler\HandlerResolver;
+use AnzuSystems\AnzutapBundle\Provider\NodeFactory;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -62,6 +57,17 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
     {
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.php');
+
+        $container
+            ->registerForAutoconfiguration(AnzutapNodeInterface::class)
+            ->addTag(AnzuSystemsAnzutapBundle::TAG_MODEL_NODE)
+        ;
+
+//        $container->setDefinition(
+//            NodeFactory::class,
+//            new Definition(NodeFactory::class)
+//        );
+
 
         $this->loadEditors($container);
     }
@@ -190,10 +196,9 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
             ;
 
             $container->setDefinition(sprintf('%s $%sEditor', AnzutapEditor::class, $editorName), $definition);
-            $editorNameDefinition = sprintf('anzu_systems_common.editor.%s', $editorName);
+            $editorNameDefinition = sprintf('%s.editor.%s', Configuration::ANZU_SYSTEMS_ANZUTAP, $editorName);
             $container->setDefinition($editorNameDefinition, $definition);
 
-            // todo name
             $editorReferences[$editorName] = new Reference($editorNameDefinition);
         }
 

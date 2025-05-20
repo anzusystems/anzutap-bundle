@@ -8,14 +8,13 @@ use Symfony\Component\Uid\Uuid;
 
 class AnzutapEmbedNodeNode extends AnzutapNode
 {
-    public function __construct(string $type, Uuid $id)
+    public function getInstance(string $type, Uuid $id): static
     {
-        parent::__construct(
-            type: $type,
-            attrs: [
+        return (new static($type))
+            ->setAttrs([
                 'id' => $id->toRfc4122(),
-            ],
-        );
+            ])
+        ;
     }
 
     protected function getMarksAllowList(): array

@@ -4,16 +4,29 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
+use AnzuSystems\SerializerBundle\Attributes\Serialize;
+
 final class AnzutapTextNode extends AbstractAnzutapNode
 {
-    public function __construct(
-        private readonly string $text,
+    #[Serialize]
+    private string $text;
+
+    public static function getInstance(
+        string $text,
         ?array $marks = null,
-    ) {
-        parent::__construct(
-            type: self::TEXT,
-            marks: $marks
+    ): self
+    {
+        return (new self())
+            ->setText($text)
+            ->setMarks($marks
         );
+    }
+
+    public function setText(string $text): self
+    {
+        $this->text = $text;
+
+        return $this;
     }
 
     public function getText(): string
@@ -44,5 +57,10 @@ final class AnzutapTextNode extends AbstractAnzutapNode
     public function getMarks(): ?array
     {
         return $this->marks;
+    }
+
+    public static function getNodeType(): string
+    {
+        return self::TEXT;
     }
 }

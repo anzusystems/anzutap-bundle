@@ -38,8 +38,6 @@ class TextNodeTransformer extends AbstractNodeTransformer
             return null;
         }
 
-        return new AnzutapTextNode(
-            text: $text,
-        );
+        return AnzutapTextNode::getInstance($text);
     }
 }

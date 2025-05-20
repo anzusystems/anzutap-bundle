@@ -6,15 +6,20 @@ namespace AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers;
 
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
 use AnzuSystems\AnzutapBundle\Provider\EditorProvider;
+use AnzuSystems\AnzutapBundle\Provider\NodeFactory;
 use AnzuSystems\SerializerBundle\Context\SerializationContext;
 use AnzuSystems\SerializerBundle\Exception\SerializerException;
 use AnzuSystems\SerializerBundle\Handler\Handlers\AbstractHandler;
 use AnzuSystems\SerializerBundle\Metadata\Metadata;
 
+/**
+ * todo rename NodeContentHandler
+ */
 final class EmbedHandler extends AbstractHandler
 {
     public function __construct(
         private readonly EditorProvider $editorProvider,
+        private readonly NodeFactory $nodeFactory,
     ) {
     }
 
@@ -23,27 +28,35 @@ final class EmbedHandler extends AbstractHandler
         return $value instanceof AnzutapNodeInterface;
     }
 
-    public function serialize(mixed $value, Metadata $metadata, SerializationContext $context): array
+    public function serialize(mixed $value, Metadata $metadata, SerializationContext $context): ?array
     {
-        return [];
-    }
+        if ($value instanceof AnzutapNodeInterface) {
+            return $value->toArray();
+        }
 
-//    public static function supportsDeserialize(mixed $value, string $type): bool
-//    {
-//    }
+        return null;
+    }
 
     /**
      * @param array $value
      *
      * @throws SerializerException
      */
-    public function deserialize(mixed $value, Metadata $metadata): ?AnzutapNodeInterface
+    public function deserialize(mixed $value, Metadata $metadata): array
     {
-//        dump($value);
-        $editor = $this->editorProvider->getDefaultEditor();
-//        $editor->getNodeTransformer()
-//        dump($editor);
+        // todo set parrent
+        if (is_array($value)) {
+            $content = [];
 
-        return null;
+            foreach ($value as $item) {
+                if (is_array($item)) {
+                    $content[] = $this->nodeFactory->createNode($item);
+                }
+            }
+
+            return $content;
+        }
+
+        return [];
     }
 }

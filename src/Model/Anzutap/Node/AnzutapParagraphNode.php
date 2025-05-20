@@ -8,17 +8,13 @@ final class AnzutapParagraphNode extends AnzutapNode
 {
     public const string NODE_NAME = 'paragraph';
 
-    public function __construct(
-        ?array $attrs = null,
-    ) {
-        parent::__construct(
-            type: self::NODE_NAME,
-            attrs: $attrs,
-        );
-    }
-
     protected function getMarksAllowList(): ?array
     {
         return [];
+    }
+
+    public static function getNodeType(): string
+    {
+        return self::PARAGRAPH;
     }
 }

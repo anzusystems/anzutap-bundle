@@ -7,12 +7,11 @@ namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 final class AnzutapTableNode extends AnzutapNode
 {
     public const string CAPTION_ATTR = 'caption';
-    public function __construct(?array $attrs = null)
+
+    public static function getInstance(?array $attrs = null): static
     {
-        parent::__construct(
-            type: self::TABLE,
-            attrs: $attrs
-        );
+        return (new static())
+            ->setAttrs($attrs);
     }
 
     public function addContent(AnzutapNodeInterface $node): AnzutapNodeInterface
@@ -37,5 +36,10 @@ final class AnzutapTableNode extends AnzutapNode
     protected function getMarksAllowList(): array
     {
         return [];
+    }
+
+    public static function getNodeType(): string
+    {
+        return self::TABLE;
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node;
 
 use AnzuSystems\AnzutapBundle\Model\Anzutap\EmbedContainer;
+use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzuOrderedListNode;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNode;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
 use DOMElement;
@@ -26,11 +27,6 @@ final class OrderedListTransformer extends AbstractNodeTransformer
 
     public function transform(DOMElement $element, EmbedContainer $embedContainer, AnzutapNodeInterface $parent): AnzutapNodeInterface
     {
-        return new AnzutapNode(
-            type: AnzutapNodeInterface::ORDERED_LIST,
-            attrs: [
-                'start' => 1,
-            ]
-        );
+        return new AnzuOrderedListNode();
     }
 }

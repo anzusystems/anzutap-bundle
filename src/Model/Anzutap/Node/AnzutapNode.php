@@ -39,4 +39,9 @@ class AnzutapNode extends AbstractAnzutapNode
 
         return $data;
     }
+
+    public static function getNodeType(): string
+    {
+        return 'unknown';
+    }
 }

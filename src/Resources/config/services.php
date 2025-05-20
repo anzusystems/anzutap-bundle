@@ -11,6 +11,7 @@ use AnzuSystems\AnzutapBundle\ProseMirror\NodeProvider;
 use AnzuSystems\AnzutapBundle\ProseMirror\Transformer;
 use AnzuSystems\AnzutapBundle\Command\TestCommand;
 use AnzuSystems\AnzutapBundle\Provider\EditorProvider;
+use AnzuSystems\AnzutapBundle\Provider\NodeFactory;
 use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\EmbedHandler;
 use AnzuSystems\CommonBundle\AnzuSystemsCommonBundle;
 use AnzuSystems\SerializerBundle\AnzuSystemsSerializerBundle;
@@ -30,6 +31,14 @@ return static function (ContainerConfigurator $configurator): void {
         ->set(Transformer::class)
         ->arg('$nodeProvider', service(NodeProvider::class))
         ->arg('$markProvider', service(MarkProvider::class))
+    ;
+
+    $services
+        ->load(
+            namespace: 'AnzuSystems\AnzutapBundle\Model\Anzutap\Node\\',
+            resource: __DIR__ . '/../../Model/Anzutap/Node',
+        )
+        ->tag(AnzuSystemsAnzutapBundle::TAG_MODEL_NODE)
     ;
 
     $services
@@ -60,8 +69,14 @@ return static function (ContainerConfigurator $configurator): void {
     ;
 
     $services
+        ->set(NodeFactory::class)
+        ->arg('$serializer', service(Serializer::class))
+    ;
+
+    $services
         ->set(EmbedHandler::class)
         ->arg('$editorProvider', service(EditorProvider::class))
+        ->arg('$nodeFactory', service(NodeFactory::class))
         ->tag(AnzuSystemsSerializerBundle::TAG_SERIALIZER_HANDLER);
     ;
 };

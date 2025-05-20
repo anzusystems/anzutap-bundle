@@ -11,6 +11,7 @@ use AnzuSystems\AnzutapBundle\Model\Domain\ArticleAdvertSettings\Model\ArticleAd
 use AnzuSystems\AnzutapBundle\ProseMirror\Interfaces\CustomRenderNodeInterface;
 use AnzuSystems\AnzutapBundle\ProseMirror\Interfaces\MarkInterface;
 use AnzuSystems\AnzutapBundle\ProseMirror\Interfaces\NodeInterface;
+use AnzuSystems\AnzutapBundle\ProseMirror\Interfaces\TransformableDocumentInterface;
 use AnzuSystems\AnzutapBundle\ProseMirror\Interfaces\TransformableDocumentWrapperInterface;
 use AnzuSystems\AnzutapBundle\ProseMirror\Node\AbstractContentLock;
 
@@ -129,6 +130,7 @@ final readonly class Transformer
         }, $tags));
     }
 
+
     private function renderClosingTag(array $tags): string
     {
         $tags = array_reverse($tags);
@@ -144,6 +146,57 @@ final readonly class Transformer
 
             return "</{$item['tag']}>";
         }, $tags));
+    }
+
+    public static function getTransformableWrapper(
+        array $data,
+        bool $lockEnabled = false,
+        bool $isLocked = false
+    ): TransformableDocumentWrapperInterface {
+        return new readonly class(
+            self::getTransformableData($data),
+            $lockEnabled,
+            $isLocked,
+        ) implements TransformableDocumentWrapperInterface {
+            public function __construct(
+                private TransformableDocumentInterface $data,
+                private bool $lockEnabled,
+                private bool $isLocked,
+            ) {
+            }
+
+            public function getDocument(): TransformableDocumentInterface
+            {
+                return $this->data;
+            }
+
+            public function isContentLockEnabled(): bool
+            {
+                return $this->lockEnabled;
+            }
+
+            public function isLocked(): bool
+            {
+                return $this->isLocked;
+            }
+        };
+    }
+
+    public static function getTransformableData(array $data): TransformableDocumentInterface
+    {
+        return new readonly class(
+            $data
+        ) implements TransformableDocumentInterface {
+            public function __construct(
+                private array $data,
+            ) {
+            }
+
+            public function getData(): array
+            {
+                return $this->data;
+            }
+        };
     }
 
 //    private function placeAdvertPositions(

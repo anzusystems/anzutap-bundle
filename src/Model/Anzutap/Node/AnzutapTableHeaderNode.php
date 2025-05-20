@@ -11,7 +11,7 @@ final class AnzutapTableHeaderNode extends AnzutapTableCellNode
         return [];
     }
 
-    protected function getNodeName(): string
+    public static function getNodeType(): string
     {
         return self::TABLE_HEADER;
     }

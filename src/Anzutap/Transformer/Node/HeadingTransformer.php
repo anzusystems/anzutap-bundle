@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node;
 
 use AnzuSystems\AnzutapBundle\Model\Anzutap\EmbedContainer;
+use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzuHeadingNode;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNode;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
 use DOMElement;
@@ -31,11 +32,6 @@ final class HeadingTransformer extends AbstractNodeTransformer
             $level = 5;
         }
 
-        return new AnzutapNode(
-            type: AnzutapNodeInterface::HEADING,
-            attrs: [
-                'level' => $level,
-            ]
-        );
+        return AnzuHeadingNode::getInstance($level);
     }
 }

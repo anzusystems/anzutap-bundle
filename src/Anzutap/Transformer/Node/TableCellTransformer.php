@@ -39,9 +39,9 @@ final class TableCellTransformer extends AbstractNodeTransformer
         $nodeName = $element->nodeName;
 
         if ($nodeName === self::NODE_NAME_TH) {
-            return new AnzutapTableHeaderNode(attrs: $attrs);
+            return AnzutapTableHeaderNode::getInstance($attrs);
         }
 
-        return new AnzutapTableCellNode(attrs: $attrs);
+        return AnzutapTableCellNode::getInstance($attrs);
     }
 }

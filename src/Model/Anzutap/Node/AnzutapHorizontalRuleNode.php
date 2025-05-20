@@ -8,17 +8,14 @@ namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
 final class AnzutapHorizontalRuleNode extends AnzutapNode
 {
-    public const string NODE_NAME = 'horizontalRule';
-
-    public function __construct()
-    {
-        parent::__construct(
-            type: self::NODE_NAME,
-        );
-    }
 
     protected function getMarksAllowList(): ?array
     {
         return [];
+    }
+
+    public static function getNodeType(): string
+    {
+        return self::HORIZONTAL_RULE;
     }
 }

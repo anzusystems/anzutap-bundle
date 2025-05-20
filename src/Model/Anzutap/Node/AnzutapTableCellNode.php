@@ -6,12 +6,10 @@ namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
 class AnzutapTableCellNode extends AnzutapNode
 {
-    public function __construct(?array $attrs = null)
+    public static function getInstance(?array $attrs = null): static
     {
-        parent::__construct(
-            type: $this->getNodeName(),
-            attrs: $attrs
-        );
+        return (new static())
+            ->setAttrs($attrs);
     }
 
     public function addContent(AnzutapNodeInterface $node): AnzutapNodeInterface
@@ -30,7 +28,7 @@ class AnzutapTableCellNode extends AnzutapNode
         return [];
     }
 
-    protected function getNodeName(): string
+    public static function getNodeType(): string
     {
         return self::TABLE_CELL;
     }
