@@ -32,13 +32,6 @@ return static function (ContainerConfigurator $configurator): void {
         ->arg('$markProvider', service(MarkProvider::class))
     ;
 
-    $services->set(TestCommand::class)
-        ->arg('$testEditor', service('anzu_systems_common.editor.test'))
-        ->arg('$transformer', service(Transformer::class))
-        ->arg('$serializer', service(Serializer::class))
-        ->tag('console.command')
-    ;
-
     $services
         ->load(
             namespace: 'AnzuSystems\AnzutapBundle\ProseMirror\Mark\\',
