@@ -193,8 +193,6 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
             $editorNameDefinition = sprintf('anzu_systems_common.editor.%s', $editorName);
             $container->setDefinition($editorNameDefinition, $definition);
 
-            dump($editorName);
-
             // todo name
             $editorReferences[$editorName] = new Reference($editorNameDefinition);
         }
