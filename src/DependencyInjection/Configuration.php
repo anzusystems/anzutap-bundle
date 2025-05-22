@@ -24,6 +24,8 @@ use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableCellTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableRowTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TextNodeTransformer;
+use AnzuSystems\AnzutapBundle\AnzutapTransformer\ImageTransformer;
+use AnzuSystems\AnzutapBundle\Model\EditorsConfiguration;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -60,6 +62,7 @@ final class Configuration implements ConfigurationInterface
         HorizontalRuleTransformer::class,
         HeadingTransformer::class,
         AnchorTransformer::class,
+        ImageTransformer::class,
     ];
 
     private const array DEFAULT_ALLOWED_MARK_TRANSFORMERS = [
@@ -114,15 +117,15 @@ final class Configuration implements ConfigurationInterface
                         ->defaultValue(AnzutapMarkNodeTransformerProvider::class)
                     ->end()
                     ->arrayNode(self::EDITOR_ALLOWED_NODE_TRANSFORMERS)
-                        ->defaultValue(self::DEFAULT_ALLOWED_NODE_TRANSFORMERS)
+                        ->defaultValue(EditorsConfiguration::DEFAULT_ALLOWED_NODE_TRANSFORMERS)
                         ->prototype('scalar')->end()
                     ->end()
                     ->arrayNode(self::EDITOR_ALLOWED_MARK_TRANSFORMERS)
-                        ->defaultValue(self::DEFAULT_ALLOWED_MARK_TRANSFORMERS)
+                        ->defaultValue(EditorsConfiguration::DEFAULT_ALLOWED_MARK_TRANSFORMERS)
                         ->prototype('scalar')->end()
                     ->end()
                     ->arrayNode(self::EDITOR_ALLOWED_HTML_RENDERERS)
-                        ->defaultValue([])
+                        ->defaultValue(EditorsConfiguration::DEFAULT_ALLOWED_EDITOR_HTML_RENDERERS)
                         ->prototype('scalar')->end()
                     ->end()
                     ->arrayNode(self::EDITOR_REMOVE_NODES)
@@ -130,7 +133,7 @@ final class Configuration implements ConfigurationInterface
                         ->prototype('scalar')->end()
                     ->end()
                         ->arrayNode(self::EDITOR_SKIP_NODES)
-                        ->defaultValue(self::DEFAULT_SKIP_NODES)
+                        ->defaultValue(EditorsConfiguration::DEFAULT_SKIP_NODES)
                         ->prototype('scalar')->end()
                     ->end()
                 ->end()

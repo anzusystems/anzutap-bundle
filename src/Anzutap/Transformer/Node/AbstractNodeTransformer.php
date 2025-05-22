@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node;
 
 use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use DOMElement;
 
 abstract class AbstractNodeTransformer implements AnzuNodeTransformerInterface
 {
@@ -25,5 +26,20 @@ abstract class AbstractNodeTransformer implements AnzuNodeTransformerInterface
 
     public function fixEmpty(AnzutapNodeInterface $node): void
     {
+    }
+
+    protected function hasParentByName(DOMElement $element, array $nodeNames): bool
+    {
+        if ($element->parentNode instanceof DOMElement) {
+            if (in_array($element->nodeName, $nodeNames, true)) {
+                return true;
+            }
+
+            if ($this->hasParentByName($element->parentNode, $nodeNames)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

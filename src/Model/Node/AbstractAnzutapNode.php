@@ -33,8 +33,16 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface
     #[Serialize(handler: EmbedHandler::class)]
     protected array $content = [];
 
-    public function __construct(?string $type = null) {
-        $this->type = $type ?? static::getNodeType();
+    public function __construct()
+    {
+        $this->type = static::getNodeType();
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
     }
 
     public function setAttrs(?array $attrs = null): static

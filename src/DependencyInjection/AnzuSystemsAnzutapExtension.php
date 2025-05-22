@@ -29,6 +29,9 @@ use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\XRemoveTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\XSkipTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\AnzutapMarkNodeTransformerProvider;
 use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\AnzutapNodeTransformerProvider;
+use AnzuSystems\AnzutapBundle\AnzutapTransformer\ImageTransformer;
+use AnzuSystems\AnzutapBundle\HtmlRenderer\EmbedExternalImageHtmlRenderer;
+use AnzuSystems\AnzutapBundle\HtmlRenderer\EmbedExternalImageInlineHtmlRenderer;
 use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
 use AnzuSystems\AnzutapBundle\Provider\EditorProvider;
 use Symfony\Component\Config\FileLocator;
@@ -150,6 +153,15 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
 
         $definition = new Definition(TextNodeTransformer::class);
         $container->setDefinition(TextNodeTransformer::class, $definition);
+
+        $definition = new Definition(EmbedExternalImageInlineHtmlRenderer::class);
+        $container->setDefinition(EmbedExternalImageInlineHtmlRenderer::class, $definition);
+
+        $definition = new Definition(EmbedExternalImageHtmlRenderer::class);
+        $container->setDefinition(EmbedExternalImageHtmlRenderer::class, $definition);
+
+        $definition = new Definition(ImageTransformer::class);
+        $container->setDefinition(ImageTransformer::class, $definition);
 
         $editorReferences = [];
         foreach ($editors as $editorName => $editorConfig) {

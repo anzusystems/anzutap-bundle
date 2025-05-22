@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle;
 
 use AnzuSystems\AnzutapBundle\Anzutap\AnzutapEditor;
+use AnzuSystems\AnzutapBundle\Model\EmbedsAwareInterface;
+use AnzuSystems\AnzutapBundle\Model\EmbedKindInterface;
+use AnzuSystems\AnzutapBundle\Model\HtmlTransformableDocumentInterface;
 use AnzuSystems\AnzutapBundle\Model\HtmlTransformableInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\AnzutapDocNode;
 use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
@@ -12,6 +15,7 @@ use AnzuSystems\AnzutapBundle\Model\Node\AnzutapTextNode;
 use AnzuSystems\AnzutapBundle\Model\Node\HtmlNodeInterface;
 use AnzuSystems\AnzutapBundle\Provider\EditorProvider;
 use AnzuSystems\SerializerBundle\Serializer;
+use Doctrine\Common\Collections\ArrayCollection;
 
 final readonly class HtmlTransformer
 {
@@ -27,7 +31,7 @@ final readonly class HtmlTransformer
     ): string {
         $editor = $this->editorProvider->getEditor($documentWrapper->getEditorName());
 
-        $node = $this->serializer->fromArray($documentWrapper->getDocument(), AnzutapDocNode::class);
+        $node = $this->serializer->fromArray($documentWrapper->getDocument()->getDocument(), AnzutapDocNode::class);
 
         // todo adverts / promo links / paybreak
 
@@ -123,47 +127,5 @@ final readonly class HtmlTransformer
 
             return "</{$item['tag']}>";
         }, $tags));
-    }
-
-    public static function getTransformableWrapper(
-        array $data,
-        bool $lockEnabled = false,
-        bool $isLocked = false,
-        ?string $editorName = null,
-    ): HtmlTransformableInterface {
-        return new readonly class(
-            $data,
-            $lockEnabled,
-            $isLocked,
-            $editorName,
-        ) implements HtmlTransformableInterface {
-            public function __construct(
-                private array $data,
-                private bool $lockEnabled,
-                private bool $isLocked,
-                private ?string $editorName = null,
-            ) {
-            }
-
-            public function getDocument(): array
-            {
-                return $this->data;
-            }
-
-            public function isContentLockEnabled(): bool
-            {
-                return $this->lockEnabled;
-            }
-
-            public function isLocked(): bool
-            {
-                return $this->isLocked;
-            }
-
-            public function getEditorName(): ?string
-            {
-                return $this->editorName;
-            }
-        };
     }
 }

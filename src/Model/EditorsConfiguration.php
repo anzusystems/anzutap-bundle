@@ -16,6 +16,8 @@ use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableCellTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableRowTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TextNodeTransformer;
+use AnzuSystems\AnzutapBundle\AnzutapTransformer\ImageTransformer;
+use AnzuSystems\AnzutapBundle\HtmlRenderer\EmbedExternalImageHtmlRenderer;
 
 final class EditorsConfiguration
 {
@@ -32,6 +34,7 @@ final class EditorsConfiguration
         HorizontalRuleTransformer::class,
         HeadingTransformer::class,
         AnchorTransformer::class,
+        ImageTransformer::class,
     ];
 
     public const array DEFAULT_ALLOWED_MARK_TRANSFORMERS = [
@@ -39,8 +42,15 @@ final class EditorsConfiguration
         MarkNodeTransformer::class,
     ];
 
+    public const array DEFAULT_ALLOWED_EDITOR_HTML_RENDERERS = [
+        EmbedExternalImageHtmlRenderer::class,
+    ];
+
     public const array DEFAULT_SKIP_NODES = [
         'span',
         'style',
+        'thead',
+        'tbody',
+        'blockquote',
     ];
 }

@@ -10,10 +10,11 @@ class AnzutapEmbedNodeNode extends AnzutapNode
 {
     public static function getInstance(string $type, Uuid $id): static
     {
-        return (new static($type))
+        return (new static())
             ->setAttrs([
                 'id' => $id->toRfc4122(),
             ])
+            ->setType($type)
         ;
     }
 

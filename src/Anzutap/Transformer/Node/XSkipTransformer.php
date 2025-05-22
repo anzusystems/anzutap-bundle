@@ -13,10 +13,7 @@ final class XSkipTransformer extends AbstractNodeTransformer
     public static function getSupportedNodeNames(): array
     {
         return [
-            'thead',
-            'tbody',
             'xstyle',
-            'blockquote',
         ];
     }
 

@@ -48,6 +48,7 @@ class AnzutapNode extends AbstractAnzutapNode
         return $data;
     }
 
+    // todo create factorable interface
     public static function getNodeType(): string
     {
         return 'unknown';
