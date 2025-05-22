@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
-use AnzuSystems\AnzutapBundle\AnzutapApp;
+use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\MarkInterface;
 use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\EmbedHandler;
+use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\MarkHandler;
 use AnzuSystems\SerializerBundle\Attributes\Serialize;
 use Closure;
 
@@ -20,7 +21,10 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface
     #[Serialize]
     protected ?array $attrs = null;
 
-    #[Serialize]
+    /**
+     * @var array<int, MarkInterface>|null
+     */
+    #[Serialize(handler: MarkHandler::class)]
     protected ?array $marks = null;
 
     /**
@@ -74,24 +78,27 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface
 
     public function setMarks(?array $marks = null): self
     {
-        $marksAllowList = $this->getMarksAllowList();
-        if (null === $marks || (is_array($marksAllowList) && AnzutapApp::ZERO === count($marksAllowList))) {
-            $this->marks = null;
+        $this->marks = $marks;
 
-            return $this;
-        }
-
-        if (null === $marksAllowList) {
-            $this->marks = $marks;
-
-            return $this;
-        }
-
-        foreach ($marks as $mark) {
-            if (in_array($mark['type'] ?? '', $marksAllowList, true)) {
-                $this->marks[] = $mark;
-            }
-        }
+        // todo mark allow list
+//        $marksAllowList = $this->getMarksAllowList();
+//        if (null === $marks || (is_array($marksAllowList) && AnzutapApp::ZERO === count($marksAllowList))) {
+//            $this->marks = null;
+//
+//            return $this;
+//        }
+//
+//        if (null === $marksAllowList) {
+//            $this->marks = $marks;
+//
+//            return $this;
+//        }
+//
+//        foreach ($marks as $mark) {
+//            if (in_array($mark['type'] ?? '', $marksAllowList, true)) {
+//                $this->marks[] = $mark;
+//            }
+//        }
 
         return $this;
     }

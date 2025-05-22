@@ -6,7 +6,7 @@ namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
 class AnzutapTableCellNode extends AnzutapNode implements HtmlNodeInterface
 {
-    protected array $tagName = ['th'];
+    protected array $tagName = ['td'];
 
     public static function getInstance(?array $attrs = null): static
     {

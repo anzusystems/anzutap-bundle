@@ -16,6 +16,7 @@ final class XSkipTransformer extends AbstractNodeTransformer
             'thead',
             'tbody',
             'xstyle',
+            'blockquote',
         ];
     }
 

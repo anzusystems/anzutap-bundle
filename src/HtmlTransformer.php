@@ -4,44 +4,55 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle;
 
+use AnzuSystems\AnzutapBundle\Anzutap\AnzutapEditor;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapDocNode;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapTextNode;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\HtmlNodeInterface;
-use AnzuSystems\AnzutapBundle\ProseMirror\Interfaces\TransformableDocumentWrapperInterface;
+use AnzuSystems\AnzutapBundle\Model\HtmlTransformableInterface;
+use AnzuSystems\AnzutapBundle\Provider\EditorProvider;
 use AnzuSystems\SerializerBundle\Serializer;
 
 final readonly class HtmlTransformer
 {
     public function __construct(
         private Serializer $serializer,
+        private EditorProvider $editorProvider,
     ) {
     }
 
     public function transform(
-        TransformableDocumentWrapperInterface $documentWrapper,
+        HtmlTransformableInterface $documentWrapper,
 //        ?ArticleAdvertSettings $articleAdvertSettings = null,
     ): string {
-        $node = $this->serializer->fromArray($documentWrapper->getDocument()->getData(), AnzutapDocNode::class);
+        $editor = $this->editorProvider->getEditor($documentWrapper->getEditorName());
+
+        $node = $this->serializer->fromArray($documentWrapper->getDocument(), AnzutapDocNode::class);
 
         // todo adverts / promo links / paybreak
 
-        return $this->renderNode($node, $documentWrapper);
+        return $this->renderTree($node, $editor, $documentWrapper);
     }
 
-    private function renderNode(
+    private function renderTree(
         AnzutapNodeInterface $node,
-        ?TransformableDocumentWrapperInterface $documentWrapper = null
+        AnzutapEditor $editor,
+        ?HtmlTransformableInterface $documentWrapper = null
     ): string {
         $html = [];
 
+        $htmlRenderer = $editor->getHtmlRenderer($node);
+        if ($htmlRenderer) {
+            return $htmlRenderer->render($node, $documentWrapper);
+        }
 
+        $html = [...$html, ...$this->provideOpeningMarks($node)];
         if ($node instanceof HtmlNodeInterface) {
             $html[] = $this->renderOpeningTag($node->tag());
         }
 
         foreach ($node->getContent() as $nestedNode) {
-            $html[] = $this->renderNode($nestedNode, $documentWrapper);
+            $html[] = $this->renderTree($nestedNode, $editor, $documentWrapper);
         }
 
         if ($node instanceof AnzutapTextNode) {
@@ -51,25 +62,30 @@ final readonly class HtmlTransformer
         if ($node instanceof HtmlNodeInterface) {
             $html[] = $this->renderClosingTag($node->tag());
         }
+        $html = [...$html, ...$this->provideClosingMarks($node)];
 
         return implode('', $html);
     }
 
-    private function renderHtmlNodeInterface(
-        HtmlNodeInterface $node,
-        ?TransformableDocumentWrapperInterface $documentWrapper = null
-    ): string {
-        $html = [];
-
-        $html[] = $this->renderOpeningTag($node->tag());
-        foreach ($node->getContent() as $nestedNode) {
-            $html[] = $this->renderNode($nestedNode, $documentWrapper);
+    private function provideOpeningMarks(AnzutapNodeInterface $node): array
+    {
+        $marks = [];
+        foreach ($node->getMarks() ?? [] as $mark) {
+            $marks[] = $this->renderOpeningTag($mark->tag());
         }
-        $html[] = $this->renderClosingTag($node->tag());
 
-        return implode('', $html);
+        return $marks;
     }
 
+    private function provideClosingMarks(AnzutapNodeInterface $node): array
+    {
+        $marks = [];
+        foreach (array_reverse($node->getMarks() ?? []) as $mark) {
+            $marks[] = $this->renderClosingTag($mark->tag());
+        }
+
+        return $marks;
+    }
 
     private function renderOpeningTag(array $tags): string
     {
@@ -107,5 +123,47 @@ final readonly class HtmlTransformer
 
             return "</{$item['tag']}>";
         }, $tags));
+    }
+
+    public static function getTransformableWrapper(
+        array $data,
+        bool $lockEnabled = false,
+        bool $isLocked = false,
+        ?string $editorName = null,
+    ): HtmlTransformableInterface {
+        return new readonly class(
+            $data,
+            $lockEnabled,
+            $isLocked,
+            $editorName,
+        ) implements HtmlTransformableInterface {
+            public function __construct(
+                private array $data,
+                private bool $lockEnabled,
+                private bool $isLocked,
+                private ?string $editorName = null,
+            ) {
+            }
+
+            public function getDocument(): array
+            {
+                return $this->data;
+            }
+
+            public function isContentLockEnabled(): bool
+            {
+                return $this->lockEnabled;
+            }
+
+            public function isLocked(): bool
+            {
+                return $this->isLocked;
+            }
+
+            public function getEditorName(): ?string
+            {
+                return $this->editorName;
+            }
+        };
     }
 }

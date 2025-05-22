@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
 use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
+use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\MarkInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
 #[AutoconfigureTag(name: AnzuSystemsAnzutapBundle::TAG_MODEL_NODE)]
@@ -51,6 +52,9 @@ interface AnzutapNodeInterface
 
     public function setMarks(?array $marks = null): self;
 
+    /**
+     * @return array<int, MarkInterface>|null
+     */
     public function getMarks(): ?array;
 
     public function addAttr(string $name, string $value): self;

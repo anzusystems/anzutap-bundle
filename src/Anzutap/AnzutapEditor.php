@@ -10,6 +10,7 @@ use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\MarktransformerProvide
 use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\NodeTransformerProviderInterface;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\AnzutapBody;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\EmbedContainer;
+use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\MarkInterface;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapDocNode;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapEmbedNodeNode;
 use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNode;
@@ -23,6 +24,7 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class AnzutapEditor
 {
+    /** @var array<array-key, MarkInterface> */
     private array $storedMarks = [];
     private EmbedContainer $embedContainer;
 
@@ -31,16 +33,11 @@ final class AnzutapEditor
         private readonly MarktransformerProviderInterface $markTransformerProvider,
         private readonly ServiceLocator $resolvedMarkTransformers,
         private readonly ServiceLocator $resolvedNodeTransformers,
+        private readonly ServiceLocator $resolvedHtmlRenderers,
         private readonly AnzuNodeTransformerInterface $defaultTransformer,
         private readonly AnzutapBodyPreprocessor $preprocessor,
         private readonly AnzutapBodyPostprocessor $postprocessor,
     ) {
-    }
-
-    public function test()
-    {
-        dump($this->markTransformerProvider);
-        dump($this->resolvedNodeTransformers);
     }
 
     public function transformNode(DOMNode $node): AnzutapDocNode
@@ -96,6 +93,15 @@ final class AnzutapEditor
         }
 
         return $this->defaultTransformer;
+    }
+
+    public function getHtmlRenderer(AnzutapNodeInterface $node): ?HtmlRendererInterface
+    {
+        if ($this->resolvedHtmlRenderers->has($node->getType())) {
+            return $this->resolvedHtmlRenderers->get($node->getType());
+        }
+
+        return null;
     }
 
     private function clear(): void
@@ -173,7 +179,7 @@ final class AnzutapEditor
     {
         $marks = [];
         foreach ($this->storedMarks as $mark) {
-            $marks[$mark['type']] = $mark;
+            $marks[$mark->getMarkType()] = $mark;
         }
 
         return array_values($marks);
@@ -194,10 +200,7 @@ final class AnzutapEditor
         if ($transformedNode instanceof EmbedKindInterface) {
             $this->embedContainer->addEmbed($transformedNode);
 
-            return new AnzutapEmbedNodeNode(
-                type: $transformedNode->getNodeType(),
-                id: $transformedNode->getId()
-            );
+            return AnzutapEmbedNodeNode::getInstance($transformedNode->getNodeType(), $transformedNode->getId());
         }
 
         return $transformedNode;

@@ -8,6 +8,7 @@ use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
 use AnzuSystems\AnzutapBundle\Anzutap\AnzutapBodyPostprocessor;
 use AnzuSystems\AnzutapBundle\Anzutap\AnzutapBodyPreprocessor;
 use AnzuSystems\AnzutapBundle\Anzutap\AnzutapEditor;
+use AnzuSystems\AnzutapBundle\Anzutap\HtmlRendererInterface;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Mark\AnzuMarkTransformerInterface;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Mark\LinkNodeTransformer;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Mark\MarkNodeTransformer;
@@ -184,9 +185,18 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
                 }
             }
 
+            $allowedHtmlRenderers = [];
+            /** @var class-string<HtmlRendererInterface> $serviceName */
+            foreach ($editorConfig[Configuration::EDITOR_ALLOWED_HTML_RENDERERS] ?? [] as $serviceName) {
+                foreach ($serviceName::getSupportedNodeNames() as $supportedNodeName) {
+                    $allowedHtmlRenderers[$supportedNodeName] = new Reference($serviceName);
+                }
+            }
+
             $definition
                 ->setArgument('$resolvedNodeTransformers', new ServiceLocatorArgument($allowedNodeTransformers))
                 ->setArgument('$resolvedMarkTransformers', new ServiceLocatorArgument($allowedMarkTransformers))
+                ->setArgument('$resolvedHtmlRenderers', new ServiceLocatorArgument($allowedHtmlRenderers))
             ;
 
             $container->setDefinition(sprintf('%s $%sEditor', AnzutapEditor::class, $editorName), $definition);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
+use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\MarkInterface;
 use AnzuSystems\SerializerBundle\Attributes\Serialize;
 
 final class AnzutapTextNode extends AbstractAnzutapNode
@@ -48,12 +49,18 @@ final class AnzutapTextNode extends AbstractAnzutapNode
             'text' => $this->getText(),
         ];
         if ($this->marks) {
-            $data['marks'] = $this->marks;
+            $data['marks'] = array_map(
+                static fn (MarkInterface $mark) => $mark->toArray(),
+                $this->marks
+            );
         }
 
         return $data;
     }
 
+    /**
+     * @return array<int, MarkInterface>|null
+     */
     public function getMarks(): ?array
     {
         return $this->marks;

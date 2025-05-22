@@ -6,6 +6,8 @@ namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
 namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
 
+use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\MarkInterface;
+
 class AnzutapNode extends AbstractAnzutapNode
 {
     public function getType(): string
@@ -13,6 +15,9 @@ class AnzutapNode extends AbstractAnzutapNode
         return $this->type;
     }
 
+    /**
+     * @return array<int, MarkInterface>|null
+     */
     public function getMarks(): ?array
     {
         return $this->marks;
@@ -27,7 +32,10 @@ class AnzutapNode extends AbstractAnzutapNode
             $data['attrs'] = $this->getAttrs();
         }
         if (null !== $this->marks) {
-            $data['marks'] = $this->getMarks();
+            $data['marks'] = array_map(
+                static fn (MarkInterface $mark) => $mark->toArray(),
+                $this->marks
+            );
         }
         $content = [];
         foreach ($this->content as $item) {

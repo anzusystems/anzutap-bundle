@@ -5,11 +5,11 @@ namespace AnzuSystems\AnzutapBundle\Provider;
 use AnzuSystems\AnzutapBundle\Anzutap\AnzutapEditor;
 use Psr\Container\ContainerInterface;
 
-class EditorProvider
+readonly class EditorProvider
 {
     public function __construct(
-        private readonly string $defaultEditorName,
-        private readonly ContainerInterface $editorLocator,
+        private string $defaultEditorName,
+        private ContainerInterface $editorLocator,
     ) {
     }
 
@@ -18,8 +18,10 @@ class EditorProvider
         return $this->getEditor($this->defaultEditorName);
     }
 
-    public function getEditor(string $editorName): AnzutapEditor
+    public function getEditor(?string $editorName = null): AnzutapEditor
     {
+        $editorName = $editorName ?? $this->defaultEditorName;
+
         $editor = $this->editorLocator->get($editorName);
         if (false instanceof AnzutapEditor) {
             // todo exception

@@ -6,6 +6,8 @@ namespace AnzuSystems\AnzutapBundle\Anzutap\Transformer\Mark;
 
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Traits\AttributesTrait;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Traits\UrlTrait;
+use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\Link;
+use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\MarkInterface;
 use DOMElement;
 
 class LinkNodeTransformer extends AbstractMarkNodeTransformer
@@ -38,16 +40,12 @@ class LinkNodeTransformer extends AbstractMarkNodeTransformer
         return false === $this->isButton($element);
     }
 
-    public function transform(DOMElement $element): array|null
+    public function transform(DOMElement $element): MarkInterface|null
     {
         if (in_array($element->nodeName, [self::NODE_A, self::NODE_URL], true)) {
             $attrs = $this->getAnchorAttrs($element);
             if (is_array($attrs)) {
-                return $this->getMarkNode(
-                    nodeName: $element->nodeName,
-                    map: self::LINK_MAP,
-                    attributes: $attrs
-                );
+                return (new Link())->setAttrs($attrs);
             }
 
             return null;
@@ -59,14 +57,10 @@ class LinkNodeTransformer extends AbstractMarkNodeTransformer
                 $href = substr($href, 7);
             }
 
-            return $this->getMarkNode(
-                nodeName: $element->nodeName,
-                map: self::LINK_MAP,
-                attributes: [
-                    'href' => $href,
-                    'variant' => 'email',
-                ]
-            );
+            return (new Link())->setAttrs([
+                'href' => $href,
+                'variant' => 'email',
+            ]);
         }
 
         return null;
