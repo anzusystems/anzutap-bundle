@@ -12,7 +12,6 @@ use Closure;
 
 abstract class AbstractAnzutapNode implements AnzutapNodeInterface
 {
-    // TODO SERIALIZER!
     protected ?AnzutapNodeInterface $parent = null;
 
     #[Serialize]

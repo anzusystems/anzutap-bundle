@@ -29,7 +29,8 @@
     "symfony/translation": "^7.1",
     "symfony/twig-bundle": "^7.1",
     "twig/twig": "^3.8",
-    "ext-dom": "*"
+    "ext-dom": "*",
+    "ext-libxml": "*"
   },
   "require-dev": {
     "doctrine/doctrine-bundle": "^2.4",
