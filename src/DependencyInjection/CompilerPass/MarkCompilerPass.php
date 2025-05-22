@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle\DependencyInjection\CompilerPass;
 
 use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\MarkInterface;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
 use AnzuSystems\AnzutapBundle\Provider\MarkFactory;
 use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;

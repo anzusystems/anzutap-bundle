@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node;
 
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
 
 abstract class AbstractNodeTransformer implements AnzuNodeTransformerInterface
 {

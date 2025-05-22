@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle\DependencyInjection\CompilerPass;
 
 use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
 use AnzuSystems\AnzutapBundle\Provider\NodeFactory;
 use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;

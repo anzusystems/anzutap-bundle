@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node;
 
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Traits\AttributesTrait;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\EmbedContainer;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapTableNode;
+use AnzuSystems\AnzutapBundle\Model\EmbedContainer;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapTableNode;
 use DOMElement;
 
 final class TableTransformer extends AbstractNodeTransformer

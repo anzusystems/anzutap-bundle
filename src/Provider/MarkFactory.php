@@ -2,8 +2,8 @@
 
 namespace AnzuSystems\AnzutapBundle\Provider;
 
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\UnknownMark;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\MarkInterface;
+use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
+use AnzuSystems\AnzutapBundle\Model\Mark\UnknownMark;
 use AnzuSystems\SerializerBundle\Serializer;
 use Psr\Container\ContainerInterface;
 

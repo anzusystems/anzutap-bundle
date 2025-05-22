@@ -6,8 +6,8 @@ namespace AnzuSystems\AnzutapBundle\Anzutap\Transformer\Mark;
 
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Traits\AttributesTrait;
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Traits\UrlTrait;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\Link;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\MarkInterface;
+use AnzuSystems\AnzutapBundle\Model\Mark\Link;
+use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
 use DOMElement;
 
 class LinkNodeTransformer extends AbstractMarkNodeTransformer

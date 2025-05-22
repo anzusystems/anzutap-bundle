@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle;
 
 use AnzuSystems\AnzutapBundle\Anzutap\AnzutapEditor;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapDocNode;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapTextNode;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\HtmlNodeInterface;
 use AnzuSystems\AnzutapBundle\Model\HtmlTransformableInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapDocNode;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapTextNode;
+use AnzuSystems\AnzutapBundle\Model\Node\HtmlNodeInterface;
 use AnzuSystems\AnzutapBundle\Provider\EditorProvider;
 use AnzuSystems\SerializerBundle\Serializer;
 

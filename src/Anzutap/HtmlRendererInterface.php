@@ -2,8 +2,8 @@
 
 namespace AnzuSystems\AnzutapBundle\Anzutap;
 
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
 use AnzuSystems\AnzutapBundle\Model\HtmlTransformableInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
 #[AutoconfigureTag]

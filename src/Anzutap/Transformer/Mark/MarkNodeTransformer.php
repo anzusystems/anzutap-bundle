@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Anzutap\Transformer\Mark;
 
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\Bold;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\Code;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\Highlight;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\Italic;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\MarkInterface;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\Strike;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\Superscript;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\Underline;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\Subscript;
+use AnzuSystems\AnzutapBundle\Model\Mark\Bold;
+use AnzuSystems\AnzutapBundle\Model\Mark\Code;
+use AnzuSystems\AnzutapBundle\Model\Mark\Highlight;
+use AnzuSystems\AnzutapBundle\Model\Mark\Italic;
+use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
+use AnzuSystems\AnzutapBundle\Model\Mark\Strike;
+use AnzuSystems\AnzutapBundle\Model\Mark\Subscript;
+use AnzuSystems\AnzutapBundle\Model\Mark\Superscript;
+use AnzuSystems\AnzutapBundle\Model\Mark\Underline;
 use DOMElement;
 
 class MarkNodeTransformer extends AbstractMarkNodeTransformer

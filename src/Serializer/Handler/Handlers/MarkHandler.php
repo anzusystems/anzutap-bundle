@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers;
 
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\MarkInterface;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
-use AnzuSystems\AnzutapBundle\Provider\EditorProvider;
+use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
 use AnzuSystems\AnzutapBundle\Provider\MarkFactory;
-use AnzuSystems\AnzutapBundle\Provider\NodeFactory;
 use AnzuSystems\SerializerBundle\Context\SerializationContext;
 use AnzuSystems\SerializerBundle\Exception\SerializerException;
 use AnzuSystems\SerializerBundle\Handler\Handlers\AbstractHandler;

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node;
 
 use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Traits\AttributesTrait;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\EmbedContainer;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapParagraphNode;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapTableCellNode;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapTableHeaderNode;
+use AnzuSystems\AnzutapBundle\Model\EmbedContainer;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapParagraphNode;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapTableCellNode;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapTableHeaderNode;
 use DOMElement;
 
 final class TableCellTransformer extends AbstractNodeTransformer

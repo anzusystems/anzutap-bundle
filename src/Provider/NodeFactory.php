@@ -2,8 +2,8 @@
 
 namespace AnzuSystems\AnzutapBundle\Provider;
 
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNode;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNode;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
 use AnzuSystems\SerializerBundle\Serializer;
 use Psr\Container\ContainerInterface;
 

@@ -2,10 +2,10 @@
 
 namespace AnzuSystems\AnzutapBundle\Anzutap;
 
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapDocNode;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapNodeInterface;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapParagraphNode;
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Node\AnzutapTextNode;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapDocNode;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapParagraphNode;
+use AnzuSystems\AnzutapBundle\Model\Node\AnzutapTextNode;
 
 class AnzutapBodyPostprocessor
 {

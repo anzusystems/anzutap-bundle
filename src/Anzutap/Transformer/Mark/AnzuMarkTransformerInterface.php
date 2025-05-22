@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Anzutap\Transformer\Mark;
 
-use AnzuSystems\AnzutapBundle\Model\Anzutap\Mark\MarkInterface;
+use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
 use DOMElement;
 
 interface AnzuMarkTransformerInterface
