@@ -130,6 +130,9 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface
     public function setContent(array $content): AnzutapNodeInterface
     {
         $this->content = $content;
+        foreach ($this->content as $node) {
+            $node->setParent($this);
+        }
 
         return $this;
     }

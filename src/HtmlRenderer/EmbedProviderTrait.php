@@ -16,10 +16,6 @@ trait EmbedProviderTrait
         if (false === ($document instanceof EmbedsAwareInterface)) {
             return null;
         }
-
-        dump($document->getEmbeds());
-        dump($node);
-
         $embed = $document->getEmbeds()->get($node->getAttrs()['id'] ?? '');
 
         return $embed instanceof EmbedKindInterface ? $embed : null;
