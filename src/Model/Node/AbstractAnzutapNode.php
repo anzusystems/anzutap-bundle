@@ -9,8 +9,11 @@ use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\EmbedHandler;
 use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\MarkHandler;
 use AnzuSystems\SerializerBundle\Attributes\Serialize;
 use Closure;
+use Generator;
+use IteratorAggregate;
+use Traversable;
 
-abstract class AbstractAnzutapNode implements AnzutapNodeInterface
+abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggregate
 {
     protected ?AnzutapNodeInterface $parent = null;
 
@@ -244,4 +247,19 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface
 
         return $paragraphNode;
     }
+
+    public function getIterator(): Traversable
+    {
+        return $this->iterateRecursive();
+    }
+
+    private function iterateRecursive(): Generator
+    {
+        yield $this;
+
+        foreach ($this->content as $childNode) {
+            yield from $childNode->iterateRecursive();
+        }
+    }
+
 }

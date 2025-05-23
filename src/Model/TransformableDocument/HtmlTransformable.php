@@ -2,6 +2,7 @@
 
 namespace AnzuSystems\AnzutapBundle\Model\TransformableDocument;
 
+use AnzuSystems\AnzutapBundle\Model\Enum\RenderContext;
 use AnzuSystems\AnzutapBundle\Model\HtmlTransformableDocumentInterface;
 use AnzuSystems\AnzutapBundle\Model\HtmlTransformableInterface;
 
@@ -11,6 +12,7 @@ final class HtmlTransformable implements HtmlTransformableInterface
     private bool $locked = false;
     private ?string $editorName = null;
     private HtmlTransformableDocumentInterface $document;
+    private RenderContext $renderContext = RenderContext::Default;
 
     public function getEditorName(): ?string
     {
@@ -53,6 +55,17 @@ final class HtmlTransformable implements HtmlTransformableInterface
     public function setDocument(HtmlTransformableDocumentInterface $document): HtmlTransformable
     {
         $this->document = $document;
+        return $this;
+    }
+
+    public function getRenderContext(): RenderContext
+    {
+        return $this->renderContext;
+    }
+
+    public function setRenderContext(RenderContext $renderContext): HtmlTransformable
+    {
+        $this->renderContext = $renderContext;
         return $this;
     }
 }

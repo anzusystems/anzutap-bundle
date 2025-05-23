@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle;
 
 use AnzuSystems\AnzutapBundle\Anzutap\AnzutapEditor;
-use AnzuSystems\AnzutapBundle\Model\EmbedsAwareInterface;
-use AnzuSystems\AnzutapBundle\Model\EmbedKindInterface;
-use AnzuSystems\AnzutapBundle\Model\HtmlTransformableDocumentInterface;
+use AnzuSystems\AnzutapBundle\Model\Advert\AdvertPool;
 use AnzuSystems\AnzutapBundle\Model\HtmlTransformableInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\AnzutapDocNode;
 use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
@@ -15,7 +13,6 @@ use AnzuSystems\AnzutapBundle\Model\Node\AnzutapTextNode;
 use AnzuSystems\AnzutapBundle\Model\Node\HtmlNodeInterface;
 use AnzuSystems\AnzutapBundle\Provider\EditorProvider;
 use AnzuSystems\SerializerBundle\Serializer;
-use Doctrine\Common\Collections\ArrayCollection;
 
 final readonly class HtmlTransformer
 {
@@ -27,11 +24,16 @@ final readonly class HtmlTransformer
 
     public function transform(
         HtmlTransformableInterface $documentWrapper,
+        ?AdvertPool $advertPool = null,
 //        ?ArticleAdvertSettings $articleAdvertSettings = null,
     ): string {
         $editor = $this->editorProvider->getEditor($documentWrapper->getEditorName());
 
         $node = $this->serializer->fromArray($documentWrapper->getDocument()->getDocument(), AnzutapDocNode::class);
+
+        if ($advertPool) {
+            AnzutapAdvertInserter::insert($node, $advertPool);
+        }
 
         // todo adverts / promo links / paybreak
 

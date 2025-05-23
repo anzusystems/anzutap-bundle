@@ -17,6 +17,7 @@ interface AnzutapNodeInterface
     public const string DOC = 'doc';
     public const string LIST_ITEM = 'listItem';
     public const string BULLET_LIST = 'bulletList';
+    public const string ADVERT = 'ad';
     public const string ORDERED_LIST = 'orderedList';
     public const string TABLE_CELL = 'tableCell';
     public const string TABLE_HEADER = 'tableHeader';
@@ -24,6 +25,9 @@ interface AnzutapNodeInterface
     public const string TABLE_ROW = 'tableRow';
     public const string TEXT = 'text';
     public const string HORIZONTAL_RULE = 'horizontalRule';
+    public const string STYLED_BOX = 'styledBox';
+    public const string STYLED_BOX_TITLE = 'styledBoxTitle';
+    public const string STYLED_BOX_CONTENT = 'styledBoxContent';
 
     public static function getNodeType(): string;
 
