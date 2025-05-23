@@ -25,25 +25,34 @@ final readonly class HtmlTransformer
     public function transform(
         HtmlTransformableInterface $documentWrapper,
         ?AdvertPool $advertPool = null,
-//        ?ArticleAdvertSettings $articleAdvertSettings = null,
     ): string {
         $editor = $this->editorProvider->getEditor($documentWrapper->getEditorName());
 
         $node = $this->serializer->fromArray($documentWrapper->getDocument()->getDocument(), AnzutapDocNode::class);
 
         if ($advertPool) {
-            AnzutapAdvertInserter::insert($node, $advertPool);
+            AnzutapAdvertInserter::placeAdverts($node, $advertPool);
         }
 
-        // todo adverts / promo links / paybreak
+        $html = [];
+        foreach ($node->getContent() as $nestedNode) {
+            $html[] = $this->renderTree($nestedNode, $editor, $documentWrapper);
 
-        return $this->renderTree($node, $editor, $documentWrapper);
+            if (AnzutapNodeInterface::CONTENT_LOCK === $nestedNode->getType()
+                && $documentWrapper->isContentLockEnabled()
+                && $documentWrapper->isLocked()
+            ) {
+                break; // we stop transforming content if content is locked and the content is not unlocked
+            }
+        }
+
+        return implode('', $html);
     }
 
     private function renderTree(
         AnzutapNodeInterface $node,
         AnzutapEditor $editor,
-        ?HtmlTransformableInterface $documentWrapper = null
+        HtmlTransformableInterface $documentWrapper
     ): string {
         $html = [];
 

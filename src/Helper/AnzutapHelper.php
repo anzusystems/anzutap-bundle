@@ -18,6 +18,7 @@ final class AnzutapHelper
             ...array_slice($content, 0, $position),
             $node,
             ...array_slice($content, $position),
+
         ]);
     }
 

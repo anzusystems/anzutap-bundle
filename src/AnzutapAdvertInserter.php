@@ -7,7 +7,7 @@ use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
 
 final class AnzutapAdvertInserter
 {
-    public static function insert(AnzutapNodeInterface $node, AdvertPool $advertPool): void
+    public static function placeAdverts(AnzutapNodeInterface $node, AdvertPool $advertPool): void
     {
         $content = $node->getContent();
         if (empty($content)) {
