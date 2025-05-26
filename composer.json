@@ -17,7 +17,7 @@
     "ext-redis": "*",
     "ext-zend-opcache": "*",
     "anzusystems/contracts": "^4.1",
-    "anzusystems/serializer-bundle": "^5.0",
+    "anzusystems/serializer-bundle": "^4.0|^5.0",
     "doctrine/collections": "^2.2",
     "symfony/config": "^7.1",
     "symfony/console": "^7.1",
