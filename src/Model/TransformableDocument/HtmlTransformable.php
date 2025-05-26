@@ -10,6 +10,7 @@ final class HtmlTransformable implements HtmlTransformableInterface
 {
     private bool $contentLockEnabled = false;
     private bool $locked = false;
+    private bool $wideForm = false;
     private ?string $editorName = null;
     private HtmlTransformableDocumentInterface $document;
     private RenderContext $renderContext = RenderContext::Default;
@@ -67,5 +68,10 @@ final class HtmlTransformable implements HtmlTransformableInterface
     {
         $this->renderContext = $renderContext;
         return $this;
+    }
+
+    public function isWideForm(): bool
+    {
+        return $this->wideForm;
     }
 }

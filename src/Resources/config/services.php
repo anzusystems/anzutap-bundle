@@ -11,6 +11,7 @@ use AnzuSystems\AnzutapBundle\Provider\MarkFactory;
 use AnzuSystems\AnzutapBundle\Provider\NodeFactory;
 use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\EmbedHandler;
 use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\MarkHandler;
+use AnzuSystems\AnzutapBundle\Twig\Extension\HtmlTransformerExtension;
 use AnzuSystems\SerializerBundle\AnzuSystemsSerializerBundle;
 use AnzuSystems\SerializerBundle\Serializer;
 

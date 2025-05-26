@@ -15,8 +15,9 @@ final class AnzutapAdvertInserter
         }
 
         $charactersCount = 0;
-        $lastAdvertPosition = 0;
         $advertPlacement = $advertPool->getNextAdvertPlacement();
+        /** @var array<class-string, int> $placedAdverts */
+        $placedAdverts = [];
 
         foreach ($content as $childNode) {
             if (null === $advertPlacement) {
@@ -24,9 +25,13 @@ final class AnzutapAdvertInserter
             }
 
             $charactersCount += mb_strlen($childNode->getNodeText() ?? '');
-
             if ($advertPlacement->getAfterChars() < $charactersCount) {
-                $lastAdvertPosition = $advertPlacement->placeAdvert($node, $childNode, $lastAdvertPosition);
+                $placedAdverts[$advertPlacement::class] = $advertPlacement->placeAdvert(
+                    root: $node,
+                    afterNode: $childNode,
+                    lastAdvertPosition: $placedAdverts[$advertPlacement::class] ?? 0
+                );
+
                 $charactersCount = 0;
                 $advertPlacement = $advertPool->getNextAdvertPlacement();
             }

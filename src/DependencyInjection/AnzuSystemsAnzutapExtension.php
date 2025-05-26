@@ -60,6 +60,7 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
     {
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.php');
+        $loader->load('twig.php');
 
         $container
             ->registerForAutoconfiguration(AnzutapNodeInterface::class)
@@ -153,9 +154,6 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
 
         $definition = new Definition(TextNodeTransformer::class);
         $container->setDefinition(TextNodeTransformer::class, $definition);
-
-        $definition = new Definition(EmbedExternalImageInlineHtmlRenderer::class);
-        $container->setDefinition(EmbedExternalImageInlineHtmlRenderer::class, $definition);
 
         $definition = new Definition(EmbedExternalImageHtmlRenderer::class);
         $container->setDefinition(EmbedExternalImageHtmlRenderer::class, $definition);

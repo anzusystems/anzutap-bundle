@@ -37,13 +37,17 @@ class AdvertPlacement
             return $lastAdvertPosition;
         }
 
-        $advertPosition = $lastAdvertPosition + 1;
-        AnzutapHelper::insertNodeToPosition(
+        return $this->insertAdvertNodeToIndex($root, $index + 1, $lastAdvertPosition + 1);
+    }
+
+    protected function insertAdvertNodeToIndex(AnzutapNodeInterface $root, int $index, int $advertPosition): int
+    {
+        AnzutapHelper::insertNodeToIndex(
             root: $root,
             node: (new AdvertNode())->setAttrs([
-                'position' => $advertPosition,
+                'position' => $this->getName() . '_' . $advertPosition,
             ]),
-            position: $index + 1
+            index: $index + 1
         );
 
         return $advertPosition;

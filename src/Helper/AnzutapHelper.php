@@ -9,15 +9,15 @@ use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
 // TODO move this to NodeInterface/AbstractNode
 final class AnzutapHelper
 {
-    public static function insertNodeToPosition(AnzutapNodeInterface $root, AnzutapNodeInterface $node, int $position): AnzutapNodeInterface
+    public static function insertNodeToIndex(AnzutapNodeInterface $root, AnzutapNodeInterface $node, int $index): AnzutapNodeInterface
     {
         $content = $root->getContent();
-        $position = max(0, min($position, count($content)));
+        $index = max(0, min($index, count($content)));
 
         return $root->setContent([
-            ...array_slice($content, 0, $position),
+            ...array_slice($content, 0, $index),
             $node,
-            ...array_slice($content, $position),
+            ...array_slice($content, $index),
 
         ]);
     }
