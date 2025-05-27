@@ -29,6 +29,7 @@ interface AnzutapNodeInterface
     public const string STYLED_BOX_TITLE = 'styledBoxTitle';
     public const string STYLED_BOX_CONTENT = 'styledBoxContent';
     public const string CONTENT_LOCK = 'contentLock';
+    public const string BUTTON = 'button';
 
     public static function getNodeType(): string;
 

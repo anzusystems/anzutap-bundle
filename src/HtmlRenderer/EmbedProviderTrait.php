@@ -2,7 +2,6 @@
 
 namespace AnzuSystems\AnzutapBundle\HtmlRenderer;
 
-use AnzuSystems\AnzutapBundle\Anzutap\HtmlRendererInterface;
 use AnzuSystems\AnzutapBundle\Model\EmbedKindInterface;
 use AnzuSystems\AnzutapBundle\Model\EmbedsAwareInterface;
 use AnzuSystems\AnzutapBundle\Model\HtmlTransformableInterface;

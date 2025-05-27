@@ -12,6 +12,8 @@ interface HtmlTransformableInterface
 
     public function isLocked(): bool;
 
+    public function isEnabledAds(): bool;
+
     public function isWideForm(): bool;
 
     public function getEditorName(): ?string;

@@ -6,18 +6,14 @@ use AnzuSystems\AnzutapBundle\Model\Enum\RenderContext;
 use AnzuSystems\AnzutapBundle\Model\HtmlTransformableDocumentInterface;
 use AnzuSystems\AnzutapBundle\Model\HtmlTransformableInterface;
 
-final class HtmlTransformable extends AbstractHtmlTransformable
+abstract class AbstractHtmlTransformable implements HtmlTransformableInterface
 {
-    public function __construct(
-        private HtmlTransformableDocumentInterface $document,
-        protected bool $contentLockEnabled = false,
-        protected bool $locked = false,
-        protected bool $enabledAds = true,
-        protected bool $wideForm = false,
-        protected RenderContext $renderContext = RenderContext::Default,
-        protected ?string $editorName = null,
-    ) {
-    }
+    protected bool $contentLockEnabled = false;
+    protected bool $locked = false;
+    protected bool $enabledAds = true;
+    protected bool $wideForm = false;
+    protected ?string $editorName = null;
+    protected RenderContext $renderContext = RenderContext::Default;
 
     public function getEditorName(): ?string
     {
@@ -37,11 +33,6 @@ final class HtmlTransformable extends AbstractHtmlTransformable
     public function isLocked(): bool
     {
         return $this->locked;
-    }
-
-    public function getDocument(): HtmlTransformableDocumentInterface
-    {
-        return $this->document;
     }
 
     public function getRenderContext(): RenderContext

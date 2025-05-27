@@ -8,16 +8,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 final class HtmlEmbedsAwareTransformableDocument extends HtmlTransformableDocument implements EmbedsAwareInterface
 {
-    private ArrayCollection $embeds;
-
     /**
+     * @param array{type: string, content: array} $body
      * @param ArrayCollection<int, EmbedKindInterface> $embeds
      */
-    public function setEmbeds(ArrayCollection $embeds): self
-    {
-        $this->embeds = $embeds;
-
-        return $this;
+    public function __construct(
+        protected array $body = [],
+        private ArrayCollection $embeds,
+    ) {
+        parent::__construct($body);
     }
 
     /**

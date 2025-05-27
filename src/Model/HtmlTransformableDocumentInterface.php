@@ -6,5 +6,5 @@ namespace AnzuSystems\AnzutapBundle\Model;
 
 interface HtmlTransformableDocumentInterface
 {
-    public function getDocument(): array;
+    public function getBody(): array;
 }

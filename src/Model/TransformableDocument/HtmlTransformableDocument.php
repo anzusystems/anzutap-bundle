@@ -7,23 +7,19 @@ use AnzuSystems\AnzutapBundle\Model\HtmlTransformableInterface;
 
 class HtmlTransformableDocument implements HtmlTransformableDocumentInterface
 {
-    protected array $document = [];
-
     /**
-     * @param array{type: string, content: array} $document
+     * @param array{type: string, content: array} $body
      */
-    public function setDocument(array $document): self
-    {
-        $this->document = $document;
-
-        return $this;
+    public function __construct(
+        protected array $body = []
+    ) {
     }
 
     /**
      * @return array{type: string, content: array}
      */
-    public function getDocument(): array
+    public function getBody(): array
     {
-        return $this->document;
+        return $this->body;
     }
 }
