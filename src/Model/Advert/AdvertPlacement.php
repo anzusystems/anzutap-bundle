@@ -42,11 +42,11 @@ class AdvertPlacement
 
     protected function insertAdvertNodeToIndex(AnzutapNodeInterface $root, int $index, int $advertPosition): int
     {
-        AnzutapHelper::insertNodeToIndex(
+        AnzutapHelper::insertNodesToIndex(
             root: $root,
-            node: (new AdvertNode())->setAttrs([
+            nodes: [(new AdvertNode())->setAttrs([
                 'position' => $this->getName() . '_' . $advertPosition,
-            ]),
+            ])],
             index: $index + 1
         );
 

@@ -9,16 +9,18 @@ use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
 // TODO move this to NodeInterface/AbstractNode
 final class AnzutapHelper
 {
-    public static function insertNodeToIndex(AnzutapNodeInterface $root, AnzutapNodeInterface $node, int $index): AnzutapNodeInterface
+    /**
+     * @param array<int, AnzutapNodeInterface> $nodes
+     */
+    public static function insertNodesToIndex(AnzutapNodeInterface $root, array $nodes, int $index): AnzutapNodeInterface
     {
         $content = $root->getContent();
         $index = max(0, min($index, count($content)));
 
         return $root->setContent([
             ...array_slice($content, 0, $index),
-            $node,
+            ...$nodes,
             ...array_slice($content, $index),
-
         ]);
     }
 

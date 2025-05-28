@@ -6,6 +6,7 @@ namespace AnzuSystems\AnzutapBundle\Model\Node;
 
 use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
 use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
+use Closure;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
 #[AutoconfigureTag(name: AnzuSystemsAnzutapBundle::TAG_MODEL_NODE)]
@@ -56,6 +57,13 @@ interface AnzutapNodeInterface
 
     public function getNodeText(): ?string;
 
+    /**
+     * @param Closure(AnzutapNodeInterface $removeFn, mixed $key): bool $removeFn
+     */
+    public function removeNode(Closure $removeFn): ?AnzutapNodeInterface;
+
+    public function removeNodeByKey(int $key): ?AnzutapNodeInterface;
+
     public function setMarks(?array $marks = null): self;
 
     /**
@@ -64,6 +72,8 @@ interface AnzutapNodeInterface
     public function getMarks(): ?array;
 
     public function addAttr(string $name, string $value): self;
+
+    public function addMark(MarkInterface $mark): self;
 
     // todo ? deprecated
     public function toArray(): array;

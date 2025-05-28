@@ -13,11 +13,6 @@ readonly class EditorProvider
     ) {
     }
 
-    public function getDefaultEditor(): AnzutapEditor
-    {
-        return $this->getEditor($this->defaultEditorName);
-    }
-
     public function getEditor(?string $editorName = null): AnzutapEditor
     {
         $editorName = $editorName ?? $this->defaultEditorName;
@@ -25,6 +20,7 @@ readonly class EditorProvider
         $editor = $this->editorLocator->get($editorName);
         if (false instanceof AnzutapEditor) {
             // todo exception
+            throw new \Exception('Editor not found');
         }
 
         return $editor;

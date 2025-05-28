@@ -42,6 +42,19 @@ final class AnzutapTextNode extends AbstractAnzutapNode
         return $this;
     }
 
+    public function __clone()
+    {
+        return (new self())
+            ->setText($this->text)
+            ->setMarks(array_map(
+                static fn (MarkInterface $mark) => clone $mark,
+                $this->marks ?? []
+            ))
+            ->setParent(null)
+            ->setContent([])
+        ;
+    }
+
     public function toArray(): array
     {
         $data = [

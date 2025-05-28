@@ -118,6 +118,17 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
         return true;
     }
 
+    public function addMark(MarkInterface $mark): self
+    {
+        if (null === $this->marks) {
+            $this->marks = [];
+        }
+
+        $this->marks[] = $mark;
+
+        return $this;
+    }
+
     public function addAttr(string $name, string $value): self
     {
         if (null === $this->attrs) {
@@ -184,6 +195,19 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
         return implode(' ', $text);
     }
 
+    public function removeNodeByKey(int $key): ?AnzutapNodeInterface
+    {
+        if (array_key_exists($key, $this->content)) {
+            $removed = $this->content[$key];
+            unset($this->content[$key]);
+            $this->content = array_values($this->content);
+
+            return $removed;
+        }
+
+        return null;
+    }
+
     /**
      * @param Closure(AnzutapNodeInterface $removeFn, mixed $key): bool $removeFn
      */
@@ -248,6 +272,9 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
         return $paragraphNode;
     }
 
+    /**
+     * @return Traversable<AnzutapNodeInterface>
+     */
     public function getIterator(): Traversable
     {
         return $this->iterateRecursive();

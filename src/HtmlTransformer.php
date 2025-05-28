@@ -23,12 +23,11 @@ final readonly class HtmlTransformer
     }
 
     public function transform(
+        AnzutapDocNode $node,
         HtmlTransformableInterface $documentWrapper,
         ?AdvertPool $advertPool = null,
     ): string {
         $editor = $this->editorProvider->getEditor($documentWrapper->getEditorName());
-
-        $node = $this->serializer->fromArray($documentWrapper->getDocument()->getBody(), AnzutapDocNode::class);
 
         if ($advertPool) {
             AnzutapAdvertInserter::placeAdverts($node, $advertPool);
