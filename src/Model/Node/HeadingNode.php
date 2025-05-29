@@ -6,9 +6,9 @@ namespace AnzuSystems\AnzutapBundle\Model\Node;
 
 class HeadingNode extends Node implements HtmlNodeInterface
 {
-    public static function getInstance(int $level): static
+    public static function getInstance(int $level): self
     {
-        return (new static())
+        return (new self())
             ->setAttrs([
                 'level' => $level,
             ]);

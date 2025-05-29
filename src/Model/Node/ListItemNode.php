@@ -6,7 +6,7 @@ namespace AnzuSystems\AnzutapBundle\Model\Node;
 
 class ListItemNode extends Node implements HtmlNodeInterface
 {
-    public function addContent(AnzutapNodeInterface $node): AnzutapNodeInterface
+    public function addContent(NodeInterface $node): NodeInterface
     {
         if (false === (self::PARAGRAPH === $node->getType())) {
             $paragraph = $this->upsertFirstContentParagraph();

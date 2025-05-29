@@ -3,15 +3,15 @@
 namespace AnzuSystems\AnzutapBundle\Node;
 
 use AnzuSystems\AnzutapBundle\Model\Node\DocumentNode;
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\ParagraphNode;
 use AnzuSystems\AnzutapBundle\Model\Node\TextNode;
 
 class BodyPostprocessor
 {
     public const array PARAGRAPH_ALLOWED_CONTENT_TYPES = [
-        AnzutapNodeInterface::TEXT,
-        AnzutapNodeInterface::HARD_BREAK,
+        NodeInterface::TEXT,
+        NodeInterface::HARD_BREAK,
         'embedExternalImageInline',
         'embedImageInline',
     ];
@@ -47,11 +47,11 @@ class BodyPostprocessor
     {
         $body->setContent(array_filter(
             $body->getContent(),
-            static fn (AnzutapNodeInterface $node): bool => $node->isValid()
+            static fn (NodeInterface $node): bool => $node->isValid()
         ));
     }
 
-    protected function fixParagraphs(AnzutapNodeInterface $body): void
+    protected function fixParagraphs(NodeInterface $body): void
     {
         foreach ($body->getContent() as $node) {
             if ($node->getType() === ParagraphNode::NODE_NAME) {
@@ -62,7 +62,7 @@ class BodyPostprocessor
         }
     }
 
-    protected function fixNode(AnzutapNodeInterface $node, array $allowedNodes): void
+    protected function fixNode(NodeInterface $node, array $allowedNodes): void
     {
         $children = [];
         foreach ($node->getContent() as $child) {
@@ -115,9 +115,9 @@ class BodyPostprocessor
     /**
      * @param array<int, string> $nodeTypesToShake
      *
-     * @return array<int, AnzutapNodeInterface>
+     * @return array<int, NodeInterface>
      */
-    protected function shakeAndSplitChildNodes(AnzutapNodeInterface $rootNode, array $nodeTypesToShake): array
+    protected function shakeAndSplitChildNodes(NodeInterface $rootNode, array $nodeTypesToShake): array
     {
         $nodesToKeep = [];
         $resNodes = [];
@@ -159,9 +159,9 @@ class BodyPostprocessor
     /**
      * @param array<int, string> $nodeTypesToShake
      *
-     * @return array<int, AnzutapNodeInterface>
+     * @return array<int, NodeInterface>
      */
-    protected function deepShake(AnzutapNodeInterface $rootNode, array $nodeTypesToShake): array
+    protected function deepShake(NodeInterface $rootNode, array $nodeTypesToShake): array
     {
         $nodesToShake = [];
         $nodesToKeep = [];

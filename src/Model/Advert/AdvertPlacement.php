@@ -4,7 +4,7 @@ namespace AnzuSystems\AnzutapBundle\Model\Advert;
 
 use AnzuSystems\AnzutapBundle\Helper\AnzutapHelper;
 use AnzuSystems\AnzutapBundle\Model\Node\AdvertNode;
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 
 class AdvertPlacement
 {
@@ -30,7 +30,7 @@ class AdvertPlacement
         return $this->repeatCount;
     }
 
-    public function placeAdvert(AnzutapNodeInterface $root, AnzutapNodeInterface $afterNode, int $lastAdvertPosition): int
+    public function placeAdvert(NodeInterface $root, NodeInterface $afterNode, int $lastAdvertPosition): int
     {
         $index = AnzutapHelper::getNodeIndex($root, $afterNode);
         if (null === $index) {
@@ -40,7 +40,7 @@ class AdvertPlacement
         return $this->insertAdvertNodeToIndex($root, $index + 1, $lastAdvertPosition + 1);
     }
 
-    protected function insertAdvertNodeToIndex(AnzutapNodeInterface $root, int $index, int $advertPosition): int
+    protected function insertAdvertNodeToIndex(NodeInterface $root, int $index, int $advertPosition): int
     {
         AnzutapHelper::insertNodesToIndex(
             root: $root,

@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Twig\Extension;
 
-use AnzuSystems\AnzutapBundle\HtmlTransformer;
+use AnzuSystems\AnzutapBundle\HtmlRenderer\HtmlRenderer;
 use AnzuSystems\AnzutapBundle\Model\Advert\AdvertPool;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 use AnzuSystems\AnzutapBundle\Model\TransformableDocument\HtmlTransformableInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
-final class HtmlTransformerExtension extends AbstractExtension
+final class HtmlRendererExtension extends AbstractExtension
 {
     public function __construct(
-        private readonly HtmlTransformer $transformer,
+        private readonly HtmlRenderer $renderer,
     ) {
     }
 
@@ -21,17 +22,18 @@ final class HtmlTransformerExtension extends AbstractExtension
     {
         return [
             new TwigFilter(
-                name: 'transform_html_document',
-                callable: $this->transformHtmlDocument(...),
+                name: 'render_html_document',
+                callable: $this->renderHtmlDocument(...),
                 options: ['is_safe' => ['html']],
             ),
         ];
     }
 
-    public function transformHtmlDocument(
+    public function renderHtmlDocument(
+        NodeInterface $node,
         HtmlTransformableInterface $documentWrapper,
         ?AdvertPool $advertPool = null,
     ): string {
-        return $this->transformer->transform($documentWrapper, $advertPool);
+        return $this->renderer->render($node, $documentWrapper, $advertPool);
     }
 }

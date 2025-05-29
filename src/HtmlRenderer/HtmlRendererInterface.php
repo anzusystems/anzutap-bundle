@@ -2,7 +2,7 @@
 
 namespace AnzuSystems\AnzutapBundle\HtmlRenderer;
 
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 use AnzuSystems\AnzutapBundle\Model\TransformableDocument\HtmlTransformableInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
@@ -11,5 +11,5 @@ interface HtmlRendererInterface
 {
     public static function getSupportedNodeNames(): array;
 
-    public function render(AnzutapNodeInterface $node, HtmlTransformableInterface $htmlTransformable): string;
+    public function render(NodeInterface $node, HtmlTransformableInterface $htmlTransformable): string;
 }

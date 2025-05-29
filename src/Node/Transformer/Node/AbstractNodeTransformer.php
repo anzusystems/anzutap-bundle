@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Node\Transformer\Node;
 
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 use DOMElement;
 
 abstract class AbstractNodeTransformer implements AnzuNodeTransformerInterface
@@ -24,7 +24,7 @@ abstract class AbstractNodeTransformer implements AnzuNodeTransformerInterface
         return false;
     }
 
-    public function fixEmpty(AnzutapNodeInterface $node): void
+    public function fixEmpty(NodeInterface $node): void
     {
     }
 

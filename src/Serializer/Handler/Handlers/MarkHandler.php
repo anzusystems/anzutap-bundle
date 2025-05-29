@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers;
 
+use AnzuSystems\AnzutapBundle\Factory\MarkFactory;
 use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
-use AnzuSystems\AnzutapBundle\Serializer\Factory\MarkFactory;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 use AnzuSystems\SerializerBundle\Context\SerializationContext;
 use AnzuSystems\SerializerBundle\Exception\SerializerException;
 use AnzuSystems\SerializerBundle\Handler\Handlers\AbstractHandler;
@@ -26,7 +26,7 @@ final class MarkHandler extends AbstractHandler
 
     public function serialize(mixed $value, Metadata $metadata, SerializationContext $context): ?array
     {
-        if ($value instanceof AnzutapNodeInterface) {
+        if ($value instanceof NodeInterface) {
             return $value->toArray();
         }
 
@@ -34,8 +34,6 @@ final class MarkHandler extends AbstractHandler
     }
 
     /**
-     * @param array $value
-     *
      * @throws SerializerException
      */
     public function deserialize(mixed $value, Metadata $metadata): array

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Helper;
 
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 
 // TODO move this to NodeInterface/AbstractNode
 final class AnzutapHelper
 {
     /**
-     * @param array<int, AnzutapNodeInterface> $nodes
+     * @param array<int, NodeInterface> $nodes
      */
-    public static function insertNodesToIndex(AnzutapNodeInterface $root, array $nodes, int $index): AnzutapNodeInterface
+    public static function insertNodesToIndex(NodeInterface $root, array $nodes, int $index): NodeInterface
     {
         $content = $root->getContent();
         $index = max(0, min($index, count($content)));
@@ -24,7 +24,7 @@ final class AnzutapHelper
         ]);
     }
 
-    public static function getNodeIndex(AnzutapNodeInterface $root, AnzutapNodeInterface $node): int|null
+    public static function getNodeIndex(NodeInterface $root, NodeInterface $node): int|null
     {
         $index = array_search($node, $root->getContent(), true);
 

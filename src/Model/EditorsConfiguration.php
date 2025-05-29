@@ -2,7 +2,6 @@
 
 namespace AnzuSystems\AnzutapBundle\Model;
 
-use AnzuSystems\AnzutapBundle\AnzutapTransformer\ImageTransformer;
 use AnzuSystems\AnzutapBundle\HtmlRenderer\EmbedExternalImageHtmlRenderer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Mark\LinkNodeTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Mark\MarkNodeTransformer;
@@ -10,6 +9,7 @@ use AnzuSystems\AnzutapBundle\Node\Transformer\Node\AnchorTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\BulletListTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\HeadingTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\HorizontalRuleTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\ImageTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\LineBreakTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\ListItemTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\OrderedListTransformer;

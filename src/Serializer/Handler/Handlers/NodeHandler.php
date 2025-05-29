@@ -5,46 +5,36 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers;
 
 use AnzuSystems\AnzutapBundle\Editor\EditorProvider;
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
-use AnzuSystems\AnzutapBundle\Serializer\Factory\NodeFactory;
+use AnzuSystems\AnzutapBundle\Factory\NodeFactory;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 use AnzuSystems\SerializerBundle\Context\SerializationContext;
 use AnzuSystems\SerializerBundle\Exception\SerializerException;
 use AnzuSystems\SerializerBundle\Handler\Handlers\AbstractHandler;
 use AnzuSystems\SerializerBundle\Metadata\Metadata;
 
-/**
- * todo rename NodeContentHandler
- */
-final class EmbedHandler extends AbstractHandler
+final class NodeHandler extends AbstractHandler
 {
     public function __construct(
-        private readonly EditorProvider $editorProvider,
         private readonly NodeFactory $nodeFactory,
     ) {
     }
 
     public static function supportsSerialize(mixed $value): bool
     {
-        return $value instanceof AnzutapNodeInterface;
+        return $value instanceof NodeInterface;
     }
 
     public function serialize(mixed $value, Metadata $metadata, SerializationContext $context): ?array
     {
-        if ($value instanceof AnzutapNodeInterface) {
+        if ($value instanceof NodeInterface) {
             return $value->toArray();
         }
 
         return null;
     }
 
-    /**
-     * @param array $value
-     *
-     * @throws SerializerException
-     */
     public function deserialize(mixed $value, Metadata $metadata): array
     {
-        // todo set parrent
         if (is_array($value)) {
             $content = [];
 

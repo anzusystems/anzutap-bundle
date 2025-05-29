@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Editor;
 
-use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\MarktransformerProviderInterface;
-use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\NodeTransformerProviderInterface;
 use AnzuSystems\AnzutapBundle\HtmlRenderer\HtmlRendererInterface;
 use AnzuSystems\AnzutapBundle\Model\AnzutapBody;
 use AnzuSystems\AnzutapBundle\Model\Embed\EmbedKindInterface;
@@ -13,11 +11,13 @@ use AnzuSystems\AnzutapBundle\Model\EmbedContainer;
 use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\DocumentNode;
 use AnzuSystems\AnzutapBundle\Model\Node\EmbedNode;
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 use AnzuSystems\AnzutapBundle\Node\BodyPostprocessor;
 use AnzuSystems\AnzutapBundle\Node\BodyPreprocessor;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Mark\AnzuMarkTransformerInterface;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\AnzuNodeTransformerInterface;
+use AnzuSystems\AnzutapBundle\Node\TransformerProvider\MarktransformerProviderInterface;
+use AnzuSystems\AnzutapBundle\Node\TransformerProvider\NodeTransformerProviderInterface;
 use DOMDocument;
 use DOMElement;
 use DOMNode;
@@ -26,7 +26,9 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class AnzutapEditor
 {
-    /** @var array<array-key, MarkInterface> */
+    /**
+     * @var array<array-key, MarkInterface>
+     */
     private array $storedMarks = [];
     private EmbedContainer $embedContainer;
 
@@ -97,7 +99,7 @@ final class AnzutapEditor
         return $this->defaultTransformer;
     }
 
-    public function getHtmlRenderer(AnzutapNodeInterface $node): ?HtmlRendererInterface
+    public function getHtmlRenderer(NodeInterface $node): ?HtmlRendererInterface
     {
         if ($this->resolvedHtmlRenderers->has($node->getType())) {
             return $this->resolvedHtmlRenderers->get($node->getType());
@@ -112,7 +114,7 @@ final class AnzutapEditor
         $this->embedContainer = new EmbedContainer();
     }
 
-    private function processChildren(DOMNode $node, AnzutapNodeInterface $anzuTapParentNode, DocumentNode $root): array
+    private function processChildren(DOMNode $node, NodeInterface $anzuTapParentNode, DocumentNode $root): array
     {
         $nodes = [];
 
@@ -136,9 +138,7 @@ final class AnzutapEditor
                         $nodes = array_merge($nodes, $this->processChildren($childNode, $anzuTapParentNode, $root));
                     }
 
-                    if ($mark) {
-                        array_pop($this->storedMarks);
-                    }
+                    array_pop($this->storedMarks);
 
                     continue;
                 }
@@ -190,8 +190,8 @@ final class AnzutapEditor
     private function processNode(
         DOMElement | DOMText $node,
         AnzuNodeTransformerInterface $nodeTransformer,
-        AnzutapNodeInterface $anzuTapParentNode,
-    ): ?AnzutapNodeInterface {
+        NodeInterface $anzuTapParentNode,
+    ): ?NodeInterface {
         /** @psalm-suppress PossiblyInvalidArgument */
         $transformedNode = $nodeTransformer->transform($node, $this->embedContainer, $anzuTapParentNode);
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle\Node\Transformer\Node;
 
 use AnzuSystems\AnzutapBundle\Model\EmbedContainer;
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\ParagraphNode;
 use AnzuSystems\AnzutapBundle\Model\Node\TextNode;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Traits\TextNodeTrait;
@@ -27,7 +27,7 @@ class TextNodeTransformer extends AbstractNodeTransformer
         ];
     }
 
-    public function transform(DOMElement | DOMText $element, EmbedContainer $embedContainer, ?AnzutapNodeInterface $parent = null): ?AnzutapNodeInterface
+    public function transform(DOMElement | DOMText $element, EmbedContainer $embedContainer, ?NodeInterface $parent = null): ?NodeInterface
     {
         $text = $this->getText(
             $element,

@@ -8,9 +8,9 @@ use Symfony\Component\Uid\Uuid;
 
 class EmbedNode extends Node
 {
-    public static function getInstance(string $type, Uuid $id): static
+    public static function getInstance(string $type, Uuid $id): self
     {
-        return (new static())
+        return (new self())
             ->setAttrs([
                 'id' => $id->toRfc4122(),
             ])

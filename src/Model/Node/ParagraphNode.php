@@ -8,11 +8,6 @@ final class ParagraphNode extends Node implements HtmlNodeInterface
 {
     public const string NODE_NAME = 'paragraph';
 
-    protected function getMarksAllowList(): ?array
-    {
-        return [];
-    }
-
     public static function getNodeType(): string
     {
         return self::PARAGRAPH;
@@ -37,5 +32,10 @@ final class ParagraphNode extends Node implements HtmlNodeInterface
                 'attrs' => $attrs,
             ],
         ];
+    }
+
+    protected function getMarksAllowList(): ?array
+    {
+        return [];
     }
 }

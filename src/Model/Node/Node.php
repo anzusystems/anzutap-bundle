@@ -8,7 +8,7 @@ namespace AnzuSystems\AnzutapBundle\Model\Node;
 
 use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
 
-class Node extends AbstractAnzutapNode
+class Node extends AbstractNode
 {
     public function getType(): string
     {

@@ -7,20 +7,33 @@ namespace AnzuSystems\AnzutapBundle\Model\Node;
 use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
 use AnzuSystems\SerializerBundle\Attributes\Serialize;
 
-final class TextNode extends AbstractAnzutapNode
+final class TextNode extends AbstractNode
 {
     #[Serialize]
     private string $text;
 
+    public function __clone()
+    {
+        return (new self())
+            ->setText($this->text)
+            ->setMarks(array_map(
+                static fn (MarkInterface $mark) => clone $mark,
+                $this->marks ?? []
+            ))
+            ->setParent(null)
+            ->setContent([])
+        ;
+    }
+
     public static function getInstance(
         string $text,
         ?array $marks = null,
-    ): self
-    {
+    ): self {
         return (new self())
             ->setText($text)
-            ->setMarks($marks
-        );
+            ->setMarks(
+                $marks
+            );
     }
 
     public function setText(string $text): self
@@ -35,24 +48,11 @@ final class TextNode extends AbstractAnzutapNode
         return $this->text;
     }
 
-    public function addContent(AnzutapNodeInterface $node): static
+    public function addContent(NodeInterface $node): static
     {
         $this->parent?->addContent($node);
 
         return $this;
-    }
-
-    public function __clone()
-    {
-        return (new self())
-            ->setText($this->text)
-            ->setMarks(array_map(
-                static fn (MarkInterface $mark) => clone $mark,
-                $this->marks ?? []
-            ))
-            ->setParent(null)
-            ->setContent([])
-        ;
     }
 
     public function toArray(): array

@@ -39,7 +39,7 @@ final class Link extends AbstractMark
     public function tag(): array
     {
         $markAttrs = $this->getAttrs();
-        
+
         $attrs = [];
         if ($markAttrs['external'] ?? false) {
             $attrs['target'] = '_blank';

@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 interface EmbedsAwareInterface
 {
     /**
-     * @return ArrayCollection<int, EmbedKindInterface>
+     * @return ArrayCollection<string, EmbedKindInterface>
      */
     public function getEmbeds(): ArrayCollection;
 }

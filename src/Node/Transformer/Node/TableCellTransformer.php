@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle\Node\Transformer\Node;
 
 use AnzuSystems\AnzutapBundle\Model\EmbedContainer;
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\ParagraphNode;
 use AnzuSystems\AnzutapBundle\Model\Node\TableCellNode;
 use AnzuSystems\AnzutapBundle\Model\Node\TableHeaderNode;
@@ -27,12 +27,12 @@ final class TableCellTransformer extends AbstractNodeTransformer
         ];
     }
 
-    public function fixEmpty(AnzutapNodeInterface $node): void
+    public function fixEmpty(NodeInterface $node): void
     {
         $node->addContent(new ParagraphNode());
     }
 
-    public function transform(DOMElement $element, EmbedContainer $embedContainer, AnzutapNodeInterface $parent): AnzutapNodeInterface
+    public function transform(DOMElement $element, EmbedContainer $embedContainer, NodeInterface $parent): NodeInterface
     {
         $attrs = $this->getAttrs(['colspan', 'rowspan'], $element);
         $attrs = empty($attrs) ? null : $attrs;

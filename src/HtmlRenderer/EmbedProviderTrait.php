@@ -3,13 +3,13 @@
 namespace AnzuSystems\AnzutapBundle\HtmlRenderer;
 
 use AnzuSystems\AnzutapBundle\Model\Embed\EmbedKindInterface;
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 use AnzuSystems\AnzutapBundle\Model\TransformableDocument\EmbedsAwareInterface;
 use AnzuSystems\AnzutapBundle\Model\TransformableDocument\HtmlTransformableInterface;
 
 trait EmbedProviderTrait
 {
-    public function getEmbed(HtmlTransformableInterface $transformable, AnzutapNodeInterface $node): ?EmbedKindInterface
+    public function getEmbed(HtmlTransformableInterface $transformable, NodeInterface $node): ?EmbedKindInterface
     {
         $document = $transformable->getDocument();
         if (false === ($document instanceof EmbedsAwareInterface)) {

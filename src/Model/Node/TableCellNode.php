@@ -8,13 +8,13 @@ class TableCellNode extends Node implements HtmlNodeInterface
 {
     protected array $tagName = ['td'];
 
-    public static function getInstance(?array $attrs = null): static
+    public static function getInstance(?array $attrs = null): self
     {
-        return (new static())
+        return (new self())
             ->setAttrs($attrs);
     }
 
-    public function addContent(AnzutapNodeInterface $node): AnzutapNodeInterface
+    public function addContent(NodeInterface $node): NodeInterface
     {
         if (false === (ParagraphNode::NODE_NAME === $node->getType())) {
             $paragraph = $this->upsertFirstContentParagraph();
@@ -23,11 +23,6 @@ class TableCellNode extends Node implements HtmlNodeInterface
         }
 
         return parent::addContent($node);
-    }
-
-    protected function getMarksAllowList(): array
-    {
-        return [];
     }
 
     public static function getNodeType(): string
@@ -41,7 +36,7 @@ class TableCellNode extends Node implements HtmlNodeInterface
 
         $colspan = $this->getAttrs()['colspan'] ?? null;
         if ($colspan) {
-            $attrs['colspan'] =$colspan;
+            $attrs['colspan'] = $colspan;
         }
 
         $colWidth = $this->getAttrs()['colwidth'] ?? null;
@@ -65,5 +60,10 @@ class TableCellNode extends Node implements HtmlNodeInterface
                 'attrs' => $attrs,
             ],
         ];
+    }
+
+    protected function getMarksAllowList(): array
+    {
+        return [];
     }
 }

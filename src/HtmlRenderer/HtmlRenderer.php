@@ -7,10 +7,9 @@ namespace AnzuSystems\AnzutapBundle\HtmlRenderer;
 use AnzuSystems\AnzutapBundle\Editor\AnzutapEditor;
 use AnzuSystems\AnzutapBundle\Editor\EditorProvider;
 use AnzuSystems\AnzutapBundle\Model\Advert\AdvertPool;
-use AnzuSystems\AnzutapBundle\Model\Node\DocumentNode;
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
-use AnzuSystems\AnzutapBundle\Model\Node\TextNode;
 use AnzuSystems\AnzutapBundle\Model\Node\HtmlNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\TextNode;
 use AnzuSystems\AnzutapBundle\Model\TransformableDocument\HtmlTransformableInterface;
 use AnzuSystems\AnzutapBundle\Node\AdvertInserter;
 
@@ -21,8 +20,8 @@ final readonly class HtmlRenderer
     ) {
     }
 
-    public function transform(
-        DocumentNode $node,
+    public function render(
+        NodeInterface $node,
         HtmlTransformableInterface $documentWrapper,
         ?AdvertPool $advertPool = null,
     ): string {
@@ -36,7 +35,7 @@ final readonly class HtmlRenderer
         foreach ($node->getContent() as $nestedNode) {
             $html[] = $this->renderTree($nestedNode, $editor, $documentWrapper);
 
-            if (AnzutapNodeInterface::CONTENT_LOCK === $nestedNode->getType()
+            if (NodeInterface::CONTENT_LOCK === $nestedNode->getType()
                 && $documentWrapper->isContentLockEnabled()
                 && $documentWrapper->isLocked()
             ) {
@@ -48,7 +47,7 @@ final readonly class HtmlRenderer
     }
 
     private function renderTree(
-        AnzutapNodeInterface $node,
+        NodeInterface $node,
         AnzutapEditor $editor,
         HtmlTransformableInterface $documentWrapper
     ): string {
@@ -69,7 +68,7 @@ final readonly class HtmlRenderer
         }
 
         if ($node instanceof TextNode) {
-            $html[] = htmlentities($node->getNodeText(), ENT_QUOTES);
+            $html[] = htmlentities((string) $node->getNodeText(), ENT_QUOTES);
         }
 
         if ($node instanceof HtmlNodeInterface) {
@@ -80,7 +79,7 @@ final readonly class HtmlRenderer
         return implode('', $html);
     }
 
-    private function provideOpeningMarks(AnzutapNodeInterface $node): array
+    private function provideOpeningMarks(NodeInterface $node): array
     {
         $marks = [];
         foreach ($node->getMarks() ?? [] as $mark) {
@@ -90,7 +89,7 @@ final readonly class HtmlRenderer
         return $marks;
     }
 
-    private function provideClosingMarks(AnzutapNodeInterface $node): array
+    private function provideClosingMarks(NodeInterface $node): array
     {
         $marks = [];
         foreach (array_reverse($node->getMarks() ?? []) as $mark) {

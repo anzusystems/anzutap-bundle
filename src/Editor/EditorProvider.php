@@ -24,7 +24,7 @@ readonly class EditorProvider
         try {
             return $this->editorLocator->get($editorName);
         } catch (ContainerExceptionInterface) {
-            throw new EditorException("Editor $editorName not found");
+            throw new EditorException("Editor {$editorName} not found");
         }
     }
 }

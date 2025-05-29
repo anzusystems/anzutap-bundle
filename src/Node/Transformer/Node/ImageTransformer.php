@@ -1,13 +1,12 @@
 <?php
 
-namespace AnzuSystems\AnzutapBundle\AnzutapTransformer;
+namespace AnzuSystems\AnzutapBundle\Node\Transformer\Node;
 
 use AnzuSystems\AnzutapBundle\Model\Embed\EmbedExternalImage;
 use AnzuSystems\AnzutapBundle\Model\Embed\EmbedExternalImageInline;
 use AnzuSystems\AnzutapBundle\Model\Embed\EmbedKindInterface;
 use AnzuSystems\AnzutapBundle\Model\EmbedContainer;
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
-use AnzuSystems\AnzutapBundle\Node\Transformer\Node\AbstractNodeTransformer;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Traits\UrlTrait;
 use DOMElement;
 use Symfony\Component\String\ByteString;
@@ -23,7 +22,7 @@ class ImageTransformer extends AbstractNodeTransformer
         ];
     }
 
-    public function transform(DOMElement $element, EmbedContainer $embedContainer, AnzuTapNodeInterface $parent): ?EmbedKindInterface
+    public function transform(DOMElement $element, EmbedContainer $embedContainer, NodeInterface $parent): ?EmbedKindInterface
     {
         $src = $this->getSrc($element);
 
@@ -34,10 +33,10 @@ class ImageTransformer extends AbstractNodeTransformer
         $alt = $this->getAlt($element);
 
         if ($this->hasParentByName($element, ['td', 'th'])) {
-            return (new EmbedExternalImageInline())->setSrc($src)->setAlt($alt);
+            return (new EmbedExternalImageInline())->setSrc($src)->setAlt((string) $alt);
         }
 
-        return (new EmbedExternalImage())->setSrc($src)->setAlt($alt);
+        return (new EmbedExternalImage())->setSrc($src)->setAlt((string) $alt);
     }
 
     private function getAlt(DOMElement $element): ?string

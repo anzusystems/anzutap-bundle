@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use AnzuSystems\AnzutapBundle\HtmlTransformer;
-use AnzuSystems\AnzutapBundle\Twig\Extension\HtmlTransformerExtension;
+use AnzuSystems\AnzutapBundle\HtmlRenderer\HtmlRenderer;
+use AnzuSystems\AnzutapBundle\Twig\Extension\HtmlRendererExtension;
 
 return static function (ContainerConfigurator $configurator): void {
     $services = $configurator->services();
@@ -17,8 +17,8 @@ return static function (ContainerConfigurator $configurator): void {
     ;
 
     $services
-        ->set(HtmlTransformerExtension::class)
-        ->arg('$transformer', service(HtmlTransformer::class))
+        ->set(HtmlRendererExtension::class)
+        ->arg('$renderer', service(HtmlRenderer::class))
         ->tag('twig.extension')
     ;
 };

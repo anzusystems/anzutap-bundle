@@ -12,7 +12,9 @@
   ],
   "require": {
     "php": ">=8.3",
+    "ext-dom": "*",
     "ext-json": "*",
+    "ext-libxml": "*",
     "ext-mongodb": "*",
     "ext-redis": "*",
     "ext-zend-opcache": "*",
@@ -28,9 +30,8 @@
     "symfony/property-info": "^7.1",
     "symfony/translation": "^7.1",
     "symfony/twig-bundle": "^7.1",
-    "twig/twig": "^3.8",
-    "ext-dom": "*",
-    "ext-libxml": "*"
+    "symfony/uid": "^7.3",
+    "twig/twig": "^3.8"
   },
   "require-dev": {
     "doctrine/doctrine-bundle": "^2.4",

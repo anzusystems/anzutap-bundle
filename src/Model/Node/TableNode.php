@@ -8,13 +8,13 @@ final class TableNode extends Node implements HtmlNodeInterface
 {
     public const string CAPTION_ATTR = 'caption';
 
-    public static function getInstance(?array $attrs = null): static
+    public static function getInstance(?array $attrs = null): self
     {
-        return (new static())
+        return (new self())
             ->setAttrs($attrs);
     }
 
-    public function addContent(AnzutapNodeInterface $node): AnzutapNodeInterface
+    public function addContent(NodeInterface $node): NodeInterface
     {
         if ($node instanceof ParagraphNode) {
             if (isset($this->attrs[self::CAPTION_ATTR]) && false === empty($this->attrs[self::CAPTION_ATTR])) {
@@ -31,11 +31,6 @@ final class TableNode extends Node implements HtmlNodeInterface
         }
 
         return parent::addContent($node);
-    }
-
-    protected function getMarksAllowList(): array
-    {
-        return [];
     }
 
     public static function getNodeType(): string
@@ -66,5 +61,10 @@ final class TableNode extends Node implements HtmlNodeInterface
                 'attrs' => [],
             ],
         ];
+    }
+
+    protected function getMarksAllowList(): array
+    {
+        return [];
     }
 }

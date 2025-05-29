@@ -7,10 +7,11 @@ namespace AnzuSystems\AnzutapBundle\Model\Node;
 use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
 use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
 use Closure;
+use Generator;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
 #[AutoconfigureTag(name: AnzuSystemsAnzutapBundle::TAG_MODEL_NODE)]
-interface AnzutapNodeInterface
+interface NodeInterface
 {
     public const string PARAGRAPH = 'paragraph';
     public const string HEADING = 'heading';
@@ -43,7 +44,7 @@ interface AnzutapNodeInterface
     public function addContent(self $node): self;
 
     /**
-     * @return array<int, AnzutapNodeInterface>
+     * @return array<int, NodeInterface>
      */
     public function getContent(): array;
 
@@ -58,11 +59,11 @@ interface AnzutapNodeInterface
     public function getNodeText(): ?string;
 
     /**
-     * @param Closure(AnzutapNodeInterface $removeFn, mixed $key): bool $removeFn
+     * @param Closure(NodeInterface $removeFn, mixed $key): bool $removeFn
      */
-    public function removeNode(Closure $removeFn): ?AnzutapNodeInterface;
+    public function removeNode(Closure $removeFn): ?self;
 
-    public function removeNodeByKey(int $key): ?AnzutapNodeInterface;
+    public function removeNodeByKey(int $key): ?self;
 
     public function setMarks(?array $marks = null): self;
 
@@ -74,6 +75,8 @@ interface AnzutapNodeInterface
     public function addAttr(string $name, string $value): self;
 
     public function addMark(MarkInterface $mark): self;
+
+    public function iterateRecursive(): Generator;
 
     // todo ? deprecated
     public function toArray(): array;

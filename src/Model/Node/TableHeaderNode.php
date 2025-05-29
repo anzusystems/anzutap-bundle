@@ -8,13 +8,19 @@ final class TableHeaderNode extends TableCellNode implements HtmlNodeInterface
 {
     protected array $tagName = ['th'];
 
-    protected function getMarksAllowList(): array
+    public static function getInstance(?array $attrs = null): self
     {
-        return [];
+        return (new self())
+            ->setAttrs($attrs);
     }
 
     public static function getNodeType(): string
     {
         return self::TABLE_HEADER;
+    }
+
+    protected function getMarksAllowList(): array
+    {
+        return [];
     }
 }

@@ -13,7 +13,7 @@ final class HtmlEmbedsAwareTransformableDocument extends HtmlTransformableDocume
      */
     public function __construct(
         protected array $body = [],
-        private ArrayCollection $embeds,
+        private readonly ArrayCollection $embeds,
     ) {
         parent::__construct($body);
     }

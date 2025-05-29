@@ -5,17 +5,20 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle\Model\Node;
 
 use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
-use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\EmbedHandler;
 use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\MarkHandler;
+use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\NodeHandler;
 use AnzuSystems\SerializerBundle\Attributes\Serialize;
 use Closure;
 use Generator;
 use IteratorAggregate;
 use Traversable;
 
-abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggregate
+/**
+ * @template-implements IteratorAggregate<int, NodeInterface>
+ */
+abstract class AbstractNode implements NodeInterface, IteratorAggregate
 {
-    protected ?AnzutapNodeInterface $parent = null;
+    protected ?NodeInterface $parent = null;
 
     #[Serialize]
     protected string $type;
@@ -30,9 +33,9 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
     protected ?array $marks = null;
 
     /**
-     * @var array<int, AnzutapNodeInterface>
+     * @var array<int, NodeInterface>
      */
-    #[Serialize(handler: EmbedHandler::class)]
+    #[Serialize(handler: NodeHandler::class)]
     protected array $content = [];
 
     public function __construct()
@@ -64,12 +67,12 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
         return $this->attrs[$key] ?? null;
     }
 
-    public function getParent(): ?AnzutapNodeInterface
+    public function getParent(): ?NodeInterface
     {
         return $this->parent;
     }
 
-    public function setParent(?AnzutapNodeInterface $parent): static
+    public function setParent(?NodeInterface $parent): static
     {
         $this->parent = $parent;
 
@@ -91,24 +94,24 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
         $this->marks = $marks;
 
         // todo mark allow list
-//        $marksAllowList = $this->getMarksAllowList();
-//        if (null === $marks || (is_array($marksAllowList) && AnzutapApp::ZERO === count($marksAllowList))) {
-//            $this->marks = null;
-//
-//            return $this;
-//        }
-//
-//        if (null === $marksAllowList) {
-//            $this->marks = $marks;
-//
-//            return $this;
-//        }
-//
-//        foreach ($marks as $mark) {
-//            if (in_array($mark['type'] ?? '', $marksAllowList, true)) {
-//                $this->marks[] = $mark;
-//            }
-//        }
+        //        $marksAllowList = $this->getMarksAllowList();
+        //        if (null === $marks || (is_array($marksAllowList) && AnzutapApp::ZERO === count($marksAllowList))) {
+        //            $this->marks = null;
+        //
+        //            return $this;
+        //        }
+        //
+        //        if (null === $marksAllowList) {
+        //            $this->marks = $marks;
+        //
+        //            return $this;
+        //        }
+        //
+        //        foreach ($marks as $mark) {
+        //            if (in_array($mark['type'] ?? '', $marksAllowList, true)) {
+        //                $this->marks[] = $mark;
+        //            }
+        //        }
 
         return $this;
     }
@@ -140,7 +143,7 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
         return $this;
     }
 
-    public function setContent(array $content): AnzutapNodeInterface
+    public function setContent(array $content): NodeInterface
     {
         $this->content = $content;
         foreach ($this->content as $node) {
@@ -150,7 +153,7 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
         return $this;
     }
 
-    public function addContent(AnzutapNodeInterface $node): AnzutapNodeInterface
+    public function addContent(NodeInterface $node): NodeInterface
     {
         $this->content[] = $node;
         $node->setParent($this);
@@ -159,9 +162,9 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
     }
 
     /**
-     * @param array<int, AnzutapNodeInterface> $nodes
+     * @param array<int, NodeInterface> $nodes
      */
-    public function addContents(array $nodes): AnzutapNodeInterface
+    public function addContents(array $nodes): NodeInterface
     {
         foreach ($nodes as $node) {
             $this->addContent($node);
@@ -195,7 +198,7 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
         return implode(' ', $text);
     }
 
-    public function removeNodeByKey(int $key): ?AnzutapNodeInterface
+    public function removeNodeByKey(int $key): ?NodeInterface
     {
         if (array_key_exists($key, $this->content)) {
             $removed = $this->content[$key];
@@ -209,16 +212,16 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
     }
 
     /**
-     * @param Closure(AnzutapNodeInterface $removeFn, mixed $key): bool $removeFn
+     * @param Closure(NodeInterface $removeFn, mixed $key): bool $removeFn
      */
-    public function removeNode(Closure $removeFn): ?AnzutapNodeInterface
+    public function removeNode(Closure $removeFn): ?NodeInterface
     {
         $removeNodeKey = $this->findNode($removeFn);
         if (null === $removeNodeKey) {
             return null;
         }
 
-        if (array_key_exists($removeNodeKey, $this->content) && $this->content[$removeNodeKey] instanceof AnzutapNodeInterface) {
+        if (array_key_exists($removeNodeKey, $this->content) && $this->content[$removeNodeKey] instanceof NodeInterface) {
             $removed = $this->content[$removeNodeKey];
             unset($this->content[$removeNodeKey]);
             $this->content = array_values($this->content);
@@ -230,11 +233,9 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
     }
 
     /**
-     * @param Closure(AnzutapNodeInterface $filterFn, mixed $key): bool $filterFn
-     *
-     * @return array-key
+     * @param Closure(NodeInterface $filterFn, mixed $key): bool $filterFn
      */
-    public function findNode(Closure $filterFn): int|string|null
+    public function findNode(Closure $filterFn): int|null
     {
         $key = null;
         foreach ($this->content as $currentKey => $value) {
@@ -243,11 +244,28 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
                 break;
             }
         }
-        if (is_string($key) || is_int($key)) {
+        if (is_int($key)) {
             return $key;
         }
 
         return null;
+    }
+
+    /**
+     * @return Traversable<int, NodeInterface>
+     */
+    public function getIterator(): Traversable
+    {
+        return $this->iterateRecursive();
+    }
+
+    public function iterateRecursive(): Generator
+    {
+        yield $this;
+
+        foreach ($this->content as $childNode) {
+            yield from $childNode->iterateRecursive();
+        }
     }
 
     protected function getMarksAllowList(): ?array
@@ -258,7 +276,7 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
     /**
      * Helper function for wrapping child nodes into paragraphs
      */
-    protected function upsertFirstContentParagraph(): AnzutapNodeInterface
+    protected function upsertFirstContentParagraph(): NodeInterface
     {
         foreach ($this->content as $item) {
             if (ParagraphNode::NODE_NAME === $item->getType()) {
@@ -271,22 +289,4 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
 
         return $paragraphNode;
     }
-
-    /**
-     * @return Traversable<AnzutapNodeInterface>
-     */
-    public function getIterator(): Traversable
-    {
-        return $this->iterateRecursive();
-    }
-
-    private function iterateRecursive(): Generator
-    {
-        yield $this;
-
-        foreach ($this->content as $childNode) {
-            yield from $childNode->iterateRecursive();
-        }
-    }
-
 }

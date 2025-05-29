@@ -3,11 +3,11 @@
 namespace AnzuSystems\AnzutapBundle\Node;
 
 use AnzuSystems\AnzutapBundle\Model\Advert\AdvertPool;
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 
 final class AdvertInserter
 {
-    public static function placeAdverts(AnzutapNodeInterface $node, AdvertPool $advertPool): void
+    public static function placeAdverts(NodeInterface $node, AdvertPool $advertPool): void
     {
         $content = $node->getContent();
         if (empty($content)) {

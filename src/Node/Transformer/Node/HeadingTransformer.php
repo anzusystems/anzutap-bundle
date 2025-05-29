@@ -6,7 +6,7 @@ namespace AnzuSystems\AnzutapBundle\Node\Transformer\Node;
 
 use AnzuSystems\AnzutapBundle\Model\EmbedContainer;
 use AnzuSystems\AnzutapBundle\Model\Node\HeadingNode;
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 use DOMElement;
 
 final class HeadingTransformer extends AbstractNodeTransformer
@@ -23,7 +23,7 @@ final class HeadingTransformer extends AbstractNodeTransformer
         ];
     }
 
-    public function transform(DOMElement $element, EmbedContainer $embedContainer, AnzutapNodeInterface $parent): AnzutapNodeInterface
+    public function transform(DOMElement $element, EmbedContainer $embedContainer, NodeInterface $parent): NodeInterface
     {
         $level = (int) $element->nodeName[1];
         $level++;
