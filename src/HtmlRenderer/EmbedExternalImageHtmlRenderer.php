@@ -2,14 +2,13 @@
 
 namespace AnzuSystems\AnzutapBundle\HtmlRenderer;
 
-use AnzuSystems\AnzutapBundle\Anzutap\HtmlRendererInterface;
 use AnzuSystems\AnzutapBundle\Model\Embed\EmbedExternalImage;
 use AnzuSystems\AnzutapBundle\Model\Embed\EmbedExternalImageInline;
-use AnzuSystems\AnzutapBundle\Model\EmbedKindInterface;
-use AnzuSystems\AnzutapBundle\Model\HtmlTransformableInterface;
+use AnzuSystems\AnzutapBundle\Model\Embed\EmbedKindInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\TransformableDocument\HtmlTransformableInterface;
 
-class EmbedExternalImageHtmlRenderer implements HtmlRendererInterface
+final class EmbedExternalImageHtmlRenderer implements HtmlRendererInterface
 {
     use EmbedProviderTrait;
 

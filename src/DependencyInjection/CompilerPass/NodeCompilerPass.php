@@ -6,7 +6,7 @@ namespace AnzuSystems\AnzutapBundle\DependencyInjection\CompilerPass;
 
 use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
 use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
-use AnzuSystems\AnzutapBundle\Provider\NodeFactory;
+use AnzuSystems\AnzutapBundle\Serializer\Factory\NodeFactory;
 use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

@@ -178,7 +178,7 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
     public function getNodeText(): ?string
     {
         $text = [];
-        if ($this instanceof AnzutapTextNode) {
+        if ($this instanceof TextNode) {
             $text[] = $this->getText();
         }
         foreach ($this->content as $node) {
@@ -261,12 +261,12 @@ abstract class AbstractAnzutapNode implements AnzutapNodeInterface, IteratorAggr
     protected function upsertFirstContentParagraph(): AnzutapNodeInterface
     {
         foreach ($this->content as $item) {
-            if (AnzutapParagraphNode::NODE_NAME === $item->getType()) {
+            if (ParagraphNode::NODE_NAME === $item->getType()) {
                 return $item;
             }
         }
 
-        $paragraphNode = new AnzutapParagraphNode();
+        $paragraphNode = new ParagraphNode();
         $this->addContent($paragraphNode);
 
         return $paragraphNode;

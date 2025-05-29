@@ -7,7 +7,7 @@ namespace AnzuSystems\AnzutapBundle\Model\Node;
 use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
 use AnzuSystems\SerializerBundle\Attributes\Serialize;
 
-final class ContentLockNode extends AnzutapNode
+final class ContentLockNode extends Node
 {
     public static function getNodeType(): string
     {

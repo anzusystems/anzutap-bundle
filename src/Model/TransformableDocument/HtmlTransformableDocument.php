@@ -2,9 +2,6 @@
 
 namespace AnzuSystems\AnzutapBundle\Model\TransformableDocument;
 
-use AnzuSystems\AnzutapBundle\Model\HtmlTransformableDocumentInterface;
-use AnzuSystems\AnzutapBundle\Model\HtmlTransformableInterface;
-
 class HtmlTransformableDocument implements HtmlTransformableDocumentInterface
 {
     /**

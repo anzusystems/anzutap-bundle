@@ -2,22 +2,22 @@
 
 namespace AnzuSystems\AnzutapBundle\Model;
 
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Mark\LinkNodeTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Mark\MarkNodeTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\AnchorTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\BulletListTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\HeadingTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\HorizontalRuleTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\LineBreakTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\ListItemTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\OrderedListTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\ParagraphNodeTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableCellTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableRowTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TextNodeTransformer;
 use AnzuSystems\AnzutapBundle\AnzutapTransformer\ImageTransformer;
 use AnzuSystems\AnzutapBundle\HtmlRenderer\EmbedExternalImageHtmlRenderer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Mark\LinkNodeTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Mark\MarkNodeTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\AnchorTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\BulletListTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\HeadingTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\HorizontalRuleTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\LineBreakTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\ListItemTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\OrderedListTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\ParagraphNodeTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\TableCellTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\TableRowTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\TableTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\TextNodeTransformer;
 
 final class EditorsConfiguration
 {

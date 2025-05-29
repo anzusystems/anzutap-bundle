@@ -2,10 +2,10 @@
 
 namespace AnzuSystems\AnzutapBundle\HtmlRenderer;
 
-use AnzuSystems\AnzutapBundle\Model\EmbedKindInterface;
-use AnzuSystems\AnzutapBundle\Model\EmbedsAwareInterface;
-use AnzuSystems\AnzutapBundle\Model\HtmlTransformableInterface;
+use AnzuSystems\AnzutapBundle\Model\Embed\EmbedKindInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\TransformableDocument\EmbedsAwareInterface;
+use AnzuSystems\AnzutapBundle\Model\TransformableDocument\HtmlTransformableInterface;
 
 trait EmbedProviderTrait
 {

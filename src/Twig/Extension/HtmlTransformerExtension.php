@@ -6,7 +6,7 @@ namespace AnzuSystems\AnzutapBundle\Twig\Extension;
 
 use AnzuSystems\AnzutapBundle\HtmlTransformer;
 use AnzuSystems\AnzutapBundle\Model\Advert\AdvertPool;
-use AnzuSystems\AnzutapBundle\Model\HtmlTransformableInterface;
+use AnzuSystems\AnzutapBundle\Model\TransformableDocument\HtmlTransformableInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 

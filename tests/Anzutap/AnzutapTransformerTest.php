@@ -3,9 +3,8 @@
 namespace AnzuSystems\AnzutapBundle\Tests\Anzutap;
 
 
-use AnzuSystems\AnzutapBundle\Anzutap\AnzutapEditor;
+use AnzuSystems\AnzutapBundle\Editor\AnzutapEditor;
 use AnzuSystems\AnzutapBundle\Tests\AnzuKernelTestCase;
-use AnzuSystems\AnzutapBundle\Tests\AppTest;
 
 final class AnzutapTransformerTest extends AnzuKernelTestCase
 {

@@ -6,7 +6,7 @@ namespace AnzuSystems\AnzutapBundle\DependencyInjection\CompilerPass;
 
 use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
 use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
-use AnzuSystems\AnzutapBundle\Provider\MarkFactory;
+use AnzuSystems\AnzutapBundle\Serializer\Factory\MarkFactory;
 use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

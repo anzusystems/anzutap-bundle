@@ -6,7 +6,7 @@ namespace AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers;
 
 use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
-use AnzuSystems\AnzutapBundle\Provider\MarkFactory;
+use AnzuSystems\AnzutapBundle\Serializer\Factory\MarkFactory;
 use AnzuSystems\SerializerBundle\Context\SerializationContext;
 use AnzuSystems\SerializerBundle\Exception\SerializerException;
 use AnzuSystems\SerializerBundle\Handler\Handlers\AbstractHandler;

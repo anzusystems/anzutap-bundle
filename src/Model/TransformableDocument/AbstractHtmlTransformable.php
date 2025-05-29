@@ -3,7 +3,6 @@
 namespace AnzuSystems\AnzutapBundle\Model\TransformableDocument;
 
 use AnzuSystems\AnzutapBundle\Model\Enum\RenderContext;
-use AnzuSystems\AnzutapBundle\Model\HtmlTransformableInterface;
 
 abstract class AbstractHtmlTransformable implements HtmlTransformableInterface
 {

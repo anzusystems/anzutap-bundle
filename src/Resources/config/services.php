@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
+use AnzuSystems\AnzutapBundle\Editor\EditorProvider;
 use AnzuSystems\AnzutapBundle\HtmlTransformer;
-use AnzuSystems\AnzutapBundle\Provider\EditorProvider;
-use AnzuSystems\AnzutapBundle\Provider\MarkFactory;
-use AnzuSystems\AnzutapBundle\Provider\NodeFactory;
+use AnzuSystems\AnzutapBundle\Serializer\Factory\MarkFactory;
+use AnzuSystems\AnzutapBundle\Serializer\Factory\NodeFactory;
 use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\EmbedHandler;
 use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\MarkHandler;
-use AnzuSystems\AnzutapBundle\Twig\Extension\HtmlTransformerExtension;
 use AnzuSystems\SerializerBundle\AnzuSystemsSerializerBundle;
 use AnzuSystems\SerializerBundle\Serializer;
 

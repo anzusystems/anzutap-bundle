@@ -2,8 +2,7 @@
 
 namespace AnzuSystems\AnzutapBundle\Model\TransformableDocument;
 
-use AnzuSystems\AnzutapBundle\Model\EmbedKindInterface;
-use AnzuSystems\AnzutapBundle\Model\EmbedsAwareInterface;
+use AnzuSystems\AnzutapBundle\Model\Embed\EmbedKindInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 final class HtmlEmbedsAwareTransformableDocument extends HtmlTransformableDocument implements EmbedsAwareInterface

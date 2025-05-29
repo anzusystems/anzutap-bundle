@@ -15,7 +15,7 @@ enum RenderContext: string implements EnumInterface
     case MobileWeb = 'mobile-web';
     case MobileAppIOS = 'mobile-app-ios';
     case MobileAppAndroid = 'mobile-app-android';
-    case Mailer = 'mailer';
+    case Email = 'email';
 
     public const self Default = self::DesktopWeb;
 

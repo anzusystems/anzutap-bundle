@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Model;
 
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapDocNode;
+use AnzuSystems\AnzutapBundle\Model\Node\DocumentNode;
 
 final readonly class AnzutapBody
 {
     public function __construct(
         private EmbedContainer $embedContainer,
-        private AnzutapDocNode $anzuTapBody,
+        private DocumentNode $anzuTapBody,
     ) {
     }
 
@@ -19,7 +19,7 @@ final readonly class AnzutapBody
         return $this->embedContainer;
     }
 
-    public function getAnzutapBody(): AnzutapDocNode
+    public function getAnzutapBody(): DocumentNode
     {
         return $this->anzuTapBody;
     }
