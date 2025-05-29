@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\DependencyInjection;
 
-use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\AnzutapMarkNodeTransformerProvider;
-use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\AnzutapNodeTransformerProvider;
-use AnzuSystems\AnzutapBundle\AnzutapTransformer\ImageTransformer;
 use AnzuSystems\AnzutapBundle\Model\EditorsConfiguration;
 use AnzuSystems\AnzutapBundle\Node\BodyPostprocessor;
 use AnzuSystems\AnzutapBundle\Node\BodyPreprocessor;
@@ -16,6 +13,7 @@ use AnzuSystems\AnzutapBundle\Node\Transformer\Node\AnchorTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\BulletListTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\HeadingTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\HorizontalRuleTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\ImageTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\LineBreakTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\ListItemTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\OrderedListTransformer;
@@ -25,6 +23,8 @@ use AnzuSystems\AnzutapBundle\Node\Transformer\Node\TableRowTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\TableTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\TextNodeTransformer;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Node\XSkipTransformer;
+use AnzuSystems\AnzutapBundle\Node\TransformerProvider\MarkNodeTransformerProvider;
+use AnzuSystems\AnzutapBundle\Node\TransformerProvider\NodeTransformerProvider;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -99,7 +99,7 @@ final class Configuration implements ConfigurationInterface
                 ->children()
                     ->scalarNode(self::EDITOR_NODE_TRANSFORMER_PROVIDER_CLASS)
                         // todo instance of validator
-                        ->defaultValue(AnzutapNodeTransformerProvider::class)
+                        ->defaultValue(NodeTransformerProvider::class)
                     ->end()
                     ->scalarNode(self::EDITOR_BODY_PREPROCESSOR)
                         ->defaultValue(BodyPreprocessor::class)
@@ -113,7 +113,7 @@ final class Configuration implements ConfigurationInterface
                     ->end()
                     ->scalarNode(self::EDITOR_MARK_TRANSFORMER_PROVIDER_CLASS)
                         // todo instance of validator
-                        ->defaultValue(AnzutapMarkNodeTransformerProvider::class)
+                        ->defaultValue(MarkNodeTransformerProvider::class)
                     ->end()
                     ->arrayNode(self::EDITOR_ALLOWED_NODE_TRANSFORMERS)
                         ->defaultValue(EditorsConfiguration::DEFAULT_ALLOWED_NODE_TRANSFORMERS)

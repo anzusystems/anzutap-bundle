@@ -51,13 +51,11 @@ return static function (ContainerConfigurator $configurator): void {
 
     $services
         ->set(HtmlRenderer::class)
-        ->arg('$serializer', service(Serializer::class))
         ->arg('$editorProvider', service(EditorProvider::class))
     ;
 
     $services
         ->set(NodeHandler::class)
-        ->arg('$editorProvider', service(EditorProvider::class))
         ->arg('$nodeFactory', service(NodeFactory::class))
         ->tag(AnzuSystemsSerializerBundle::TAG_SERIALIZER_HANDLER)
     ;

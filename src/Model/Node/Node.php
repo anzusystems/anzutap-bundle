@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace AnzuSystems\AnzutapBundle\Model\Anzutap\Node;
-
 namespace AnzuSystems\AnzutapBundle\Model\Node;
 
 use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
