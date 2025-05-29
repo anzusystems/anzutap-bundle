@@ -30,7 +30,7 @@
     "symfony/property-info": "^7.1",
     "symfony/translation": "^7.1",
     "symfony/twig-bundle": "^7.1",
-    "symfony/uid": "^7.3",
+    "symfony/uid": "^7.1",
     "twig/twig": "^3.8"
   },
   "require-dev": {

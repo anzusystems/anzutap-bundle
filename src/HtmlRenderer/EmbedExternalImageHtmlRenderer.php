@@ -7,7 +7,6 @@ use AnzuSystems\AnzutapBundle\Model\Embed\EmbedExternalImageInline;
 use AnzuSystems\AnzutapBundle\Model\Embed\EmbedKindInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 use AnzuSystems\AnzutapBundle\Model\TransformableDocument\HtmlTransformableInterface;
-use AnzuSystems\Contracts\AnzuApp;
 
 final class EmbedExternalImageHtmlRenderer implements HtmlRendererInterface
 {
