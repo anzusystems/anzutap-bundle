@@ -6,8 +6,7 @@ namespace AnzuSystems\AnzutapBundle\Twig\Extension;
 
 use AnzuSystems\AnzutapBundle\HtmlRenderer\HtmlRenderer;
 use AnzuSystems\AnzutapBundle\Model\Advert\AdvertPool;
-use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
-use AnzuSystems\AnzutapBundle\Model\TransformableDocument\HtmlTransformableInterface;
+use AnzuSystems\AnzutapBundle\Model\DocumentRenderable\DocumentRenderableInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -30,10 +29,9 @@ final class HtmlRendererExtension extends AbstractExtension
     }
 
     public function renderHtmlDocument(
-        NodeInterface $node,
-        HtmlTransformableInterface $documentWrapper,
+        DocumentRenderableInterface $renderable,
         ?AdvertPool $advertPool = null,
     ): string {
-        return $this->renderer->render($node, $documentWrapper, $advertPool);
+        return $this->renderer->render($renderable, $advertPool);
     }
 }

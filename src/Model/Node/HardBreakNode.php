@@ -6,6 +6,11 @@ namespace AnzuSystems\AnzutapBundle\Model\Node;
 
 class HardBreakNode extends Node implements HtmlNodeInterface
 {
+    public function isSelfClosing(): bool
+    {
+        return true;
+    }
+
     public static function getNodeType(): string
     {
         return self::HARD_BREAK;

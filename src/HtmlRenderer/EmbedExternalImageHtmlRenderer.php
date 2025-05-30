@@ -2,11 +2,11 @@
 
 namespace AnzuSystems\AnzutapBundle\HtmlRenderer;
 
+use AnzuSystems\AnzutapBundle\Model\DocumentRenderable\DocumentRenderableInterface;
 use AnzuSystems\AnzutapBundle\Model\Embed\EmbedExternalImage;
 use AnzuSystems\AnzutapBundle\Model\Embed\EmbedExternalImageInline;
 use AnzuSystems\AnzutapBundle\Model\Embed\EmbedKindInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
-use AnzuSystems\AnzutapBundle\Model\TransformableDocument\HtmlTransformableInterface;
 
 final class EmbedExternalImageHtmlRenderer implements HtmlRendererInterface
 {
@@ -20,7 +20,7 @@ final class EmbedExternalImageHtmlRenderer implements HtmlRendererInterface
         ];
     }
 
-    public function render(NodeInterface $node, HtmlTransformableInterface $htmlTransformable): string
+    public function render(NodeInterface $node, DocumentRenderableInterface $htmlTransformable): string
     {
         $embed = $this->getEmbed($htmlTransformable, $node);
 

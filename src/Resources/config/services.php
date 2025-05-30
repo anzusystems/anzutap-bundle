@@ -6,6 +6,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
 use AnzuSystems\AnzutapBundle\Editor\EditorProvider;
+use AnzuSystems\AnzutapBundle\Factory\DocumentRenderableFactory;
 use AnzuSystems\AnzutapBundle\Factory\MarkFactory;
 use AnzuSystems\AnzutapBundle\Factory\NodeFactory;
 use AnzuSystems\AnzutapBundle\HtmlRenderer\HtmlRenderer;
@@ -47,6 +48,11 @@ return static function (ContainerConfigurator $configurator): void {
     $services
         ->set(MarkFactory::class)
         ->arg('$serializer', service(Serializer::class))
+    ;
+
+    $services
+        ->set(DocumentRenderableFactory::class)
+        ->arg('$serializer', service(DocumentRenderableFactory::class))
     ;
 
     $services
