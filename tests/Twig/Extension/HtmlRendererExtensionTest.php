@@ -2,9 +2,9 @@
 
 namespace AnzuSystems\AnzutapBundle\Tests\Twig\Extension;
 
+use AnzuSystems\AnzutapBundle\Factory\DocumentRenderableFactory;
 use AnzuSystems\AnzutapBundle\Model\Advert\AdvertPlacement;
 use AnzuSystems\AnzutapBundle\Model\Advert\AdvertPool;
-use AnzuSystems\AnzutapBundle\Model\DocumentRenderable\AnzutapBodyAwareInterface;
 use AnzuSystems\AnzutapBundle\Model\DocumentRenderable\DocumentRenderContext;
 use Symfony\Component\Finder\Finder;
 
@@ -36,7 +36,7 @@ class HtmlRendererExtensionTest extends AbstractExtensionTestCase
 
         $rendered = $template->render([
             'document' => $this->renderableFactory->createRenderable(
-                $this->createBodyAware($data),
+                DocumentRenderableFactory::createBodyAware($data),
                 $context,
             ),
             'advertPool' => $advertPool,
@@ -73,21 +73,5 @@ class HtmlRendererExtensionTest extends AbstractExtensionTestCase
         }
 
         return $files;
-    }
-
-    private function createBodyAware(array $data): AnzutapBodyAwareInterface
-    {
-        return new readonly class($data) implements AnzutapBodyAwareInterface
-        {
-            public function __construct(
-                private array $data,
-            ) {
-            }
-
-            public function getBody(): array
-            {
-                return $this->data;
-            }
-        };
     }
 }
