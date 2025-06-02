@@ -83,7 +83,7 @@ interface NodeInterface extends IteratorAggregate
 
     public function iterateRecursive(): Generator;
 
-    // todo ? deprecated
+    // todo deprecated
     public function toArray(): array;
 
     // todo deprecated

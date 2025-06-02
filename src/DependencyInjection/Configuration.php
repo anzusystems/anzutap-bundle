@@ -71,7 +71,6 @@ final class Configuration implements ConfigurationInterface
                 ->performNoDeepMerging()
                 ->children()
                     ->scalarNode(self::EDITOR_NODE_TRANSFORMER_PROVIDER_CLASS)
-                        // todo instance of validator
                         ->defaultValue(NodeTransformerProvider::class)
                     ->end()
                     ->scalarNode(self::EDITOR_BODY_PREPROCESSOR)
@@ -81,11 +80,9 @@ final class Configuration implements ConfigurationInterface
                         ->defaultValue(BodyPostprocessor::class)
                         ->end()
                     ->scalarNode(self::EDITOR_NODE_DEFAULT_TRANSFORMER_CLASS)
-                        // todo instance of validator
                         ->defaultValue(XSkipTransformer::class)
                     ->end()
                     ->scalarNode(self::EDITOR_MARK_TRANSFORMER_PROVIDER_CLASS)
-                        // todo instance of validator
                         ->defaultValue(MarkNodeTransformerProvider::class)
                     ->end()
                     ->arrayNode(self::EDITOR_ALLOWED_NODE_TRANSFORMERS)
