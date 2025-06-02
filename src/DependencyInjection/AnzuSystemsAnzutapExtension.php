@@ -5,35 +5,34 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle\DependencyInjection;
 
 use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
-use AnzuSystems\AnzutapBundle\Anzutap\AnzutapBodyPostprocessor;
-use AnzuSystems\AnzutapBundle\Anzutap\AnzutapBodyPreprocessor;
-use AnzuSystems\AnzutapBundle\Anzutap\AnzutapEditor;
-use AnzuSystems\AnzutapBundle\Anzutap\HtmlRendererInterface;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Mark\AnzuMarkTransformerInterface;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Mark\LinkNodeTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Mark\MarkNodeTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\AnchorTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\AnzuNodeTransformerInterface;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\BulletListTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\HeadingTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\HorizontalRuleTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\LineBreakTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\ListItemTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\OrderedListTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\ParagraphNodeTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableCellTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableRowTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TextNodeTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\XRemoveTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\XSkipTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\AnzutapMarkNodeTransformerProvider;
-use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\AnzutapNodeTransformerProvider;
-use AnzuSystems\AnzutapBundle\AnzutapTransformer\ImageTransformer;
+use AnzuSystems\AnzutapBundle\Editor\AnzutapEditor;
+use AnzuSystems\AnzutapBundle\Editor\EditorProvider;
 use AnzuSystems\AnzutapBundle\HtmlRenderer\EmbedExternalImageHtmlRenderer;
-use AnzuSystems\AnzutapBundle\HtmlRenderer\EmbedExternalImageInlineHtmlRenderer;
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
-use AnzuSystems\AnzutapBundle\Provider\EditorProvider;
+use AnzuSystems\AnzutapBundle\HtmlRenderer\HtmlRendererInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
+use AnzuSystems\AnzutapBundle\Node\BodyPostprocessor;
+use AnzuSystems\AnzutapBundle\Node\BodyPreprocessor;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Mark\AnzuMarkTransformerInterface;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Mark\LinkNodeTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Mark\MarkNodeTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\AnchorTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\AnzuNodeTransformerInterface;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\BulletListTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\HeadingTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\HorizontalRuleTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\ImageTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\LineBreakTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\ListItemTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\OrderedListTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\ParagraphNodeTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\TableCellTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\TableRowTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\TableTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\TextNodeTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\XRemoveTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\XSkipTransformer;
+use AnzuSystems\AnzutapBundle\Node\TransformerProvider\MarkNodeTransformerProvider;
+use AnzuSystems\AnzutapBundle\Node\TransformerProvider\NodeTransformerProvider;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -60,9 +59,10 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
     {
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.php');
+        $loader->load('twig.php');
 
         $container
-            ->registerForAutoconfiguration(AnzutapNodeInterface::class)
+            ->registerForAutoconfiguration(NodeInterface::class)
             ->addTag(AnzuSystemsAnzutapBundle::TAG_MODEL_NODE)
         ;
 
@@ -90,19 +90,19 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
             );
         }
 
-        $definition = new Definition(AnzutapBodyPreprocessor::class);
-        $container->setDefinition(AnzutapBodyPreprocessor::class, $definition);
+        $definition = new Definition(BodyPreprocessor::class);
+        $container->setDefinition(BodyPreprocessor::class, $definition);
 
-        $definition = new Definition(AnzutapBodyPostprocessor::class);
-        $container->setDefinition(AnzutapBodyPostprocessor::class, $definition);
-
-        // MarkTransformerProviderInterface
-        $definition = new Definition(AnzutapMarkNodeTransformerProvider::class);
-        $container->setDefinition(AnzutapMarkNodeTransformerProvider::class, $definition);
+        $definition = new Definition(BodyPostprocessor::class);
+        $container->setDefinition(BodyPostprocessor::class, $definition);
 
         // MarkTransformerProviderInterface
-        $definition = new Definition(AnzutapNodeTransformerProvider::class);
-        $container->setDefinition(AnzutapNodeTransformerProvider::class, $definition);
+        $definition = new Definition(MarkNodeTransformerProvider::class);
+        $container->setDefinition(MarkNodeTransformerProvider::class, $definition);
+
+        // MarkTransformerProviderInterface
+        $definition = new Definition(NodeTransformerProvider::class);
+        $container->setDefinition(NodeTransformerProvider::class, $definition);
 
         // AnzuMarkTransformerInterface
         $definition = new Definition(LinkNodeTransformer::class);
@@ -153,9 +153,6 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
 
         $definition = new Definition(TextNodeTransformer::class);
         $container->setDefinition(TextNodeTransformer::class, $definition);
-
-        $definition = new Definition(EmbedExternalImageInlineHtmlRenderer::class);
-        $container->setDefinition(EmbedExternalImageInlineHtmlRenderer::class, $definition);
 
         $definition = new Definition(EmbedExternalImageHtmlRenderer::class);
         $container->setDefinition(EmbedExternalImageHtmlRenderer::class, $definition);

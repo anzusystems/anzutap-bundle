@@ -1,0 +1,10 @@
+parameters:
+    tmpDir: var/cache/phpstan
+    level: 5
+    phpVersion: 80400
+    symfony:
+        containerXmlPath: var/cache/test/AnzuSystems_AnzutapBundle_Tests_AnzuTestKernelTestDebugContainer.xml
+    paths:
+        - src
+    ignoreErrors:
+#        - '#Deprecated in#'

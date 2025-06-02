@@ -119,20 +119,6 @@ class AnzutapApp
     }
 
     /**
-     * Get IP address directly from HTTP_X_FORWARDED_FOR header.
-     * Beware that this must be used only in case we allow only trusted proxy to access this app that sets this header.
-     * If an attacker go around LB/proxy, he could potentially set this header to whatever he wants.
-     */
-    public static function getClientIp(): string
-    {
-        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            return explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0] ?? '';
-        }
-
-        return '';
-    }
-
-    /**
      * Get dateTime of application boot.
      */
     public static function getAppDate(): DateTimeImmutable

@@ -4,28 +4,27 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\DependencyInjection;
 
-use AnzuSystems\AnzutapBundle\Anzutap\AnzutapBodyPostprocessor;
-use AnzuSystems\AnzutapBundle\Anzutap\AnzutapBodyPreprocessor;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\XRemoveTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\XSkipTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\AnzutapMarkNodeTransformerProvider;
-use AnzuSystems\AnzutapBundle\Anzutap\TransformerProvider\AnzutapNodeTransformerProvider;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Mark\LinkNodeTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Mark\MarkNodeTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\AnchorTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\BulletListTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\HeadingTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\HorizontalRuleTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\LineBreakTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\ListItemTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\OrderedListTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\ParagraphNodeTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableCellTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableRowTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TableTransformer;
-use AnzuSystems\AnzutapBundle\Anzutap\Transformer\Node\TextNodeTransformer;
-use AnzuSystems\AnzutapBundle\AnzutapTransformer\ImageTransformer;
 use AnzuSystems\AnzutapBundle\Model\EditorsConfiguration;
+use AnzuSystems\AnzutapBundle\Node\BodyPostprocessor;
+use AnzuSystems\AnzutapBundle\Node\BodyPreprocessor;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Mark\LinkNodeTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Mark\MarkNodeTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\AnchorTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\BulletListTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\HeadingTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\HorizontalRuleTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\ImageTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\LineBreakTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\ListItemTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\OrderedListTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\ParagraphNodeTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\TableCellTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\TableRowTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\TableTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\TextNodeTransformer;
+use AnzuSystems\AnzutapBundle\Node\Transformer\Node\XSkipTransformer;
+use AnzuSystems\AnzutapBundle\Node\TransformerProvider\MarkNodeTransformerProvider;
+use AnzuSystems\AnzutapBundle\Node\TransformerProvider\NodeTransformerProvider;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -47,33 +46,6 @@ final class Configuration implements ConfigurationInterface
     public const string EDITORS = 'editors';
     public const string DEFAULT_EDITOR_NAME = 'default_editor_name';
     public const string ANZU_SYSTEMS_ANZUTAP = 'anzu_systems_anzutap';
-
-    private const array DEFAULT_ALLOWED_NODE_TRANSFORMERS = [
-        TextNodeTransformer::class,
-        TableTransformer::class,
-        TableRowTransformer::class,
-        ParagraphNodeTransformer::class,
-        TableCellTransformer::class,
-        OrderedListTransformer::class,
-        BulletListTransformer::class,
-        ListItemTransformer::class,
-        LineBreakTransformer::class,
-        // ImageTransformer::class,
-        HorizontalRuleTransformer::class,
-        HeadingTransformer::class,
-        AnchorTransformer::class,
-        ImageTransformer::class,
-    ];
-
-    private const array DEFAULT_ALLOWED_MARK_TRANSFORMERS = [
-        LinkNodeTransformer::class,
-        MarkNodeTransformer::class,
-    ];
-
-    private const array DEFAULT_SKIP_NODES = [
-        'span',
-        'style',
-    ];
 
     public function getConfigTreeBuilder(): TreeBuilder
     {
@@ -100,13 +72,13 @@ final class Configuration implements ConfigurationInterface
                 ->children()
                     ->scalarNode(self::EDITOR_NODE_TRANSFORMER_PROVIDER_CLASS)
                         // todo instance of validator
-                        ->defaultValue(AnzutapNodeTransformerProvider::class)
+                        ->defaultValue(NodeTransformerProvider::class)
                     ->end()
                     ->scalarNode(self::EDITOR_BODY_PREPROCESSOR)
-                        ->defaultValue(AnzutapBodyPreprocessor::class)
+                        ->defaultValue(BodyPreprocessor::class)
                         ->end()
                     ->scalarNode(self::EDITOR_BODY_POSTPROCESSOR)
-                        ->defaultValue(AnzutapBodyPostprocessor::class)
+                        ->defaultValue(BodyPostprocessor::class)
                         ->end()
                     ->scalarNode(self::EDITOR_NODE_DEFAULT_TRANSFORMER_CLASS)
                         // todo instance of validator
@@ -114,7 +86,7 @@ final class Configuration implements ConfigurationInterface
                     ->end()
                     ->scalarNode(self::EDITOR_MARK_TRANSFORMER_PROVIDER_CLASS)
                         // todo instance of validator
-                        ->defaultValue(AnzutapMarkNodeTransformerProvider::class)
+                        ->defaultValue(MarkNodeTransformerProvider::class)
                     ->end()
                     ->arrayNode(self::EDITOR_ALLOWED_NODE_TRANSFORMERS)
                         ->defaultValue(EditorsConfiguration::DEFAULT_ALLOWED_NODE_TRANSFORMERS)

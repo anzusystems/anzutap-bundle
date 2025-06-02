@@ -7,7 +7,7 @@ namespace AnzuSystems\AnzutapBundle\Model\Node;
 use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
 use AnzuSystems\SerializerBundle\Attributes\Serialize;
 
-final class StyledBoxTitleNode extends AnzutapNode
+final class StyledBoxTitleNode extends Node
 {
     public static function getNodeType(): string
     {

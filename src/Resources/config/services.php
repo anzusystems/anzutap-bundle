@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
-use AnzuSystems\AnzutapBundle\HtmlTransformer;
-use AnzuSystems\AnzutapBundle\Provider\EditorProvider;
-use AnzuSystems\AnzutapBundle\Provider\MarkFactory;
-use AnzuSystems\AnzutapBundle\Provider\NodeFactory;
-use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\EmbedHandler;
+use AnzuSystems\AnzutapBundle\Editor\EditorProvider;
+use AnzuSystems\AnzutapBundle\Factory\DocumentRenderableFactory;
+use AnzuSystems\AnzutapBundle\Factory\MarkFactory;
+use AnzuSystems\AnzutapBundle\Factory\NodeFactory;
+use AnzuSystems\AnzutapBundle\HtmlRenderer\HtmlRenderer;
 use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\MarkHandler;
+use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\NodeHandler;
 use AnzuSystems\SerializerBundle\AnzuSystemsSerializerBundle;
 use AnzuSystems\SerializerBundle\Serializer;
 
@@ -50,14 +51,17 @@ return static function (ContainerConfigurator $configurator): void {
     ;
 
     $services
-        ->set(HtmlTransformer::class)
+        ->set(DocumentRenderableFactory::class)
         ->arg('$serializer', service(Serializer::class))
+    ;
+
+    $services
+        ->set(HtmlRenderer::class)
         ->arg('$editorProvider', service(EditorProvider::class))
     ;
 
     $services
-        ->set(EmbedHandler::class)
-        ->arg('$editorProvider', service(EditorProvider::class))
+        ->set(NodeHandler::class)
         ->arg('$nodeFactory', service(NodeFactory::class))
         ->tag(AnzuSystemsSerializerBundle::TAG_SERIALIZER_HANDLER)
     ;

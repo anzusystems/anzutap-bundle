@@ -20,6 +20,7 @@
     <issueHandlers>
         <UnnecessaryVarAnnotation errorLevel="suppress"/>
         <RiskyTruthyFalsyComparison errorLevel="suppress"/>
+        <MissingOverrideAttribute errorLevel="suppress"/>
 
         <DeprecatedMethod errorLevel="info"/>
         <DeprecatedProperty errorLevel="info"/>

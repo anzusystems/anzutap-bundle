@@ -65,13 +65,9 @@ jobs:
       - name: Run ECS style check
         run: vendor/bin/ecs check -vv
 
-      - name: Run PSALM static analysis
-        run: vendor/bin/psalm
-
       - name: Run PHPUnit tests
-        env:
-          ANZU_MONGODB_APP_LOG_URI: 'mongodb://mongo:27017'
-          ANZU_MONGODB_AUDIT_LOG_URI: 'mongodb://mongo:27017'
-          DB_ANZUTAPBUNDLE_URL: 'mysql://root:admin@mysql:3306/anzutapbundle?serverVersion=8.0'
-          REDIS_HOST: 'redis'
         run: vendor/bin/phpunit
+
+      - name: Run Phpstan static analysis
+        run: vendor/bin/phpstan
+

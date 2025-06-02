@@ -2,17 +2,16 @@
 
 namespace AnzuSystems\AnzutapBundle\HtmlRenderer;
 
-use AnzuSystems\AnzutapBundle\Anzutap\HtmlRendererInterface;
-use AnzuSystems\AnzutapBundle\Model\EmbedKindInterface;
-use AnzuSystems\AnzutapBundle\Model\EmbedsAwareInterface;
-use AnzuSystems\AnzutapBundle\Model\HtmlTransformableInterface;
-use AnzuSystems\AnzutapBundle\Model\Node\AnzutapNodeInterface;
+use AnzuSystems\AnzutapBundle\Model\DocumentRenderable\DocumentRenderableInterface;
+use AnzuSystems\AnzutapBundle\Model\DocumentRenderable\EmbedsAwareInterface;
+use AnzuSystems\AnzutapBundle\Model\Embed\EmbedKindInterface;
+use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 
 trait EmbedProviderTrait
 {
-    public function getEmbed(HtmlTransformableInterface $transformable, AnzutapNodeInterface $node): ?EmbedKindInterface
+    public function getEmbed(DocumentRenderableInterface $transformable, NodeInterface $node): ?EmbedKindInterface
     {
-        $document = $transformable->getDocument();
+        $document = $transformable->getBodyAware();
         if (false === ($document instanceof EmbedsAwareInterface)) {
             return null;
         }

@@ -2,7 +2,6 @@
 
 namespace AnzuSystems\AnzutapBundle\Model\Embed;
 
-use AnzuSystems\AnzutapBundle\Model\EmbedKindInterface;
 use AnzuSystems\Contracts\Entity\Traits\IdentityUuidTrait;
 use Symfony\Component\Uid\Uuid;
 
