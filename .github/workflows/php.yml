@@ -66,9 +66,6 @@ jobs:
         run: vendor/bin/ecs check -vv
 
       - name: Run PHPUnit tests
-        env:
-          DB_ANZUTAPBUNDLE_URL: 'mysql://root:admin@mysql:3306/anzutapbundle?serverVersion=8.0'
-          REDIS_HOST: 'redis'
         run: vendor/bin/phpunit
 
       - name: Run Phpstan static analysis
