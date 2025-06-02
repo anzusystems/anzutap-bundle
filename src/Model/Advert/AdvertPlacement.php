@@ -12,6 +12,7 @@ class AdvertPlacement
         protected string $name,
         protected int $afterChars,
         protected int $repeatCount = 1,
+        protected bool $allowPlaceAdEnding = false,
     ) {
     }
 
@@ -28,6 +29,11 @@ class AdvertPlacement
     public function getRepeatCount(): int
     {
         return $this->repeatCount;
+    }
+
+    public function isAllowPlaceAdEnding(): bool
+    {
+        return $this->allowPlaceAdEnding;
     }
 
     public function placeAdvert(NodeInterface $root, NodeInterface $afterNode, int $lastAdvertPosition): int
@@ -47,7 +53,7 @@ class AdvertPlacement
             nodes: [(new AdvertNode())->setAttrs([
                 'position' => $this->getName() . '_' . $advertPosition,
             ])],
-            index: $index + 1
+            index: $index
         );
 
         return $advertPosition;

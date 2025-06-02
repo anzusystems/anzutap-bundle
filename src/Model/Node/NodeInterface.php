@@ -18,6 +18,7 @@ use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 interface NodeInterface extends IteratorAggregate
 {
     public const string PARAGRAPH = 'paragraph';
+    public const string BLOCKQUOTE = 'blockquote';
     public const string HEADING = 'heading';
     public const string HARD_BREAK = 'hardBreak';
     public const string DOC = 'doc';
@@ -82,7 +83,7 @@ interface NodeInterface extends IteratorAggregate
 
     public function iterateRecursive(): Generator;
 
-    // todo ? deprecated
+    // todo deprecated
     public function toArray(): array;
 
     // todo deprecated

@@ -51,6 +51,5 @@ final class EditorsConfiguration
         'style',
         'thead',
         'tbody',
-        'blockquote',
     ];
 }
