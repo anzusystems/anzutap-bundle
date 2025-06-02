@@ -57,6 +57,9 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-ansi --no-interaction --no-scripts
 
+      - name: Run cache warmup
+        run: bin/console cache:warmup
+
       - name: Run Security check
         run: |
           composer config audit.abandoned report
@@ -65,9 +68,8 @@ jobs:
       - name: Run ECS style check
         run: vendor/bin/ecs check -vv
 
-      - name: Run PHPUnit tests
-        run: vendor/bin/phpunit
-
       - name: Run Phpstan static analysis
         run: vendor/bin/phpstan
 
+      - name: Run PHPUnit tests
+        run: vendor/bin/phpunit
