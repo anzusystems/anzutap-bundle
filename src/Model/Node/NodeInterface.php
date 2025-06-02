@@ -25,6 +25,7 @@ interface NodeInterface extends IteratorAggregate
     public const string LIST_ITEM = 'listItem';
     public const string BULLET_LIST = 'bulletList';
     public const string ADVERT = 'ad';
+    public const string QUOTE = 'quote';
     public const string ORDERED_LIST = 'orderedList';
     public const string TABLE_CELL = 'tableCell';
     public const string TABLE_HEADER = 'tableHeader';

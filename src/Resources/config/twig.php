@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use AnzuSystems\AnzutapBundle\Factory\DocumentRenderableFactory;
 use AnzuSystems\AnzutapBundle\HtmlRenderer\HtmlRenderer;
 use AnzuSystems\AnzutapBundle\Twig\Extension\HtmlRendererExtension;
 
@@ -19,6 +20,7 @@ return static function (ContainerConfigurator $configurator): void {
     $services
         ->set(HtmlRendererExtension::class)
         ->arg('$renderer', service(HtmlRenderer::class))
+        ->arg('$documentRenderableFactory', service(DocumentRenderableFactory::class))
         ->tag('twig.extension')
     ;
 };

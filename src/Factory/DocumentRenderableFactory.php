@@ -26,4 +26,19 @@ final readonly class DocumentRenderableFactory
 
         return new DocumentRenderable($bodyAware, $documentRenderContext, $nodeRoot);
     }
+
+    public static function createBodyAware(array $data): AnzutapBodyAwareInterface
+    {
+        return new readonly class($data) implements AnzutapBodyAwareInterface {
+            public function __construct(
+                private array $data,
+            ) {
+            }
+
+            public function getBody(): array
+            {
+                return $this->data;
+            }
+        };
+    }
 }
