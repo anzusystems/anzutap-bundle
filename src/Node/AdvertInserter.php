@@ -10,10 +10,6 @@ final class AdvertInserter
     public static function placeAdverts(NodeInterface $node, AdvertPool $advertPool): void
     {
         $content = $node->getContent();
-        if (empty($content)) {
-            return;
-        }
-
         $charactersCount = 0;
         $advertPlacement = $advertPool->getNextAdvertPlacement();
         /** @var array<string, int> $placedAdverts */
@@ -30,7 +26,7 @@ final class AdvertInserter
 
             $charactersCount += mb_strlen($childNode->getNodeText() ?? '');
             if ($advertPlacement->getAfterChars() < $charactersCount) {
-                $placedAdverts[$advertPlacement::class] = $advertPlacement->placeAdvert(
+                $placedAdverts[$advertPlacement->getName()] = $advertPlacement->placeAdvert(
                     root: $node,
                     afterNode: $childNode,
                     lastAdvertPosition: $placedAdverts[$advertPlacement->getName()] ?? 0
@@ -39,6 +35,14 @@ final class AdvertInserter
                 $charactersCount = 0;
                 $advertPlacement = $advertPool->getNextAdvertPlacement();
             }
+        }
+
+        if ($advertPlacement && $advertPlacement->isAllowPlaceAdEnding() && $advertPlacement->isForcePlacement()) {
+            $advertPlacement->placeAdvert(
+                root: $node,
+                afterNode: $lastNode,
+                lastAdvertPosition: $placedAdverts[$advertPlacement->getName()] ?? 0
+            );
         }
     }
 }

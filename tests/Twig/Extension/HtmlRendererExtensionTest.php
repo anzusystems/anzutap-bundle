@@ -63,8 +63,9 @@ class HtmlRendererExtensionTest extends AbstractExtensionTestCase
                 wideForm: in_array($file->getFilenameWithoutExtension(), self::WIDE_FORM_ENABLED_DOCUMENTS, true),
             );
             $files[$file->getFilenameWithoutExtension()][3] = (new AdvertPool([
-                new AdvertPlacement('mega_advert', 500, allowPlaceAdEnding: true),
-                new AdvertPlacement('mini_advert', 600, 3),
+                new AdvertPlacement('mega_advert', 0, allowPlaceAdEnding: true, forcePlacement: true),
+                new AdvertPlacement('mini_advert', 500, 1),
+                new AdvertPlacement('mini_advert', 600, 2),
             ]))
             ;
 

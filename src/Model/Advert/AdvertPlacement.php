@@ -13,6 +13,7 @@ class AdvertPlacement
         protected int $afterChars,
         protected int $repeatCount = 1,
         protected bool $allowPlaceAdEnding = false,
+        protected bool $forcePlacement = false,
     ) {
     }
 
@@ -36,9 +37,14 @@ class AdvertPlacement
         return $this->allowPlaceAdEnding;
     }
 
-    public function placeAdvert(NodeInterface $root, NodeInterface $afterNode, int $lastAdvertPosition): int
+    public function isForcePlacement(): bool
     {
-        $index = AnzutapHelper::getNodeIndex($root, $afterNode);
+        return $this->forcePlacement;
+    }
+
+    public function placeAdvert(NodeInterface $root, ?NodeInterface $afterNode, int $lastAdvertPosition): int
+    {
+        $index = null === $afterNode ? 0 : AnzutapHelper::getNodeIndex($root, $afterNode);
         if (null === $index) {
             return $lastAdvertPosition;
         }
