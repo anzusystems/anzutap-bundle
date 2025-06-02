@@ -12,7 +12,7 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
 
     public function setUp(): void
     {
-        $this->editor = static::getContainer()->get('anzu_systems_common.editor.test');
+//        $this->editor = static::getContainer()->get('anzu_systems_common.editor.test');
     }
 
     /**
