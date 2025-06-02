@@ -47,33 +47,6 @@ final class Configuration implements ConfigurationInterface
     public const string DEFAULT_EDITOR_NAME = 'default_editor_name';
     public const string ANZU_SYSTEMS_ANZUTAP = 'anzu_systems_anzutap';
 
-    private const array DEFAULT_ALLOWED_NODE_TRANSFORMERS = [
-        TextNodeTransformer::class,
-        TableTransformer::class,
-        TableRowTransformer::class,
-        ParagraphNodeTransformer::class,
-        TableCellTransformer::class,
-        OrderedListTransformer::class,
-        BulletListTransformer::class,
-        ListItemTransformer::class,
-        LineBreakTransformer::class,
-        // ImageTransformer::class,
-        HorizontalRuleTransformer::class,
-        HeadingTransformer::class,
-        AnchorTransformer::class,
-        ImageTransformer::class,
-    ];
-
-    private const array DEFAULT_ALLOWED_MARK_TRANSFORMERS = [
-        LinkNodeTransformer::class,
-        MarkNodeTransformer::class,
-    ];
-
-    private const array DEFAULT_SKIP_NODES = [
-        'span',
-        'style',
-    ];
-
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder(self::ANZU_SYSTEMS_ANZUTAP);

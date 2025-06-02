@@ -8,7 +8,7 @@ interface DocumentRenderContextInterface
 {
     public function isContentLockEnabled(): bool;
 
-    public function isLocked(): bool;
+    public function isUnlocked(): bool;
 
     public function isEnabledAds(): bool;
 

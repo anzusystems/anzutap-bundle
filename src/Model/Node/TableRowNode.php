@@ -15,8 +15,4 @@ final class TableRowNode extends Node implements HtmlNodeInterface
     {
         return ['tr'];
     }
-    protected function getMarksAllowList(): array
-    {
-        return [];
-    }
 }

@@ -14,7 +14,7 @@ final class TableNode extends Node implements HtmlNodeInterface
             ->setAttrs($attrs);
     }
 
-    public function addContent(NodeInterface $node): NodeInterface
+    public function addContent(NodeInterface $node): static
     {
         if ($node instanceof ParagraphNode) {
             if (isset($this->attrs[self::CAPTION_ATTR]) && false === empty($this->attrs[self::CAPTION_ATTR])) {
@@ -61,10 +61,5 @@ final class TableNode extends Node implements HtmlNodeInterface
                 'attrs' => [],
             ],
         ];
-    }
-
-    protected function getMarksAllowList(): array
-    {
-        return [];
     }
 }

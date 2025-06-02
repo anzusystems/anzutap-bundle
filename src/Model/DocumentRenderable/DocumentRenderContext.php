@@ -8,7 +8,7 @@ readonly class DocumentRenderContext implements DocumentRenderContextInterface
 {
     public function __construct(
         protected bool $contentLockEnabled = false,
-        protected bool $locked = false,
+        protected bool $unlocked = false,
         protected bool $enabledAds = true,
         protected bool $wideForm = false,
         protected ?string $editorName = null,
@@ -21,9 +21,9 @@ readonly class DocumentRenderContext implements DocumentRenderContextInterface
         return $this->contentLockEnabled;
     }
 
-    public function isLocked(): bool
+    public function isUnlocked(): bool
     {
-        return $this->locked;
+        return $this->unlocked;
     }
 
     public function isEnabledAds(): bool

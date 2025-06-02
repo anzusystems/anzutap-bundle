@@ -14,12 +14,13 @@ class TableCellNode extends Node implements HtmlNodeInterface
             ->setAttrs($attrs);
     }
 
-    public function addContent(NodeInterface $node): NodeInterface
+    public function addContent(NodeInterface $node): static
     {
         if (false === (ParagraphNode::NODE_NAME === $node->getType())) {
             $paragraph = $this->upsertFirstContentParagraph();
+            $paragraph->addContent($node);
 
-            return $paragraph->addContent($node);
+            return $this;
         }
 
         return parent::addContent($node);
@@ -60,10 +61,5 @@ class TableCellNode extends Node implements HtmlNodeInterface
                 'attrs' => $attrs,
             ],
         ];
-    }
-
-    protected function getMarksAllowList(): array
-    {
-        return [];
     }
 }

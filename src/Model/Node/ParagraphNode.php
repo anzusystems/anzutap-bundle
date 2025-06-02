@@ -33,9 +33,4 @@ final class ParagraphNode extends Node implements HtmlNodeInterface
             ],
         ];
     }
-
-    protected function getMarksAllowList(): ?array
-    {
-        return [];
-    }
 }

@@ -20,9 +20,4 @@ final class HorizontalRuleNode extends Node implements HtmlNodeInterface
     {
         return ['hr'];
     }
-
-    protected function getMarksAllowList(): ?array
-    {
-        return [];
-    }
 }

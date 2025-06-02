@@ -20,9 +20,9 @@ final class EmbedExternalImageHtmlRenderer implements HtmlRendererInterface
         ];
     }
 
-    public function render(NodeInterface $node, DocumentRenderableInterface $htmlTransformable): string
+    public function render(NodeInterface $node, DocumentRenderableInterface $documentRenderable): string
     {
-        $embed = $this->getEmbed($htmlTransformable, $node);
+        $embed = $this->getEmbed($documentRenderable, $node);
 
         if (null === $embed) {
             return '';

@@ -13,10 +13,7 @@ use Generator;
 use IteratorAggregate;
 use Traversable;
 
-/**
- * @template-implements IteratorAggregate<int, NodeInterface>
- */
-abstract class AbstractNode implements NodeInterface, IteratorAggregate
+abstract class AbstractNode implements NodeInterface
 {
     protected ?NodeInterface $parent = null;
 
@@ -43,7 +40,7 @@ abstract class AbstractNode implements NodeInterface, IteratorAggregate
         $this->type = static::getNodeType();
     }
 
-    public function setType(string $type): self
+    public function setType(string $type): static
     {
         $this->type = $type;
 
@@ -89,29 +86,9 @@ abstract class AbstractNode implements NodeInterface, IteratorAggregate
         return $this->type;
     }
 
-    public function setMarks(?array $marks = null): self
+    public function setMarks(?array $marks = null): static
     {
         $this->marks = $marks;
-
-        // todo mark allow list
-        //        $marksAllowList = $this->getMarksAllowList();
-        //        if (null === $marks || (is_array($marksAllowList) && AnzutapApp::ZERO === count($marksAllowList))) {
-        //            $this->marks = null;
-        //
-        //            return $this;
-        //        }
-        //
-        //        if (null === $marksAllowList) {
-        //            $this->marks = $marks;
-        //
-        //            return $this;
-        //        }
-        //
-        //        foreach ($marks as $mark) {
-        //            if (in_array($mark['type'] ?? '', $marksAllowList, true)) {
-        //                $this->marks[] = $mark;
-        //            }
-        //        }
 
         return $this;
     }
@@ -121,7 +98,7 @@ abstract class AbstractNode implements NodeInterface, IteratorAggregate
         return true;
     }
 
-    public function addMark(MarkInterface $mark): self
+    public function addMark(MarkInterface $mark): static
     {
         if (null === $this->marks) {
             $this->marks = [];
@@ -132,7 +109,7 @@ abstract class AbstractNode implements NodeInterface, IteratorAggregate
         return $this;
     }
 
-    public function addAttr(string $name, string $value): self
+    public function addAttr(string $name, string $value): static
     {
         if (null === $this->attrs) {
             $this->attrs = [];
@@ -143,7 +120,7 @@ abstract class AbstractNode implements NodeInterface, IteratorAggregate
         return $this;
     }
 
-    public function setContent(array $content): NodeInterface
+    public function setContent(array $content): static
     {
         $this->content = $content;
         foreach ($this->content as $node) {
@@ -153,7 +130,7 @@ abstract class AbstractNode implements NodeInterface, IteratorAggregate
         return $this;
     }
 
-    public function addContent(NodeInterface $node): NodeInterface
+    public function addContent(NodeInterface $node): static
     {
         $this->content[] = $node;
         $node->setParent($this);
@@ -164,7 +141,7 @@ abstract class AbstractNode implements NodeInterface, IteratorAggregate
     /**
      * @param array<int, NodeInterface> $nodes
      */
-    public function addContents(array $nodes): NodeInterface
+    public function addContents(array $nodes): static
     {
         foreach ($nodes as $node) {
             $this->addContent($node);
@@ -221,7 +198,7 @@ abstract class AbstractNode implements NodeInterface, IteratorAggregate
             return null;
         }
 
-        if (array_key_exists($removeNodeKey, $this->content) && $this->content[$removeNodeKey] instanceof NodeInterface) {
+        if (array_key_exists($removeNodeKey, $this->content)) {
             $removed = $this->content[$removeNodeKey];
             unset($this->content[$removeNodeKey]);
             $this->content = array_values($this->content);
@@ -266,11 +243,6 @@ abstract class AbstractNode implements NodeInterface, IteratorAggregate
         foreach ($this->content as $childNode) {
             yield from $childNode->iterateRecursive();
         }
-    }
-
-    protected function getMarksAllowList(): ?array
-    {
-        return null;
     }
 
     /**

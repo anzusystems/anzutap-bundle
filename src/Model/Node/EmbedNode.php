@@ -17,9 +17,4 @@ class EmbedNode extends Node
             ->setType($type)
         ;
     }
-
-    protected function getMarksAllowList(): array
-    {
-        return [];
-    }
 }

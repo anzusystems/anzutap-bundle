@@ -8,10 +8,14 @@ use AnzuSystems\AnzutapBundle\AnzuSystemsAnzutapBundle;
 use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
 use Closure;
 use Generator;
+use IteratorAggregate;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
+/**
+ * @template-extends IteratorAggregate<int, NodeInterface>
+ */
 #[AutoconfigureTag(name: AnzuSystemsAnzutapBundle::TAG_MODEL_NODE)]
-interface NodeInterface
+interface NodeInterface extends IteratorAggregate
 {
     public const string PARAGRAPH = 'paragraph';
     public const string HEADING = 'heading';

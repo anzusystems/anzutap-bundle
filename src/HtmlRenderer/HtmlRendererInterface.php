@@ -11,5 +11,5 @@ interface HtmlRendererInterface
 {
     public static function getSupportedNodeNames(): array;
 
-    public function render(NodeInterface $node, DocumentRenderableInterface $htmlTransformable): string;
+    public function render(NodeInterface $node, DocumentRenderableInterface $documentRenderable): string;
 }

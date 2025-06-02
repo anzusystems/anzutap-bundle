@@ -52,7 +52,7 @@ return static function (ContainerConfigurator $configurator): void {
 
     $services
         ->set(DocumentRenderableFactory::class)
-        ->arg('$serializer', service(DocumentRenderableFactory::class))
+        ->arg('$serializer', service(Serializer::class))
     ;
 
     $services

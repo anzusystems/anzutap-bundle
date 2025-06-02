@@ -15,16 +15,9 @@ class LinkNodeTransformer extends AbstractMarkNodeTransformer
     use AttributesTrait;
     use UrlTrait;
 
-    private const string MARK_LINK = 'link';
     private const string NODE_URL = 'url';
     private const string NODE_EMAIL = 'email';
     private const string NODE_A = 'a';
-
-    private const array LINK_MAP = [
-        self::NODE_URL => self::MARK_LINK,
-        self::NODE_EMAIL => self::MARK_LINK,
-        self::NODE_A => self::MARK_LINK,
-    ];
 
     public static function getSupportedNodeNames(): array
     {

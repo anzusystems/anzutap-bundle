@@ -6,7 +6,7 @@ namespace AnzuSystems\AnzutapBundle\Model\Node;
 
 final class DocumentNode extends Node
 {
-    public function addContent(NodeInterface $node): NodeInterface
+    public function addContent(NodeInterface $node): static
     {
         if (self::HARD_BREAK === $node->getType()) {
             return $this;
@@ -18,8 +18,9 @@ final class DocumentNode extends Node
 
         if (self::TEXT === $node->getType()) {
             $paragraph = $this->upsertFirstContentParagraph();
+            $paragraph->addContent($node);
 
-            return $paragraph->addContent($node);
+            return $this;
         }
 
         if (self::LIST_ITEM === $node->getType()) {

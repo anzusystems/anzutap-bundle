@@ -18,9 +18,4 @@ final class TableHeaderNode extends TableCellNode implements HtmlNodeInterface
     {
         return self::TABLE_HEADER;
     }
-
-    protected function getMarksAllowList(): array
-    {
-        return [];
-    }
 }

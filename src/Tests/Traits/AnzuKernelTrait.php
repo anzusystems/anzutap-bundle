@@ -9,21 +9,6 @@ use AnzuSystems\AnzutapBundle\Kernel\AnzutapKernel;
 trait AnzuKernelTrait
 {
     /**
-     * @noinspection PhpUnhandledExceptionInspection
-     * @noinspection PhpDocMissingThrowsInspection
-     *
-     * @template T
-     *
-     * @param class-string<T>|string $service
-     *
-     * @return T|object
-     */
-    public function getService(string $service): object
-    {
-        return self::getContainer()->get($service);
-    }
-
-    /**
      * @psalm-suppress UnsafeInstantiation
      */
     protected static function createKernel(array $options = []): AnzutapKernel

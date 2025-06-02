@@ -14,15 +14,12 @@ final class TextNode extends AbstractNode
 
     public function __clone()
     {
-        return (new self())
-            ->setText($this->text)
-            ->setMarks(array_map(
-                static fn (MarkInterface $mark) => clone $mark,
-                $this->marks ?? []
-            ))
-            ->setParent(null)
-            ->setContent([])
-        ;
+        $this->marks = array_map(
+            static fn (MarkInterface $mark) => clone $mark,
+            $this->marks ?? []
+        );
+        $this->parent = null;
+        $this->content = [];
     }
 
     public static function getInstance(
