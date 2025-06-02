@@ -12,7 +12,7 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
 
     public function setUp(): void
     {
-//        $this->editor = static::getContainer()->get('anzu_systems_common.editor.test');
+        $this->editor = static::getContainer()->get('anzu_systems_anzutap.editor.test');
     }
 
     /**
@@ -20,11 +20,8 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
      */
     public function testTransformer(string $html, array $anzuTap): void
     {
-//        $html = file_get_contents(AppTest::getProjectDir() . '/tests/data/content/document_all_origin.html');
-//        $body = $this->editor->transform($html);
-//        $this->assertEqualsCanonicalizing($anzuTap, $body->getAnzutapBody()->toArray());
-
-        $this->assertTrue(true);
+        $body = $this->editor->transform($html);
+        $this->assertEqualsCanonicalizing($anzuTap, $body->getAnzutapBody()->toArray());
     }
 
     public function transformerDataProvider(): array
@@ -32,13 +29,13 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
         return [
             [
                 'html' => '<p><url href="#1">Anchor link</url><anchor name="1"></anchor></p>',
-                'anzuTap' => ['type' => 'doc', 'content' => [
+                'anzuTap' => ['type' => 'doc', 'renderer' => [
                     [
                         'type' => 'paragraph',
                         'attrs' => [
                             'anchor' => 'pp-1'
                         ],
-                        'content' => [
+                        'renderer' => [
                             ['type' => 'text', 'marks' => [
                                 ['type' => 'link', 'attrs' => [
                                     'variant' => 'anchor',
