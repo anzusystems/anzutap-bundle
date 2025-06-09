@@ -16,6 +16,7 @@ final class Link extends AbstractMark
 
     public const string ATTRIBUTE_EXTERNAL = 'external';
     public const string ATTRIBUTE_NOFOLLOW = 'nofollow';
+    public const string ATTRIBUTE_SPONSORED = 'sponsored';
     public const string ATTRIBUTE_VARIANT = 'variant';
     public const string ATTRIBUTE_HREF = 'href';
 
@@ -56,8 +57,8 @@ final class Link extends AbstractMark
             $attrs['target'] = '_blank';
         }
         $rel = array_filter([
-            ($markAttrs['sponsored'] ?? false) ? 'sponsored' : null,
-            ($markAttrs['nofollow'] ?? false) ? 'nofollow' : null,
+            ($markAttrs[self::ATTRIBUTE_SPONSORED] ?? false) ? self::ATTRIBUTE_SPONSORED : null,
+            ($markAttrs[self::ATTRIBUTE_NOFOLLOW] ?? false) ? self::ATTRIBUTE_NOFOLLOW : null,
         ]);
         if ($rel) {
             $attrs['rel'] = implode(',', $rel);
