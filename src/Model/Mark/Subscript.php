@@ -8,7 +8,7 @@ final class Subscript extends AbstractMark
 {
     public static function getMarkType(): string
     {
-        return 'subscript';
+        return self::SUBSCRIPT;
     }
 
     public function tag(): array

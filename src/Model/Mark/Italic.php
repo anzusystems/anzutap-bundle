@@ -8,7 +8,7 @@ final class Italic extends AbstractMark
 {
     public static function getMarkType(): string
     {
-        return 'italic';
+        return self::ITALIC;
     }
 
     public function tag(): array

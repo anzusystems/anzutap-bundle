@@ -8,7 +8,7 @@ final class Bold extends AbstractMark
 {
     public static function getMarkType(): string
     {
-        return 'bold';
+        return self::BOLD;
     }
 
     public function tag(): array

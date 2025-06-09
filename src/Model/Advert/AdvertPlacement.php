@@ -54,8 +54,7 @@ class AdvertPlacement
 
     protected function insertAdvertNodeToIndex(NodeInterface $root, int $index, int $advertPosition): int
     {
-        AnzutapHelper::insertNodesToIndex(
-            root: $root,
+        $root->insertNodesToIndex(
             nodes: [(new AdvertNode())->setAttrs([
                 'position' => $this->getName() . '_' . $advertPosition,
             ])],
