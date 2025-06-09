@@ -44,8 +44,12 @@ final class Link extends AbstractMark
         if ($markAttrs['external'] ?? false) {
             $attrs['target'] = '_blank';
         }
-        if ($markAttrs['nofollow'] ?? false) {
-            $attrs['rel'] = 'nofollow';
+        $rel = array_filter([
+            ($markAttrs['sponsored'] ?? false) ? 'sponsored' : null,
+            ($markAttrs['nofollow'] ?? false) ? 'nofollow' : null,
+        ]);
+        if ($rel) {
+            $attrs['rel'] = implode(',', $rel);
         }
         if ($markAttrs['itext'] ?? false) {
             $attrs['data-itext'] = 1;
