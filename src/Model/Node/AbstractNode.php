@@ -40,6 +40,11 @@ abstract class AbstractNode implements NodeInterface
         $this->type = static::getNodeType();
     }
 
+    public function isNodeType(string $type): bool
+    {
+        return $this->type === $type;
+    }
+
     public function setType(string $type): static
     {
         $this->type = $type;
@@ -175,7 +180,20 @@ abstract class AbstractNode implements NodeInterface
         return implode(' ', $text);
     }
 
-    public function removeNodeByKey(int $key): ?NodeInterface
+    public function removeMark(MarkInterface $mark): static
+    {
+        $removeMarkKey = $this->findMark(
+            fn (MarkInterface $currentMark) => $currentMark->getMarkType() === $mark->getMarkType()
+        );
+        if (is_int($removeMarkKey)) {
+            unset($this->marks[$removeMarkKey]);
+            $this->marks = array_values($this->marks);
+        }
+
+        return $this;
+    }
+
+    public function removeNodeByIndex(int $key): ?NodeInterface
     {
         if (array_key_exists($key, $this->content)) {
             $removed = $this->content[$key];
@@ -193,7 +211,7 @@ abstract class AbstractNode implements NodeInterface
      */
     public function removeNode(Closure $removeFn): ?NodeInterface
     {
-        $removeNodeKey = $this->findNode($removeFn);
+        $removeNodeKey = $this->findNodeIndex($removeFn);
         if (null === $removeNodeKey) {
             return null;
         }
@@ -212,10 +230,29 @@ abstract class AbstractNode implements NodeInterface
     /**
      * @param Closure(NodeInterface $filterFn, mixed $key): bool $filterFn
      */
-    public function findNode(Closure $filterFn): int|null
+    public function findNodeIndex(Closure $filterFn): int|null
     {
         $key = null;
         foreach ($this->content as $currentKey => $value) {
+            if ($filterFn($value, $currentKey)) {
+                $key = $currentKey;
+                break;
+            }
+        }
+        if (is_int($key)) {
+            return $key;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param Closure(MarkInterface $filterFn, mixed $key): bool $filterFn
+     */
+    public function findMark(Closure $filterFn): int|null
+    {
+        $key = null;
+        foreach ($this->marks ?? [] as $currentKey => $value) {
             if ($filterFn($value, $currentKey)) {
                 $key = $currentKey;
                 break;
@@ -243,6 +280,21 @@ abstract class AbstractNode implements NodeInterface
         foreach ($this->content as $childNode) {
             yield from $childNode->iterateRecursive();
         }
+    }
+
+    /**
+     * @param array<int, NodeInterface> $nodes
+     */
+    public function insertNodesToIndex(array $nodes, int $index): NodeInterface
+    {
+        $content = $this->getContent();
+        $index = max(0, min($index, count($content)));
+
+        return $this->setContent([
+            ...array_slice($content, 0, $index),
+            ...$nodes,
+            ...array_slice($content, $index),
+        ]);
     }
 
     /**

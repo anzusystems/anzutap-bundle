@@ -4,23 +4,35 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Model\Mark;
 
-use AnzuSystems\SerializerBundle\Attributes\Serialize;
+use AnzuSystems\AnzutapBundle\AnzutapApp;
 
 final class Link extends AbstractMark
 {
-    #[Serialize]
-    protected array $attrs = [];
+    use MarkAttributesTrait;
 
-    public function getAttrs(): array
+    public const string VARIANT_LINK = 'link';
+    public const string VARIANT_EMAIL = 'email';
+    public const string VARIANT_ANCHOR = 'anchor';
+
+    public const string ATTRIBUTE_EXTERNAL = 'external';
+    public const string ATTRIBUTE_NOFOLLOW = 'nofollow';
+    public const string ATTRIBUTE_SPONSORED = 'sponsored';
+    public const string ATTRIBUTE_VARIANT = 'variant';
+    public const string ATTRIBUTE_HREF = 'href';
+
+    public function getHref(): string
     {
-        return $this->attrs;
+        return $this->attrs[self::ATTRIBUTE_HREF] ?? AnzutapApp::EMPTY_STRING;
     }
 
-    public function setAttrs(array $attrs): self
+    public function getVariant(): string
     {
-        $this->attrs = $attrs;
+        return $this->attrs[self::ATTRIBUTE_VARIANT] ?? AnzutapApp::EMPTY_STRING;
+    }
 
-        return $this;
+    public function isVariant(string $variant): bool
+    {
+        return $this->getVariant() === $variant;
     }
 
     public function toArray(): array
@@ -33,7 +45,7 @@ final class Link extends AbstractMark
 
     public static function getMarkType(): string
     {
-        return 'link';
+        return self::LINK;
     }
 
     public function tag(): array
@@ -41,12 +53,12 @@ final class Link extends AbstractMark
         $markAttrs = $this->getAttrs();
 
         $attrs = [];
-        if ($markAttrs['external'] ?? false) {
+        if ($markAttrs[self::ATTRIBUTE_EXTERNAL] ?? false) {
             $attrs['target'] = '_blank';
         }
         $rel = array_filter([
-            ($markAttrs['sponsored'] ?? false) ? 'sponsored' : null,
-            ($markAttrs['nofollow'] ?? false) ? 'nofollow' : null,
+            ($markAttrs[self::ATTRIBUTE_SPONSORED] ?? false) ? self::ATTRIBUTE_SPONSORED : null,
+            ($markAttrs[self::ATTRIBUTE_NOFOLLOW] ?? false) ? self::ATTRIBUTE_NOFOLLOW : null,
         ]);
         if ($rel) {
             $attrs['rel'] = implode(',', $rel);
@@ -56,14 +68,14 @@ final class Link extends AbstractMark
         }
         $attrs['class'] = 'link--underline';
 
-        if (empty($markAttrs['href'])) {
+        if (empty($markAttrs[self::ATTRIBUTE_HREF])) {
             return [];
         }
 
-        $attrs['href'] = match ($markAttrs['variant'] ?? null) {
-            'email' => "mailto:{$markAttrs['href']}",
-            'anchor' => "#{$markAttrs['href']}",
-            default => $markAttrs['href'],
+        $attrs[self::ATTRIBUTE_HREF] = match ($markAttrs[self::ATTRIBUTE_VARIANT] ?? null) {
+            self::VARIANT_EMAIL => "mailto:{$markAttrs[self::ATTRIBUTE_HREF]}",
+            self::VARIANT_ANCHOR => "#{$markAttrs[self::ATTRIBUTE_HREF]}",
+            default => $markAttrs[self::ATTRIBUTE_HREF],
         };
 
         return [

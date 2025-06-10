@@ -8,7 +8,7 @@ final class Underline extends AbstractMark
 {
     public static function getMarkType(): string
     {
-        return 'underline';
+        return self::UNDERLINE;
     }
 
     public function tag(): array

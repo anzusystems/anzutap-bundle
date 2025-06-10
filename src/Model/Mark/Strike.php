@@ -8,7 +8,7 @@ final class Strike extends AbstractMark
 {
     public static function getMarkType(): string
     {
-        return 'strike';
+        return self::STRIKE;
     }
 
     public function tag(): array

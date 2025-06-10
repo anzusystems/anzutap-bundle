@@ -8,7 +8,7 @@ final class Code extends AbstractMark
 {
     public static function getMarkType(): string
     {
-        return 'code';
+        return self::CODE;
     }
 
     public function tag(): array

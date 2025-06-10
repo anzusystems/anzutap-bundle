@@ -74,6 +74,13 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
         $editors = $this->processedConfig[Configuration::EDITORS] ?? [];
 
         if (empty($editors)) {
+            $container->setDefinition(
+                EditorProvider::class,
+                (new Definition(EditorProvider::class))
+                    ->setArgument('$editorLocator', new ServiceLocatorArgument([]))
+                    ->setArgument('$defaultEditorName', '')
+            );
+
             return;
         }
 

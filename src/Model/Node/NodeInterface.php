@@ -26,6 +26,8 @@ interface NodeInterface extends IteratorAggregate
     public const string BULLET_LIST = 'bulletList';
     public const string ADVERT = 'ad';
     public const string QUOTE = 'quote';
+    public const string QUOTE_AUTHOR = 'quoteAuthor';
+    public const string QUOTE_CONTENT = 'quoteContent';
     public const string ORDERED_LIST = 'orderedList';
     public const string TABLE_CELL = 'tableCell';
     public const string TABLE_HEADER = 'tableHeader';
@@ -38,6 +40,8 @@ interface NodeInterface extends IteratorAggregate
     public const string STYLED_BOX_CONTENT = 'styledBoxContent';
     public const string CONTENT_LOCK = 'contentLock';
     public const string BUTTON = 'button';
+
+    public function isNodeType(string $type): bool;
 
     public static function getNodeType(): string;
 
@@ -69,9 +73,21 @@ interface NodeInterface extends IteratorAggregate
      */
     public function removeNode(Closure $removeFn): ?self;
 
-    public function removeNodeByKey(int $key): ?self;
+    /**
+     * @param Closure(NodeInterface $filterFn, mixed $key): bool $filterFn
+     */
+    public function findNodeIndex(Closure $filterFn): int|null;
+
+    public function removeNodeByIndex(int $key): ?self;
+
+    public function removeMark(MarkInterface $mark): static;
 
     public function setMarks(?array $marks = null): self;
+
+    /**
+     * @param array<int, NodeInterface> $nodes
+     */
+    public function insertNodesToIndex(array $nodes, int $index): self;
 
     /**
      * @return array<int, MarkInterface>|null

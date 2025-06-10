@@ -54,8 +54,7 @@ final class Configuration implements ConfigurationInterface
         $treeBuilder->getRootNode()
             ->children()
                 ->append($this->addEditorSection())
-                ->scalarNode('default_editor_name')
-                    ->isRequired()
+                ->scalarNode(self::DEFAULT_EDITOR_NAME)
                 ->end()
             ->end()
         ;

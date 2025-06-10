@@ -8,7 +8,7 @@ final class Highlight extends AbstractMark
 {
     public static function getMarkType(): string
     {
-        return 'highlight';
+        return self::HIGHLIGHT;
     }
 
     public function tag(): array

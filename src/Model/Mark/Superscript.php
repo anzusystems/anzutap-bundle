@@ -8,7 +8,7 @@ final class Superscript extends AbstractMark
 {
     public static function getMarkType(): string
     {
-        return 'superscript';
+        return self::SUPERSCRIPT;
     }
 
     public function tag(): array
