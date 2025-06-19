@@ -8,6 +8,11 @@ final class TableNode extends Node implements HtmlNodeInterface
 {
     public const string CAPTION_ATTR = 'caption';
 
+    public static function getAllowedNodes(): array
+    {
+        return [self::TABLE_ROW];
+    }
+
     public static function getInstance(?array $attrs = null): self
     {
         return (new self())

@@ -6,6 +6,11 @@ namespace AnzuSystems\AnzutapBundle\Model\Node;
 
 class OrderedListNode extends Node implements HtmlNodeInterface
 {
+    public static function getAllowedNodes(): array
+    {
+        return [self::LIST_ITEM];
+    }
+
     public static function getNodeType(): string
     {
         return self::ORDERED_LIST;

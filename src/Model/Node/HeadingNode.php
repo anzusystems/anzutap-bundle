@@ -19,6 +19,11 @@ class HeadingNode extends Node implements HtmlNodeInterface
         return self::HEADING;
     }
 
+    public static function getAllowedNodes(): array
+    {
+        return [self::TEXT];
+    }
+
     public function tag(): array
     {
         $level = $this->getAttrs()['level'] ?? 2;

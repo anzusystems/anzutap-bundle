@@ -100,9 +100,9 @@ interface NodeInterface extends IteratorAggregate
 
     public function iterateRecursive(): Generator;
 
-    // todo deprecated
     public function toArray(): array;
 
-    // todo deprecated
     public function isValid(): bool;
+
+    public static function getAllowedNodes(): ?array;
 }

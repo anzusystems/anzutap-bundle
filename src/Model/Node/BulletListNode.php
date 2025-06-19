@@ -11,6 +11,11 @@ class BulletListNode extends Node implements HtmlNodeInterface
         return false === empty($this->content);
     }
 
+    public static function getAllowedNodes(): array
+    {
+        return [self::LIST_ITEM];
+    }
+
     public static function getNodeType(): string
     {
         return self::BULLET_LIST;
