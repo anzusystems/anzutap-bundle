@@ -28,6 +28,93 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
     {
         return [
             [
+                'html' => '<h2><h2>what <i>is</i> that</h2></h2>',
+                'anzuTap' => [
+                    'type' => 'doc',
+                    'content' => [
+                        [
+                            'type' => 'heading',
+                            'attrs' => [
+                                'level' => 3,
+                            ],
+                            'content' => [
+                                [
+                                    'type' => 'text',
+                                    'text' => 'what '
+                                ],
+                                [
+                                    'type' => 'text',
+                                    'text' => 'is',
+                                    'marks' => [
+                                        ['type' => 'italic'],
+                                    ],
+                                ],
+                                [
+                                    'type' => 'text',
+                                    'text' => ' that'
+                                ],
+                            ],
+                        ]
+                    ]
+                ]
+            ],
+            [
+                'html' => '<ul><li>coze</li><li><hr></li></ul>',
+                'anzuTap' => [
+                    'type' => 'doc',
+                    'content' => [
+                        [
+                        'type' => 'bulletList',
+                        'content' => [
+                            [
+                                'type' => 'listItem',
+                                'content' => [
+                                    [
+                                        'type' => 'paragraph',
+                                        'content' => [
+                                            [
+                                                'type' => 'text',
+                                                'text' => 'coze'
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ],
+                            [
+                                'type' => 'listItem',
+                                'content' => [
+                                    [
+                                        'type' => 'paragraph',
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ],
+                        [
+                            'type' => 'horizontalRule',
+                        ]
+                    ]
+                ]
+            ],
+            [
+                'html' => '<b><p>Joseph</p></b>',
+                'anzuTap' => [
+                    'type' => 'doc',
+                    [
+                        'type' => 'paragraph',
+                        'content' => [
+                            [
+                                'type' => 'text',
+                                'text' => 'Joseph',
+                                'marks' => [
+                                    ['type' => 'bold'],
+                                ],
+                            ],
+                        ],
+                    ]
+                ]
+            ],
+            [
                 'html' => '<p><url href="#1">Anchor link</url><anchor name="1"></anchor></p>',
                 'anzuTap' => ['type' => 'doc', 'content' => [
                     [

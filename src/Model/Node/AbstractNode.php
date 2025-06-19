@@ -98,6 +98,11 @@ abstract class AbstractNode implements NodeInterface
         return $this;
     }
 
+    public static function getAllowedNodes(): ?array
+    {
+        return null;
+    }
+
     public function isValid(): bool
     {
         return true;

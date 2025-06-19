@@ -8,6 +8,11 @@ class TableCellNode extends Node implements HtmlNodeInterface
 {
     protected array $tagName = ['td'];
 
+    public static function getAllowedNodes(): array
+    {
+        return [self::PARAGRAPH];
+    }
+
     public static function getInstance(?array $attrs = null): self
     {
         return (new self())

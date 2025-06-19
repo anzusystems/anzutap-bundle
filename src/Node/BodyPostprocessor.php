@@ -3,6 +3,7 @@
 namespace AnzuSystems\AnzutapBundle\Node;
 
 use AnzuSystems\AnzutapBundle\Model\Node\DocumentNode;
+use AnzuSystems\AnzutapBundle\Model\Node\HeadingNode;
 use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\ParagraphNode;
 use AnzuSystems\AnzutapBundle\Model\Node\TextNode;
@@ -39,16 +40,67 @@ class BodyPostprocessor
     {
         $this->shakeNodes($body, self::NODES_TO_SHAKE);
         $this->fixParagraphs($body);
+        $this->fixHeadings($body);
+        $this->removeInvalidContentNodes($body);
         $this->removeInvalidNodes($body);
     }
 
-
     protected function removeInvalidNodes(DocumentNode $body): void
     {
-        $body->setContent(array_filter(
-            $body->getContent(),
-            static fn (NodeInterface $node): bool => $node->isValid()
-        ));
+        foreach ($body as $node) {
+            $node->setContent(array_filter(
+                $node->getContent(),
+                static fn (NodeInterface $node): bool => $node->isValid()
+            ));
+        }
+    }
+
+    protected function removeInvalidContentNodes(DocumentNode $body): void
+    {
+        foreach ($body as $node) {
+            $allowedNodes = $node::getAllowedNodes();
+            if (null === $allowedNodes) {
+                continue;
+            }
+
+            $node->setContent(array_filter(
+                $node->getContent(),
+                static fn (NodeInterface $child): bool => in_array($child->getType(), $allowedNodes, true)
+            ));
+        }
+    }
+
+    protected function fixHeadings(NodeInterface $body): void
+    {
+        if (empty(HeadingNode::getAllowedNodes())) {
+            return;
+        }
+
+        foreach ($body as $node) {
+            if (false === $node->isNodeType(NodeInterface::HEADING)) {
+                continue;
+            }
+
+            $notAllowedNodes = array_find(
+                $node->getContent(),
+                static fn (NodeInterface $child): bool => false === in_array($child->getType(), $node::getAllowedNodes(), true)
+            );
+
+            if (empty($notAllowedNodes)) {
+                continue;
+            }
+
+            $innerTextNodes = [];
+            foreach ($node as $child) {
+                if (false === $child->isNodeType(NodeInterface::TEXT)) {
+                    continue;
+                }
+
+                $innerTextNodes[] = $child;
+            }
+
+            $node->setContent($innerTextNodes);
+        }
     }
 
     protected function fixParagraphs(NodeInterface $body): void
