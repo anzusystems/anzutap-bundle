@@ -100,14 +100,13 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
                 'html' => '<b><p>Joseph</p></b>',
                 'anzuTap' => [
                     'type' => 'doc',
-                    [
-                        'type' => 'paragraph',
-                        'content' => [
-                            [
-                                'type' => 'text',
-                                'text' => 'Joseph',
-                                'marks' => [
-                                    ['type' => 'bold'],
+                    'content' => [
+                        [
+                            'type' => 'paragraph',
+                            'content' => [
+                                [
+                                    'type' => 'text',
+                                    'text' => 'Joseph'
                                 ],
                             ],
                         ],
