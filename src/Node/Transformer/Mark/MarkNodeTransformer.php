@@ -41,7 +41,7 @@ class MarkNodeTransformer extends AbstractMarkNodeTransformer
             self::NODE_SUPERSCRIPT,
             self::NODE_ABBR,
             self::NODE_EMPHASE,
-            self::NODE_CODE,
+            //            self::NODE_CODE, // we do not support Code at this moment
             self::NODE_MARK,
         ];
     }

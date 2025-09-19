@@ -2,6 +2,8 @@
 
 namespace AnzuSystems\AnzutapBundle\Node;
 
+use AnzuSystems\AnzutapBundle\Model\Mark\Link;
+use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\DocumentNode;
 use AnzuSystems\AnzutapBundle\Model\Node\HeadingNode;
 use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
@@ -15,6 +17,12 @@ class BodyPostprocessor
         NodeInterface::HARD_BREAK,
         'embedExternalImageInline',
         'embedImageInline',
+    ];
+
+    public const array ANCHOR_TARGET_NODES = [
+        NodeInterface::PARAGRAPH,
+        NodeInterface::HEADING,
+        NodeInterface::LIST_ITEM,
     ];
 
     // todo: make this configurable in new article-bundle
@@ -43,6 +51,39 @@ class BodyPostprocessor
         $this->fixHeadings($body);
         $this->removeInvalidContentNodes($body);
         $this->removeInvalidNodes($body);
+        $this->clearTextNodes($body);
+        $this->removeAnchorDuplicates($body);
+    }
+
+    protected function removeAnchorDuplicates(DocumentNode $body): void
+    {
+        /** @var array<string, NodeInterface> $usedTargetAnchors */
+        $usedTargetAnchors = [];
+        /** @var array<string, MarkInterface> $usedTargetAnchors */
+        $usedMarks = [];
+
+        foreach ($body as $node) {
+            if ($node instanceof TextNode) {
+                $usedMarks = $this->removeMarkAnchorDuplicates($node, $usedMarks);
+            }
+
+            if ($node->isInNodeTypes(self::ANCHOR_TARGET_NODES)) {
+                $usedTargetAnchors = $this->removeNodeAnchorDuplicates($node, $usedTargetAnchors);
+            }
+        }
+    }
+
+    protected function clearTextNodes(DocumentNode $body): void
+    {
+        foreach ($body as $node) {
+            if (false === $node->isNodeType(NodeInterface::TEXT)) {
+                continue;
+            }
+
+            if ($node->getParent()?->isInNodeTypes([NodeInterface::BUTTON])) {
+                $node->setMarks(null);
+            }
+        }
     }
 
     protected function removeInvalidNodes(DocumentNode $body): void
@@ -236,5 +277,52 @@ class BodyPostprocessor
         $rootNode->setContent($nodesToKeep);
 
         return $nodesToShake;
+    }
+
+    /**
+     * @param array<string, MarkInterface> $usedMarks
+     *
+     * @return array<string, MarkInterface>
+     */
+    private function removeMarkAnchorDuplicates(TextNode $textNode, array $usedMarks): array
+    {
+        $linkMarkKey = $textNode->getMarkKey(MarkInterface::LINK);
+        $anchorMark = $linkMarkKey ? ($textNode->getMarks() ?? [])[$linkMarkKey] : null;
+        if ($anchorMark instanceof Link && $anchorMark->isVariant(Link::VARIANT_ANCHOR)) {
+            $anchorHref = $anchorMark->getHref();
+
+            if (isset($usedMarks[$anchorHref])) {
+                $textNode->removeMark($anchorMark);
+
+                return $usedMarks;
+            }
+
+            $usedMarks[$anchorHref] = $textNode;
+        }
+
+        return $usedMarks;
+    }
+
+    /**
+     * @param array<string, NodeInterface> $usedTargetAnchors
+     *
+     * @return array<string, NodeInterface>
+     */
+    private function removeNodeAnchorDuplicates(NodeInterface $node, array $usedTargetAnchors): array
+    {
+        if (false === $node->hasAttr(Link::VARIANT_ANCHOR)) {
+            return $usedTargetAnchors;
+        }
+
+        $anchor = (string) $node->getAttr('anchor');
+        if (isset($usedTargetAnchors[$anchor])) {
+            $node->removeAttr(Link::VARIANT_ANCHOR);
+
+            return $usedTargetAnchors;
+        }
+
+        $usedTargetAnchors[$anchor] = $node;
+
+        return $usedTargetAnchors;
     }
 }
