@@ -14,9 +14,9 @@ return static function (ContainerConfigurator $configurator): void {
     $services = $configurator->services();
     $services
         ->defaults()
-            ->autowire()
-            ->autoconfigure()
-            ->public()
+        ->autowire()
+        ->autoconfigure()
+        ->public()
     ;
 
     $services->set('TestRedis', Redis::class)

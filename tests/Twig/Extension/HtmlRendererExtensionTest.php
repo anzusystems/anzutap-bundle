@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AnzuSystems\AnzutapBundle\Tests\Twig\Extension;
 
 use AnzuSystems\AnzutapBundle\Factory\DocumentRenderableFactory;
@@ -30,8 +32,7 @@ class HtmlRendererExtensionTest extends AbstractExtensionTestCase
         string $exceptedHtml,
         DocumentRenderContext $context,
         AdvertPool $advertPool,
-    ): void
-    {
+    ): void {
         $template = $this->twig->createTemplate('{{ document|render_html_document(advertPool) }}');
 
         $rendered = $template->render([

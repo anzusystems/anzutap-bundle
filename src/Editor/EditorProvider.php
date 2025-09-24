@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AnzuSystems\AnzutapBundle\Editor;
 
 use AnzuSystems\AnzutapBundle\Exception\EditorException;

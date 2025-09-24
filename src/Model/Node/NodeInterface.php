@@ -43,6 +43,11 @@ interface NodeInterface extends IteratorAggregate
 
     public function isNodeType(string $type): bool;
 
+    /**
+     * @param string[] $types
+     */
+    public function isInNodeTypes(array $types): bool;
+
     public static function getNodeType(): string;
 
     public function getType(): string;
@@ -61,6 +66,10 @@ interface NodeInterface extends IteratorAggregate
     public function getAttrs(): ?array;
 
     public function getAttr(string $key): mixed;
+
+    public function hasAttr(string $key): bool;
+
+    public function removeAttr(string $key): void;
 
     public function setAttrs(?array $attrs = null): self;
 
@@ -93,6 +102,8 @@ interface NodeInterface extends IteratorAggregate
      * @return array<int, MarkInterface>|null
      */
     public function getMarks(): ?array;
+
+    public function getMarkKey(string $mark): ?int;
 
     public function addAttr(string $name, string $value): self;
 

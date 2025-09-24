@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AnzuSystems\AnzutapBundle\Model\Embed;
 
 use AnzuSystems\Contracts\Entity\Traits\IdentityUuidTrait;

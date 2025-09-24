@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AnzuSystems\AnzutapBundle\Model\Mark;
 
 use AnzuSystems\SerializerBundle\Attributes\Serialize;

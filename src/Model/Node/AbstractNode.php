@@ -10,7 +10,6 @@ use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\NodeHandler;
 use AnzuSystems\SerializerBundle\Attributes\Serialize;
 use Closure;
 use Generator;
-use IteratorAggregate;
 use Traversable;
 
 abstract class AbstractNode implements NodeInterface
@@ -45,6 +44,11 @@ abstract class AbstractNode implements NodeInterface
         return $this->type === $type;
     }
 
+    public function isInNodeTypes(array $types): bool
+    {
+        return in_array($this->type, $types, true);
+    }
+
     public function setType(string $type): static
     {
         $this->type = $type;
@@ -67,6 +71,23 @@ abstract class AbstractNode implements NodeInterface
     public function getAttr(string $key): mixed
     {
         return $this->attrs[$key] ?? null;
+    }
+
+    public function hasAttr(string $key): bool
+    {
+        if (null === $this->attrs) {
+            return false;
+        }
+
+        return array_key_exists($key, $this->attrs);
+    }
+
+    public function removeAttr(string $key): void
+    {
+        unset($this->attrs[$key]);
+        if (empty($this->attrs)) {
+            $this->attrs = null;
+        }
     }
 
     public function getParent(): ?NodeInterface
@@ -185,6 +206,13 @@ abstract class AbstractNode implements NodeInterface
         return implode(' ', $text);
     }
 
+    public function getMarkKey(string $mark): ?int
+    {
+        return $this->findMark(
+            fn (MarkInterface $currentMark) => $currentMark->getMarkType() === $mark
+        );
+    }
+
     public function removeMark(MarkInterface $mark): static
     {
         $removeMarkKey = $this->findMark(
@@ -241,6 +269,7 @@ abstract class AbstractNode implements NodeInterface
         foreach ($this->content as $currentKey => $value) {
             if ($filterFn($value, $currentKey)) {
                 $key = $currentKey;
+
                 break;
             }
         }
@@ -260,6 +289,7 @@ abstract class AbstractNode implements NodeInterface
         foreach ($this->marks ?? [] as $currentKey => $value) {
             if ($filterFn($value, $currentKey)) {
                 $key = $currentKey;
+
                 break;
             }
         }

@@ -12,7 +12,6 @@ use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\DocumentNode;
 use AnzuSystems\AnzutapBundle\Model\Node\EmbedNode;
 use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
-use AnzuSystems\AnzutapBundle\Model\Node\TextNode;
 use AnzuSystems\AnzutapBundle\Node\BodyPostprocessor;
 use AnzuSystems\AnzutapBundle\Node\BodyPreprocessor;
 use AnzuSystems\AnzutapBundle\Node\Transformer\Mark\AnzuMarkTransformerInterface;

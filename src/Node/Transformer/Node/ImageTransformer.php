@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AnzuSystems\AnzutapBundle\Node\Transformer\Node;
 
 use AnzuSystems\AnzutapBundle\Model\Embed\EmbedExternalImage;
