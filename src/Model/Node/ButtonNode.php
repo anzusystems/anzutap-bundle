@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Model\Node;
 
-use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
-use AnzuSystems\SerializerBundle\Attributes\Serialize;
-
 final class ButtonNode extends Node implements HtmlNodeInterface
 {
     public static function getNodeType(): string

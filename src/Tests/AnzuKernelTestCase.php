@@ -6,7 +6,6 @@ namespace AnzuSystems\AnzutapBundle\Tests;
 
 use AnzuSystems\AnzutapBundle\Tests\Traits\AnzuKernelTrait;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Twig\Environment;
 
 class AnzuKernelTestCase extends KernelTestCase
 {

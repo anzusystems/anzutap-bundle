@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AnzuSystems\AnzutapBundle\HtmlRenderer;
 
 use AnzuSystems\AnzutapBundle\Model\DocumentRenderable\DocumentRenderableInterface;

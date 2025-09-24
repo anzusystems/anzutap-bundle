@@ -10,7 +10,6 @@ use AnzuSystems\AnzutapBundle\Serializer\Handler\Handlers\NodeHandler;
 use AnzuSystems\SerializerBundle\Attributes\Serialize;
 use Closure;
 use Generator;
-use IteratorAggregate;
 use Traversable;
 
 abstract class AbstractNode implements NodeInterface
@@ -79,6 +78,7 @@ abstract class AbstractNode implements NodeInterface
         if (null === $this->attrs) {
             return false;
         }
+
         return array_key_exists($key, $this->attrs);
     }
 
@@ -269,6 +269,7 @@ abstract class AbstractNode implements NodeInterface
         foreach ($this->content as $currentKey => $value) {
             if ($filterFn($value, $currentKey)) {
                 $key = $currentKey;
+
                 break;
             }
         }
@@ -288,6 +289,7 @@ abstract class AbstractNode implements NodeInterface
         foreach ($this->marks ?? [] as $currentKey => $value) {
             if ($filterFn($value, $currentKey)) {
                 $key = $currentKey;
+
                 break;
             }
         }

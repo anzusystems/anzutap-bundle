@@ -1,16 +1,17 @@
 <?php
 
-namespace AnzuSystems\AnzutapBundle\Tests\Anzutap;
+declare(strict_types=1);
 
+namespace AnzuSystems\AnzutapBundle\Tests\Anzutap;
 
 use AnzuSystems\AnzutapBundle\Editor\AnzutapEditor;
 use AnzuSystems\AnzutapBundle\Tests\AnzuKernelTestCase;
 
 final class AnzutapTransformerTest extends AnzuKernelTestCase
 {
-    private AnzuTapEditor $editor;
+    private AnzutapEditor $editor;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->editor = static::getContainer()->get('anzu_systems_anzutap.editor.test');
     }
@@ -40,7 +41,7 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
                             'content' => [
                                 [
                                     'type' => 'text',
-                                    'text' => 'what '
+                                    'text' => 'what ',
                                 ],
                                 [
                                     'type' => 'text',
@@ -51,12 +52,12 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
                                 ],
                                 [
                                     'type' => 'text',
-                                    'text' => ' that'
+                                    'text' => ' that',
                                 ],
                             ],
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ],
             [
                 'html' => '<ul><li>coze</li><li><hr></li></ul>',
@@ -64,37 +65,37 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
                     'type' => 'doc',
                     'content' => [
                         [
-                        'type' => 'bulletList',
-                        'content' => [
-                            [
-                                'type' => 'listItem',
-                                'content' => [
-                                    [
-                                        'type' => 'paragraph',
-                                        'content' => [
-                                            [
-                                                'type' => 'text',
-                                                'text' => 'coze'
-                                            ]
-                                        ]
-                                    ]
-                                ]
+                            'type' => 'bulletList',
+                            'content' => [
+                                [
+                                    'type' => 'listItem',
+                                    'content' => [
+                                        [
+                                            'type' => 'paragraph',
+                                            'content' => [
+                                                [
+                                                    'type' => 'text',
+                                                    'text' => 'coze',
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                [
+                                    'type' => 'listItem',
+                                    'content' => [
+                                        [
+                                            'type' => 'paragraph',
+                                        ],
+                                    ],
+                                ],
                             ],
-                            [
-                                'type' => 'listItem',
-                                'content' => [
-                                    [
-                                        'type' => 'paragraph',
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ],
+                        ],
                         [
                             'type' => 'horizontalRule',
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ],
             [
                 'html' => '<b><p>Joseph</p></b>',
@@ -106,12 +107,12 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
                             'content' => [
                                 [
                                     'type' => 'text',
-                                    'text' => 'Joseph'
+                                    'text' => 'Joseph',
                                 ],
                             ],
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ],
             [
                 'html' => '<p><url href="#1">Anchor link</url><anchor name="1"></anchor></p>',
@@ -119,7 +120,7 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
                     [
                         'type' => 'paragraph',
                         'attrs' => [
-                            'anchor' => 'pp-1'
+                            'anchor' => 'pp-1',
                         ],
                         'content' => [
                             ['type' => 'text', 'marks' => [
@@ -130,10 +131,10 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
                                     'external' => false,
                                 ]],
                             ],
-                                'text' => 'Anchor link'
+                                'text' => 'Anchor link',
                             ],
-                        ]
-                    ]
+                        ],
+                    ],
                 ]],
             ],
             [
@@ -141,7 +142,7 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
                 'anzuTap' => ['type' => 'doc', 'content' => [
                     [
                         'type' => 'paragraph',
-                    ]
+                    ],
                 ]],
             ],
             [
@@ -161,14 +162,14 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
                                         'content' => [
                                             [
                                                 'type' => 'text',
-                                                'text' => 'Item'
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
+                                                'text' => 'Item',
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
                 ]],
             ],
         ];

@@ -122,7 +122,6 @@ final readonly class HtmlRenderer
         }, $tags));
     }
 
-
     private function renderClosingTag(array $tags): string
     {
         $tags = array_reverse($tags);

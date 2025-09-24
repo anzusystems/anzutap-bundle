@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AnzuSystems\AnzutapBundle\Node;
 
 use AnzuSystems\AnzutapBundle\Model\Mark\Link;
@@ -147,7 +149,7 @@ class BodyPostprocessor
     protected function fixParagraphs(NodeInterface $body): void
     {
         foreach ($body->getContent() as $node) {
-            if ($node->getType() === ParagraphNode::NODE_NAME) {
+            if (ParagraphNode::NODE_NAME === $node->getType()) {
                 $this->fixNode($node, self::PARAGRAPH_ALLOWED_CONTENT_TYPES);
             }
 
@@ -190,7 +192,7 @@ class BodyPostprocessor
             // Check if root node was paragraph and after shaking, it lost content.
             foreach ($shakenNodes as $shakenNode) {
                 if ($shakenNode === $node &&
-                    $shakenNode->getType() === ParagraphNode::NODE_NAME &&
+                    ParagraphNode::NODE_NAME === $shakenNode->getType() &&
                     0 === count($shakenNode->getContent()) &&
                     0 < $contentCount
                 ) {
