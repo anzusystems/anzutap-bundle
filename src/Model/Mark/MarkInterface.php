@@ -17,6 +17,7 @@ interface MarkInterface
     public const string STRIKE = 'strike';
     public const string SUBSCRIPT = 'subscript';
     public const string SUPERSCRIPT = 'superscript';
+    public const string COMMENT = 'comment';
     public const string UNDERLINE = 'underline';
 
     public static function getMarkType(): string;
