@@ -183,7 +183,7 @@ final class AnzutapEditor
     {
         $marks = [];
         foreach ($this->storedMarks as $mark) {
-            $marks[$mark->getMarkType()] = $mark;
+            $marks[$mark->getType()] = $mark;
         }
 
         return array_values($marks);

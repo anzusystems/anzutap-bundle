@@ -9,6 +9,7 @@ use AnzuSystems\AnzutapBundle\Editor\AnzutapEditor;
 use AnzuSystems\AnzutapBundle\Editor\EditorProvider;
 use AnzuSystems\AnzutapBundle\HtmlRenderer\EmbedExternalImageHtmlRenderer;
 use AnzuSystems\AnzutapBundle\HtmlRenderer\HtmlRendererInterface;
+use AnzuSystems\AnzutapBundle\Model\Mark\MarkInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\NodeInterface;
 use AnzuSystems\AnzutapBundle\Node\BodyPostprocessor;
 use AnzuSystems\AnzutapBundle\Node\BodyPreprocessor;
@@ -64,6 +65,11 @@ final class AnzuSystemsAnzutapExtension extends Extension implements PrependExte
         $container
             ->registerForAutoconfiguration(NodeInterface::class)
             ->addTag(AnzuSystemsAnzutapBundle::TAG_MODEL_NODE)
+        ;
+
+        $container
+            ->registerForAutoconfiguration(MarkInterface::class)
+            ->addTag(AnzuSystemsAnzutapBundle::TAG_MODEL_MARK)
         ;
 
         $this->loadEditors($container);

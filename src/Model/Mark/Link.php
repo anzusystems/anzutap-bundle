@@ -22,12 +22,12 @@ final class Link extends AbstractMark
 
     public function getHref(): string
     {
-        return $this->attrs[self::ATTRIBUTE_HREF] ?? AnzutapApp::EMPTY_STRING;
+        return (string) ($this->attrs[self::ATTRIBUTE_HREF] ?? AnzutapApp::EMPTY_STRING);
     }
 
     public function getVariant(): string
     {
-        return $this->attrs[self::ATTRIBUTE_VARIANT] ?? AnzutapApp::EMPTY_STRING;
+        return (string) ($this->attrs[self::ATTRIBUTE_VARIANT] ?? AnzutapApp::EMPTY_STRING);
     }
 
     public function isVariant(string $variant): bool
@@ -38,7 +38,7 @@ final class Link extends AbstractMark
     public function toArray(): array
     {
         return [
-            'type' => $this->getMarkType(),
+            'type' => $this->getType(),
             'attrs' => $this->getAttrs(),
         ];
     }

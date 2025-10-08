@@ -209,14 +209,14 @@ abstract class AbstractNode implements NodeInterface
     public function getMarkKey(string $mark): ?int
     {
         return $this->findMark(
-            fn (MarkInterface $currentMark) => $currentMark->getMarkType() === $mark
+            fn (MarkInterface $currentMark) => $currentMark->getType() === $mark
         );
     }
 
     public function removeMark(MarkInterface $mark): static
     {
         $removeMarkKey = $this->findMark(
-            fn (MarkInterface $currentMark) => $currentMark->getMarkType() === $mark->getMarkType()
+            fn (MarkInterface $currentMark) => $currentMark->getType() === $mark->getType()
         );
         if (is_int($removeMarkKey)) {
             unset($this->marks[$removeMarkKey]);

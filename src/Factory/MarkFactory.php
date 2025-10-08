@@ -44,6 +44,9 @@ final readonly class MarkFactory
     {
         /** @var UnknownMark $mark */
         $mark = $this->serializer->fromArray($data, UnknownMark::class);
+        if (isset($data['type'])) {
+            $mark->setType($data['type']);
+        }
 
         return $mark;
     }
