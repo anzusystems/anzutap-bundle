@@ -8,11 +8,16 @@ final class UnknownMark extends AbstractMark
 {
     use MarkAttributesTrait;
 
-    private string $setMarkType = 'unknown';
+    private string $type = 'unknown';
 
-    public function setSetMarkType(string $setMarkType): void
+    public function setType(string $type): void
     {
-        $this->setMarkType = $setMarkType;
+        $this->type = $type;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
     }
 
     public static function getMarkType(): string
