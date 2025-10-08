@@ -49,6 +49,6 @@ class Node extends AbstractNode
     // todo create factorable interface
     public static function getNodeType(): string
     {
-        return 'unknown';
+        return 'unknown-node';
     }
 }

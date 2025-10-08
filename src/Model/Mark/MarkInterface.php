@@ -21,6 +21,8 @@ interface MarkInterface
 
     public static function getMarkType(): string;
 
+    public function getType(): string;
+
     public function isMarkType(string $type): bool;
 
     public function tag(): array;
