@@ -71,7 +71,7 @@ final readonly class HtmlRenderer
         }
 
         if ($node instanceof TextNode) {
-            $html[] = htmlentities((string) $node->getNodeText(), ENT_QUOTES);
+            $html[] = htmlspecialchars((string) $node->getNodeText());
         }
 
         if ($node instanceof HtmlNodeInterface && false === $node->isSelfClosing()) {
