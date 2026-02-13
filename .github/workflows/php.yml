@@ -69,7 +69,7 @@ jobs:
         run: vendor/bin/ecs check -vv
 
       - name: Run Phpstan static analysis
-        run: vendor/bin/phpstan
+        run: vendor/bin/phpstan --memory-limit=256M
 
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit
