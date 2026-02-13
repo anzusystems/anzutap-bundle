@@ -10,8 +10,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - php-version: 8.3
-            docker-image: 'anzusystems/php:4.1.0-php83-cli'
+          - php-version: 8.4
+            docker-image: 'anzusystems/php:5.0.1-php84-cli'
+          - php-version: 8.5
+            docker-image: 'anzusystems/php:5.0.1-php85-cli'
 
     services:
       mysql:
@@ -67,7 +69,7 @@ jobs:
         run: vendor/bin/ecs check -vv
 
       - name: Run Phpstan static analysis
-        run: vendor/bin/phpstan
+        run: vendor/bin/phpstan --memory-limit=256M
 
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit
