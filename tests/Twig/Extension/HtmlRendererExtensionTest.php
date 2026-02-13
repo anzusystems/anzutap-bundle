@@ -8,6 +8,7 @@ use AnzuSystems\AnzutapBundle\Factory\DocumentRenderableFactory;
 use AnzuSystems\AnzutapBundle\Model\Advert\AdvertPlacement;
 use AnzuSystems\AnzutapBundle\Model\Advert\AdvertPool;
 use AnzuSystems\AnzutapBundle\Model\DocumentRenderable\DocumentRenderContext;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Finder\Finder;
 
 class HtmlRendererExtensionTest extends AbstractExtensionTestCase
@@ -24,9 +25,7 @@ class HtmlRendererExtensionTest extends AbstractExtensionTestCase
         'document_locked',
     ];
 
-    /**
-     * @dataProvider renderHtmlDocumentDataProvider
-     */
+    #[DataProvider('renderHtmlDocumentDataProvider')]
     public function testRenderHtmlDocument(
         array $data,
         string $exceptedHtml,

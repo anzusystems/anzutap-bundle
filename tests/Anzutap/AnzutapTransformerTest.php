@@ -6,6 +6,7 @@ namespace AnzuSystems\AnzutapBundle\Tests\Anzutap;
 
 use AnzuSystems\AnzutapBundle\Editor\AnzutapEditor;
 use AnzuSystems\AnzutapBundle\Tests\AnzuKernelTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 final class AnzutapTransformerTest extends AnzuKernelTestCase
 {
@@ -16,16 +17,14 @@ final class AnzutapTransformerTest extends AnzuKernelTestCase
         $this->editor = static::getContainer()->get('anzu_systems_anzutap.editor.test');
     }
 
-    /**
-     * @dataProvider transformerDataProvider
-     */
+    #[DataProvider('transformerDataProvider')]
     public function testTransformer(string $html, array $anzuTap): void
     {
         $body = $this->editor->transform($html);
         $this->assertEqualsCanonicalizing($anzuTap, $body->getAnzutapBody()->toArray());
     }
 
-    public function transformerDataProvider(): array
+    public static function transformerDataProvider(): array
     {
         return [
             [
