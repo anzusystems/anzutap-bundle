@@ -64,7 +64,8 @@ final class AnzutapEditor
 
         $document = new DOMDocument();
         $document->loadHTML($data);
-        $bodyNode = $document->getElementsByTagName('body')->item(0);
+        $bodyNode = $document->getElementsByTagName('body')
+            ->item(0);
 
         $body = new DocumentNode();
         if (false === (null === $bodyNode)) {
@@ -78,7 +79,7 @@ final class AnzutapEditor
         );
     }
 
-    public function getMarkTransformer(DOMElement | DOMText $element): ?AnzuMarkTransformerInterface
+    public function getMarkTransformer(DOMElement|DOMText $element): ?AnzuMarkTransformerInterface
     {
         $key = $this->markTransformerProvider->getMarkTransformerKey($element);
         if ($this->resolvedMarkTransformers->has($key)) {
@@ -88,7 +89,7 @@ final class AnzutapEditor
         return null;
     }
 
-    public function getNodeTransformer(DOMElement | DOMText $element): AnzuNodeTransformerInterface
+    public function getNodeTransformer(DOMElement|DOMText $element): AnzuNodeTransformerInterface
     {
         $key = $this->transformerProvider->getNodeTransformerKey($element);
 
@@ -190,7 +191,7 @@ final class AnzutapEditor
     }
 
     private function processNode(
-        DOMElement | DOMText $node,
+        DOMElement|DOMText $node,
         AnzuNodeTransformerInterface $nodeTransformer,
         NodeInterface $anzuTapParentNode,
     ): ?NodeInterface {

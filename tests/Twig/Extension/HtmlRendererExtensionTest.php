@@ -7,7 +7,12 @@ namespace AnzuSystems\AnzutapBundle\Tests\Twig\Extension;
 use AnzuSystems\AnzutapBundle\Factory\DocumentRenderableFactory;
 use AnzuSystems\AnzutapBundle\Model\Advert\AdvertPlacement;
 use AnzuSystems\AnzutapBundle\Model\Advert\AdvertPool;
+use AnzuSystems\AnzutapBundle\Model\DocumentRenderable\AnzutapBodyAwareInterface;
 use AnzuSystems\AnzutapBundle\Model\DocumentRenderable\DocumentRenderContext;
+use AnzuSystems\AnzutapBundle\Model\DocumentRenderable\EmbedsAwareInterface;
+use AnzuSystems\AnzutapBundle\Model\Embed\EmbedExternalImage;
+use AnzuSystems\AnzutapBundle\Model\Embed\EmbedKindInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\Finder\Finder;
 
@@ -42,6 +47,48 @@ class HtmlRendererExtensionTest extends AbstractExtensionTestCase
             'advertPool' => $advertPool,
         ]);
         $this->assertSame($exceptedHtml, $rendered);
+    }
+
+    public function testRenderHtmlDocumentEscapesExternalImage(): void
+    {
+        $image = (new EmbedExternalImage())
+            ->setSrc('https://sme.sk/image.jpg?w=1&amp;h=2" data-x="1')
+            ->setAlt('alt" data-x="1')
+        ;
+        $bodyAware = new readonly class($image) implements AnzutapBodyAwareInterface, EmbedsAwareInterface {
+            public function __construct(
+                private EmbedExternalImage $image,
+            ) {
+            }
+
+            public function getBody(): array
+            {
+                return [
+                    'type' => 'doc',
+                    'content' => [
+                        [
+                            'type' => EmbedKindInterface::EMBED_EXTERNAL_IMAGE,
+                            'attrs' => [
+                                'id' => (string) $this->image->getId(),
+                            ],
+                        ],
+                    ],
+                ];
+            }
+
+            public function getEmbeds(): ArrayCollection
+            {
+                return new ArrayCollection([
+                    (string) $this->image->getId() => $this->image,
+                ]);
+            }
+        };
+        $template = $this->twig->createTemplate('{{ document|render_html_document }}');
+
+        $rendered = $template->render([
+            'document' => $this->renderableFactory->createRenderable($bodyAware, new DocumentRenderContext()),
+        ]);
+        $this->assertSame('<img src="https://sme.sk/image.jpg?w=1&amp;h=2&quot; data-x=&quot;1" alt="alt&quot; data-x=&quot;1"/>', $rendered);
     }
 
     public static function renderHtmlDocumentDataProvider(): array

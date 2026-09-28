@@ -7,6 +7,7 @@ namespace AnzuSystems\AnzutapBundle\HtmlRenderer;
 use AnzuSystems\AnzutapBundle\Editor\AnzutapEditor;
 use AnzuSystems\AnzutapBundle\Editor\EditorProvider;
 use AnzuSystems\AnzutapBundle\Exception\EditorException;
+use AnzuSystems\AnzutapBundle\Helper\AnzutapHelper;
 use AnzuSystems\AnzutapBundle\Model\Advert\AdvertPool;
 use AnzuSystems\AnzutapBundle\Model\DocumentRenderable\DocumentRenderableInterface;
 use AnzuSystems\AnzutapBundle\Model\Node\HtmlNodeInterface;
@@ -39,8 +40,10 @@ final readonly class HtmlRenderer
             $html[] = $this->renderTree($nestedNode, $editor, $renderable);
 
             if (NodeInterface::CONTENT_LOCK === $nestedNode->getType()
-                && $renderable->getContext()->isContentLockEnabled()
-                && false === $renderable->getContext()->isUnlocked()
+                && $renderable->getContext()
+                    ->isContentLockEnabled()
+                && false === $renderable->getContext()
+                    ->isUnlocked()
             ) {
                 break; // we stop transforming content if content is locked and the content is not unlocked
             }
@@ -115,7 +118,8 @@ final readonly class HtmlRenderer
 
             $attrs = '';
             foreach ($item['attrs'] ?? [] as $attribute => $value) {
-                $attrs .= " {$attribute}=\"{$value}\"";
+                $escapedValue = AnzutapHelper::escapeAttribute((string) $value);
+                $attrs .= " {$attribute}=\"{$escapedValue}\"";
             }
 
             return "<{$item['tag']}{$attrs}>";

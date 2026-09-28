@@ -26,7 +26,7 @@ class HeadingNode extends Node implements HtmlNodeInterface
 
     public function tag(): array
     {
-        $level = $this->getAttrs()['level'] ?? 2;
+        $level = min(max((int) ($this->getAttrs()['level'] ?? 2), 1), 6);
         $attrs = ['class' => "heading h-{$level}"];
 
         $anchor = $this->getAttrs()['anchor'] ?? null;
