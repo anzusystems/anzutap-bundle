@@ -34,6 +34,10 @@ final class EmbedExternalImageHtmlRenderer implements HtmlRendererInterface
             return '';
         }
 
-        return sprintf('<img src="%s" alt="%s"/>', $embed->getSrc(), $embed->getAlt());
+        return sprintf(
+            '<img src="%s" alt="%s"/>',
+            htmlspecialchars($embed->getSrc(), ENT_QUOTES),
+            htmlspecialchars($embed->getAlt(), ENT_QUOTES),
+        );
     }
 }

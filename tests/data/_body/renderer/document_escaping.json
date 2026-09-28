@@ -1,0 +1,137 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "attrs": {
+        "anchor": "a\" data-x=\"1",
+        "textAlign": "left\" data-x=\"1"
+      },
+      "content": [
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://sme.sk/\" data-x=\"1"
+              }
+            }
+          ],
+          "text": "quoted"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://example.com/?a=1&b=2"
+              }
+            }
+          ],
+          "text": "query"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "blog@sme.sk\" data-x=\"1",
+                "variant": "email"
+              }
+            }
+          ],
+          "text": "email"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "javascript:void(0)"
+              }
+            }
+          ],
+          "text": "javascript"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "\t JavaScript\n:void(0)"
+              }
+            }
+          ],
+          "text": "obfuscated"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "attrs": {
+        "level": "2 data-x=1"
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "orderedList",
+      "attrs": {
+        "order": "1\" data-x=\"1"
+      },
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Item"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "attrs": {
+        "href": "javascript:void(0)"
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Button"
+        }
+      ]
+    }
+  ]
+}

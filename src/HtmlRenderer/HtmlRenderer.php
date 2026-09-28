@@ -115,7 +115,8 @@ final readonly class HtmlRenderer
 
             $attrs = '';
             foreach ($item['attrs'] ?? [] as $attribute => $value) {
-                $attrs .= " {$attribute}=\"{$value}\"";
+                $escapedValue = htmlspecialchars((string) $value, ENT_QUOTES);
+                $attrs .= " {$attribute}=\"{$escapedValue}\"";
             }
 
             return "<{$item['tag']}{$attrs}>";

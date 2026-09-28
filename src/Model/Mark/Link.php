@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AnzuSystems\AnzutapBundle\Model\Mark;
 
 use AnzuSystems\AnzutapBundle\AnzutapApp;
+use AnzuSystems\AnzutapBundle\Helper\AnzutapHelper;
 
 final class Link extends AbstractMark
 {
@@ -72,11 +73,15 @@ final class Link extends AbstractMark
             return [];
         }
 
-        $attrs[self::ATTRIBUTE_HREF] = match ($markAttrs[self::ATTRIBUTE_VARIANT] ?? null) {
+        $href = match ($markAttrs[self::ATTRIBUTE_VARIANT] ?? null) {
             self::VARIANT_EMAIL => "mailto:{$markAttrs[self::ATTRIBUTE_HREF]}",
             self::VARIANT_ANCHOR => "#{$markAttrs[self::ATTRIBUTE_HREF]}",
             default => $markAttrs[self::ATTRIBUTE_HREF],
         };
+        if (false === is_string($href) || false === AnzutapHelper::isAllowedHref($href)) {
+            return [];
+        }
+        $attrs[self::ATTRIBUTE_HREF] = $href;
 
         return [
             [

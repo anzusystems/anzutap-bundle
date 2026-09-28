@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\Model\Node;
 
+use AnzuSystems\AnzutapBundle\Helper\AnzutapHelper;
+
 final class ButtonNode extends Node implements HtmlNodeInterface
 {
     public static function getNodeType(): string
@@ -15,11 +17,14 @@ final class ButtonNode extends Node implements HtmlNodeInterface
     {
         $attrs = [];
         if (false === empty($this->getAttrs()['href'])) {
-            $attrs['href'] = match ($this->getAttrs()['variant'] ?? null) {
+            $href = match ($this->getAttrs()['variant'] ?? null) {
                 'email' => "mailto:{$this->getAttrs()['href']}",
                 'anchor' => "#{$this->getAttrs()['href']}",
                 default => $this->getAttrs()['href'],
             };
+            if (is_string($href) && AnzutapHelper::isAllowedHref($href)) {
+                $attrs['href'] = $href;
+            }
         }
         if ($this->getAttrs()['external'] ?? false) {
             $attrs['target'] = '_blank';
