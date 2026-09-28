@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AnzuSystems\AnzutapBundle\HtmlRenderer;
 
+use AnzuSystems\AnzutapBundle\Helper\AnzutapHelper;
 use AnzuSystems\AnzutapBundle\Model\DocumentRenderable\DocumentRenderableInterface;
 use AnzuSystems\AnzutapBundle\Model\Embed\EmbedExternalImage;
 use AnzuSystems\AnzutapBundle\Model\Embed\EmbedExternalImageInline;
@@ -36,8 +37,8 @@ final class EmbedExternalImageHtmlRenderer implements HtmlRendererInterface
 
         return sprintf(
             '<img src="%s" alt="%s"/>',
-            htmlspecialchars($embed->getSrc(), ENT_QUOTES),
-            htmlspecialchars($embed->getAlt(), ENT_QUOTES),
+            AnzutapHelper::escapeAttribute($embed->getSrc()),
+            AnzutapHelper::escapeAttribute($embed->getAlt()),
         );
     }
 }

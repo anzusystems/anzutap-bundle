@@ -84,6 +84,150 @@
             }
           ],
           "text": "obfuscated"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "&#x6A;ava&Tab;script&colon;void(0)"
+              }
+            }
+          ],
+          "text": "entity"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "&#106avascript:void(0)"
+              }
+            }
+          ],
+          "text": "unterminated"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "https://example.com/?a=1&amp;b=2"
+              }
+            }
+          ],
+          "text": "encoded"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "sms:+421900123456"
+              }
+            }
+          ],
+          "text": "sms"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "vbscript:msgbox(1)"
+              }
+            }
+          ],
+          "text": "vbscript"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "data:text/html,x"
+              }
+            }
+          ],
+          "text": "data"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "file:///etc/passwd"
+              }
+            }
+          ],
+          "text": "file"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "ms-msdt:/id PCWDiagnostic"
+              }
+            }
+          ],
+          "text": "msdt"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "text",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "href": "search-ms:query=x"
+              }
+            }
+          ],
+          "text": "search"
         }
       ]
     },
@@ -130,6 +274,30 @@
         {
           "type": "text",
           "text": "Button"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "attrs": {
+        "href": "&#x6A;avascript:void(0)"
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Entity button"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "attrs": {
+        "href": "https://example.com/?a=1&amp;b=2"
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Encoded button"
         }
       ]
     }
