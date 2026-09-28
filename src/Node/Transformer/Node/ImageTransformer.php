@@ -35,10 +35,12 @@ class ImageTransformer extends AbstractNodeTransformer
         $alt = $this->getAlt($element);
 
         if ($this->hasParentByName($element, ['td', 'th'])) {
-            return (new EmbedExternalImageInline())->setSrc($src)->setAlt((string) $alt);
+            return (new EmbedExternalImageInline())->setSrc($src)
+                ->setAlt((string) $alt);
         }
 
-        return (new EmbedExternalImage())->setSrc($src)->setAlt((string) $alt);
+        return (new EmbedExternalImage())->setSrc($src)
+            ->setAlt((string) $alt);
     }
 
     private function getAlt(DOMElement $element): ?string
@@ -48,7 +50,8 @@ class ImageTransformer extends AbstractNodeTransformer
             return null;
         }
 
-        return (new ByteString(urldecode($title)))->toUnicodeString()->toString();
+        return (new ByteString(urldecode($title)))->toUnicodeString()
+            ->toString();
     }
 
     private function getSrc(DOMElement $element): ?string

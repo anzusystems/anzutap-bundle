@@ -39,8 +39,10 @@ final readonly class HtmlRenderer
             $html[] = $this->renderTree($nestedNode, $editor, $renderable);
 
             if (NodeInterface::CONTENT_LOCK === $nestedNode->getType()
-                && $renderable->getContext()->isContentLockEnabled()
-                && false === $renderable->getContext()->isUnlocked()
+                && $renderable->getContext()
+                    ->isContentLockEnabled()
+                && false === $renderable->getContext()
+                    ->isUnlocked()
             ) {
                 break; // we stop transforming content if content is locked and the content is not unlocked
             }

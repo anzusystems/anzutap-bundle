@@ -9,5 +9,5 @@ use DOMText;
 
 interface MarktransformerProviderInterface
 {
-    public function getMarkTransformerKey(DOMElement | DOMText $element): string;
+    public function getMarkTransformerKey(DOMElement|DOMText $element): string;
 }

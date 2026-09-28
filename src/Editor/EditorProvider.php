@@ -21,7 +21,7 @@ readonly class EditorProvider
      */
     public function getEditor(?string $editorName = null): AnzutapEditor
     {
-        $editorName = $editorName ?? $this->defaultEditorName;
+        $editorName ??= $this->defaultEditorName;
 
         try {
             return $this->editorLocator->get($editorName);
