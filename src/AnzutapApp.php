@@ -99,7 +99,7 @@ class AnzutapApp
     }
 
     /**
-     * @psalm-return non-empty-string
+     * @return non-empty-string
      */
     public static function getAppTimeZoneValue(): string
     {

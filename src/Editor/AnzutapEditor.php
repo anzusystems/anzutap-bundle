@@ -195,7 +195,6 @@ final class AnzutapEditor
         AnzuNodeTransformerInterface $nodeTransformer,
         NodeInterface $anzuTapParentNode,
     ): ?NodeInterface {
-        /** @psalm-suppress PossiblyInvalidArgument */
         $transformedNode = $nodeTransformer->transform($node, $this->embedContainer, $anzuTapParentNode);
 
         if (null === $transformedNode) {
